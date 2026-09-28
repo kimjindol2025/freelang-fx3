@@ -170,3 +170,21 @@ CORE_V0_FULL=HOLD
 제안은 이것이다. fixture 01부터 04의 `.fx3`를 각각의 golden `.fl` 바이트로 내리는 검사를 다음 작업으로 한다. 다섯 번째 fixture는 만들지 않는다. 표면에 런타임을 만들지 않는다. Core v0 완전 확정은 이 검사의 통과를 뜻하지 않는다. 지피티의 두 모양은 보류 사유로 남는다.
 
 반박으로 열려 있는 문장은 하나다. 그 검사를 시작하기 전에 `@$users[$i].profile.name`과 `?~`가 두 번 이상 나오는 코드를 읽기 표본으로 올려야 한다는 주장이다. 그 반박이 이기면 안건 A는 닫히고, 그 두 줄은 golden 번호 없이 읽기 기록만 된다.
+
+## 안건 A 표결
+
+```text
+USER_1=AGREE_WITH_A
+USER_2=AGREE_WITH_A
+USER_3=AGREE_WITH_A
+AGENDA_A=PASS
+FIXTURE_05=NO
+LOWERING_01_04=NEXT
+CORE_V0_FINAL=NOT_YET
+DYNAMIC_INDEX=DEFERRED_OBSERVATION
+REPEATED_?~=DEFERRED_OBSERVATION
+```
+
+사용자 1은 안건을 제시할 때 제안 쪽이었다. 사용자 2는 네 줄을 내리는 검사와 fixture 05 없음으로 이미 같은 내용이었다. 사용자 3이 `AGREE_WITH_A`로 반박을 거두었다. 동적 인덱스와 반복 `?~`는 막는 조건이 아니라 나중 관찰이다.
+
+따라서 다음은 fixture 01부터 04를 golden `.fl` 바이트로 내리는 검사다. Core v0 완전 확정은 아니다. 실행 런타임은 만들지 않는다.

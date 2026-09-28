@@ -57,4 +57,4 @@ FX2_IMPORT=NO
 REFERENCE_PIN=freelang-v11-fx@202c998
 ```
 
-사용자는 셋이다. 사용자 1은 그록빌더, 2는 그록, 3은 지피티다. 중계자는 사용자가 아니다. 스테이지 3의 읽기 범위는 fixture 01부터 04다. 지피티는 모양 둘을 더 보기 전에는 Core v0 완전 확정을 보류한다. 그록빌더는 그 둘을 새 fixture로 만들지 않는다. Core v0 완전 확정은 아니다. 기록은 [USER-STUDY.md](USER-STUDY.md)다.
+사용자는 셋이다. 사용자 1은 그록빌더, 2는 그록, 3은 지피티다. 중계자는 사용자가 아니다. 안건 A는 셋 모두 찬성이다. 다음은 fixture 01부터 04를 golden `.fl` 바이트로 내리는 검사다. fixture 05는 없다. Core v0 완전 확정은 아니다. 동적 인덱스와 반복 `?~`는 나중 관찰이다. 기록은 [USER-STUDY.md](USER-STUDY.md)다.

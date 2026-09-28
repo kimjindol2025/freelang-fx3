@@ -5,7 +5,7 @@
 1. 문법 v0와 `FX3_LOWERING_CONTRACT_LOCK`을 정본으로 유지한다. 축약어는 확정하지 않는다.
 2. fixture 01과 02를 `;`에서만 나눠 보여 준다. 저장 파일은 한 줄 그대로다. 실행기는 만들지 않는다.
 3. 세 사용자가 fixture 01부터 04를 읽고 판정한다. 다섯 번째 문장은 만들지 않는다. 앱 이전, 기능 추가, 실행기는 이 단계가 아니다.
-4. `FX3_MINIMAL_LOWERER_STAGE1`. fixture 01과 02만 canonical `.fl`로 내린다. runtime은 만들지 않는다.
+4. `FX3_MINIMAL_LOWERER_STAGE1`. 안건 A가 통과했다. fixture 01부터 04를 canonical `.fl` 바이트로 내린다. runtime은 만들지 않는다. Core v0 완전 확정은 이 통과가 아니다.
 5. FX/FX1 코퍼스에서 LLM 토큰 질량을 잰다. FX 코드를 수정하지 않는다.
 6. 앱, stdlib, self-host 세 부류에서 실행 결과가 원본 `.fl`과 같은지 본다.
 7. 통과한 후보만 밀도 경쟁을 한다. 진 표기는 버린다.
