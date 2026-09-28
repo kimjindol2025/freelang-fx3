@@ -1,0 +1,1 @@
+F check-and-log[$x]{log-start($x);?$x>10{log-big($x)}{log-small($x)};finish($x)}

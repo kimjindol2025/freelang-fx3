@@ -25,10 +25,15 @@ BINDING=LEADING_ONLY
 TOPLEVEL_SEMI=REQUIRED
 STRUCTURE=DRAFT
 CORE_ALIAS_SPLIT=YES
-GOLDEN_FIXTURES=01
+GOLDEN_FIXTURES=02
+FX3_AS_LANGUAGE=TOO_EARLY
+FX3_CORE_01=KEEP
+NEXT_USER_TEST=FIXTURE_02
+APP_MIGRATION=NOT_YET
+SYMBOL_CLUSTER=?~ WATCH
 ABBREVIATION=UNFIXED
 FX2_IMPORT=NO
 REFERENCE_PIN=freelang-v11-fx@202c998
 ```
 
-구현 없는 언어 설계 프로젝트다. 사용자 1호 판정은 `WOULD_USE`다. Core 정본은 [CORE.md](CORE.md)다. 잠긴 내리기는 [LOWERING_CONTRACT.md](LOWERING_CONTRACT.md)와 fixture 01이다. 바인딩은 블록 앞만 허용하고, 최상위 선언은 `;`로 끊는다. lowerer는 아직 없다.
+구현 없는 언어 설계 프로젝트다. 지금을 완성된 언어로 보지 않는다. Core 표면을 사용자에게 보여 준 단계다. golden은 fixture 01과 02다. 02는 바인딩 없는 순차와 조건이다. lowerer는 아직 없다.

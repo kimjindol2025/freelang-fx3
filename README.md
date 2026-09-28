@@ -54,4 +54,8 @@ LOWERING_CONTRACT=LOCKED
 
 ## 표본
 
-[examples/handle-rate-single.fx3](examples/handle-rate-single.fx3) → [examples/handle-rate-single.fl](examples/handle-rate-single.fl) 이 golden fixture 01이다. 계약이 잠근 기대 바이트다. 내리는 도구는 아직 없다.
+golden fixture 01: [examples/handle-rate-single.fx3](examples/handle-rate-single.fx3) → [examples/handle-rate-single.fl](examples/handle-rate-single.fl)
+
+golden fixture 02: [examples/check-and-log.fx3](examples/check-and-log.fx3) → [examples/check-and-log.fl](examples/check-and-log.fl)
+
+02는 바인딩 없는 순차와 조건이다. 내리는 도구는 아직 없다. 지금을 완성된 언어로 보지 않는다.

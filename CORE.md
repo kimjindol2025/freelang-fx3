@@ -127,4 +127,17 @@ F handle-rate-single[$req]{
 
 저장과 전송은 한 줄이다. 두 표기는 같은 `.fl`이다. formatter는 아직 없다.
 
-첫 구현은 fixture 01만 내리는 최소 lowerer다. 그다음 사용자 테스트는 이 철자로 프로그램 10개를 직접 쓰고 고치는 것이다.
+첫 구현은 fixture 01과 02를 내리는 최소 lowerer다. 지금은 완성된 언어가 아니라, Core 표면을 사용자에게 보여 준 단계다.
+
+사용자 1호의 다음 검증은 fixture 02다. 바인딩 없는 순차와 조건이다.
+
+```text
+FX3_CORE_01=KEEP
+NEXT_USER_TEST=FIXTURE_02
+TARGET=SEQUENCE_WITHOUT_BINDING
+SEMICOLON=KEEP
+SYMBOL_CLUSTER=?~ WATCH
+APP_MIGRATION=NOT_YET
+```
+
+`?~$body`는 유지한다. fixture가 5개에서 10개 사이에 `?~`, `?!`, `?@`가 반복되면 조건 표면만 다시 본다. 그 전에 앱으로 옮기거나 기능을 늘리지 않는다. 서로 다른 모양 5개 안팎을 읽고 고치는 편이 다음 사용자 테스트다.

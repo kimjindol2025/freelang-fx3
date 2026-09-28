@@ -1,0 +1,7 @@
+(defn check-and-log [$x]
+  (do
+    (log-start $x)
+    (if (> $x 10)
+      (log-big $x)
+      (log-small $x))
+    (finish $x)))

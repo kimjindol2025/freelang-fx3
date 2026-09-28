@@ -100,6 +100,32 @@ F a[]{...};F b[]{...};main()
 
 위 트리의 canonical 표기는 fixture 파일 전체다. 같은 식을 여러 줄로 쓴 `.fx3`도 그 파일과 같은 바이트로 내려간다.
 
+## Golden fixture 02
+
+바인딩이 없는 순차 블록과 조건이다. fixture 01과 다른 모양이다.
+
+소스: [examples/check-and-log.fx3](examples/check-and-log.fx3)
+
+기대값: [examples/check-and-log.fl](examples/check-and-log.fl)
+
+```text
+(defn check-and-log [$x]
+  (do
+    (log-start $x)
+    (if (> $x 10)
+      (log-big $x)
+      (log-small $x))
+    (finish $x)))
+```
+
+바인딩이 없고 식이 셋이므로 본문은 하나의 `(do ...)`다. `$x>10`은 `(> $x 10)`이다. 이 비교는 fixture 02의 바이트로만 잠긴다.
+
+`;`는 `log-start`, `?`, `finish` 세 식의 경계다. `?`는 순차의 가운데에 있어도 한 식이다.
+
+## 기호 연속
+
+`?~$body`는 유지한다. 지금 바꾸지 않는다. fixture가 5개에서 10개 사이에 `?~`, `?!`, `?@`가 반복해서 붙으면, 그때 조건 표면만 다시 사용자 테스트한다.
+
 ## 이 잠금의 PASS
 
-다음 단계 `FX3_MINIMAL_LOWERER_STAGE1`은 이 계약과 fixture 01만 만족하면 된다. 그 전에 lowerer를 만들지 않는다.
+지금 FX3를 완성된 언어로 판정하지 않는다. 잠긴 것은 Core 표면의 golden 두 개다. lowerer는 아직 없다. 첫 구현은 fixture 01과 02를 canonical `.fl`로 내리는 최소 lowerer다.

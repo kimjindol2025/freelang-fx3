@@ -3,8 +3,8 @@
 준비와 내리기 계약은 잠겼다. 아래 순서를 건너뛰지 않는다.
 
 1. 문법 v0와 `FX3_LOWERING_CONTRACT_LOCK`을 정본으로 유지한다. 축약어는 확정하지 않는다.
-2. `FX3_MINIMAL_LOWERER_STAGE1`. fixture 01만 `.fx3`에서 canonical `.fl`로 내린다. runtime은 만들지 않는다.
-3. 사용자 1호가 이 철자로 프로그램 10개를 직접 쓰고 고친다. 그 전에 기능을 더 넣지 않는다.
+2. `FX3_MINIMAL_LOWERER_STAGE1`. fixture 01과 02만 canonical `.fl`로 내린다. runtime은 만들지 않는다.
+3. 서로 다른 모양의 프로그램 5개 안팎을 사용자가 직접 읽고 고친다. 앱 이전이나 기능 추가는 그 전이다.
 4. 표시 전용 formatter. 저장은 한 줄이고, 읽을 때만 `;`와 블록 경계에서 줄을 나눈다.
 5. FX/FX1 코퍼스에서 LLM 토큰 질량을 잰다. FX 코드를 수정하지 않는다.
 6. 앱, stdlib, self-host 세 부류에서 실행 결과가 원본 `.fl`과 같은지 본다.
