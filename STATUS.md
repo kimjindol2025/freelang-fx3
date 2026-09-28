@@ -57,4 +57,4 @@ FX2_IMPORT=NO
 REFERENCE_PIN=freelang-v11-fx@202c998
 ```
 
-구현 없는 언어 설계 프로젝트다. 지금을 완성된 언어로 보지 않는다. golden은 fixture 01부터 04다. Grok은 04의 `@$rows[0].id`를 데이터 접근으로 유지하고, `[0]`만이 아니라 `[$i]`도 같은 `get`으로 둔다. 다섯 번째 fixture는 만들지 않는다. 다음은 이 넷을 `.fl` 바이트로 내리는 검사다. 새 런타임은 아니다. 사용자 기록은 [USER-STUDY.md](USER-STUDY.md)다.
+사용자는 셋이다. 사용자 1은 그록빌더이고 지금 정리한다. 사용자 2는 그록, 사용자 3은 지피티다. 중계자는 사용자가 아니다. 갈린 의견은 [USER-STUDY.md](USER-STUDY.md)에 그대로 둔다. golden은 fixture 01부터 04다. 다섯 번째 fixture와 새 런타임은 없다.
