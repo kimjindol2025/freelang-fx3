@@ -1,0 +1,2 @@
+(defn first-id [$rows]
+  (log-id (get (get $rows 0) "id")))

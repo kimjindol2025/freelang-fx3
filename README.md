@@ -61,4 +61,8 @@ golden fixture 02: [examples/check-and-log.fx3](examples/check-and-log.fx3) → 
 
 golden fixture 03: [examples/make-result.fx3](examples/make-result.fx3) → [examples/make-result.fl](examples/make-result.fl)
 
-03은 한 줄 안의 맵이다. `{key:value,...}`는 맵이고 `{expr;expr}`는 블록이다. 내리는 도구는 아직 없다. 지금을 완성된 언어로 보지 않는다.
+03은 한 줄 안의 맵이다. `{key:value,...}`는 맵이고 `{expr;expr}`는 블록이다.
+
+golden fixture 04: [examples/first-id.fx3](examples/first-id.fx3) → [examples/first-id.fl](examples/first-id.fl)
+
+04는 `@$rows[0].id`다. 내리는 도구는 아직 없다. 지금을 완성된 언어로 보지 않는다.

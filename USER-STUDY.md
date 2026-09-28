@@ -22,4 +22,23 @@ fixture 02를 읽어 보니 `;`로 세 덩어리가 보인다. `;`는 `STRONG_KE
 
 다음으로 읽은 것은 Map이다. `{ok:true,data:$rows}`와 `{a();b();c()}`가 한 줄에서 바로 갈리는지 보려는 표본이 fixture 03이다.
 
-그 다음으로 보고 싶은 표면은 `@$rows[0].id`다. 아직 fixture로 넣지 않는다.
+이 기록의 `NEXT_USER_TEST=MAP`은 fixture 03으로 끝났다. 현재 다음 표면은 아래 기록이다.
+
+## 2026-09-29 사용자 1호, 맵을 읽은 뒤
+
+```text
+FIXTURE_01=KEEP
+FIXTURE_02=KEEP
+FIXTURE_03=KEEP
+MAP_BLOCK_DISTINCTION=CLEAR
+SEMICOLON_FORMATTING=GOOD
+QUESTION_MARK=KEEP
+SYMBOL_CLUSTER=?~ WATCH
+NEXT_SURFACE=@$rows[0].id
+```
+
+`{key:value,...}`는 맵이고 `{expr;expr}`는 블록이다. 한 줄에서 갈린다. `;`가 없는 03은 표시해도 한 줄이다. `;`가 있는 02만 나뉜다.
+
+`?`는 유지한다. `?~`만 지켜본다. 실행기는 없다.
+
+인덱스 문장은 fixture 04다. `@`가 맵 축약만이 아니라 데이터 접근인지 읽는 표본이다.
