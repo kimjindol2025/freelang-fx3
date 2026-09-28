@@ -8,7 +8,7 @@ ALIASES=OPTIONAL
 EXTREME=CANDIDATE_ONLY
 USER_CHOICE=MID_DENSITY
 USER_RULE=COMPRESS_STRUCTURE_KEEP_NAMES
-FORMATTER=DISPLAY_ONLY
+FORMATTER=SPLIT_ON_SEMI_ONLY
 EXPR_END=;
 IMPLEMENT=NO
 ```
@@ -38,7 +38,13 @@ IMPLEMENT=NO
 
 새 언어를 더 짓지 않는다. 잠긴 밀도에 fixture를 더 넣고, `.fl`로 정확히 내린 뒤 기존 FX에서 돌린다. 표면은 `.fx3`이고, 의미는 FX다.
 
-저장은 한 줄이다. 다시 읽을 때만 formatter가 `;`마다 줄을 나눈다. 줄바꿈은 문법이 아니다.
+기준 줄은 이것이다. 더 줄이지 않는다. `str_upper`를 `U`로 바꾸면 다시 사전을 찾게 되고, 그건 쓰는 사람을 위한 언어가 아니다.
+
+```text
+F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+```
+
+저장은 한 줄이다. 다시 볼 때만 `;`마다 줄을 나눈다. 블록 안을 더 접거나 들여쓰지 않는다. 줄바꿈이 문법이면, 생성한 코드와 다시 읽은 코드가 달라진다.
 
 ## 표면
 
@@ -134,23 +140,23 @@ MAIN_REQUEST=MAKE_RULES_EXCEPTIONLESS
 
 `@$rows.length`는 항상 `(get $rows "length")`다. `length` 함수로 바꾸지 않는다.
 
-읽을 때 formatter가 보여 주는 형태:
+읽는 형태는 `;`에서만 나눈다.
 
 ```text
-F handle-rate-single[$req]{
-  $cur=str_upper(@$req.params.currency);
-  $body=http-get-body(RATE_URL);
-  ?~$body{
-    json-err("환율 API 오류")
-  }{
-    json-ok($body)
-  }
-}
+F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);
+$body=http-get-body(RATE_URL);
+?~$body{json-err("환율 API 오류")}{json-ok($body)}}
 ```
 
-저장과 전송은 한 줄이다. 두 표기는 같은 `.fl`이다. formatter는 아직 없다.
+```text
+F check-and-log[$x]{log-start($x);
+?$x>10{log-big($x)}{log-small($x)};
+finish($x)}
+```
 
-첫 구현은 fixture 01과 02를 내리는 최소 lowerer다. 지금은 완성된 언어가 아니라, Core 표면을 사용자에게 보여 준 단계다.
+저장은 한 줄이다. 두 표기는 같은 `.fl`이다. formatter는 아직 없다.
+
+다음에 쓰는 문장은 실행기가 아니다. fixture 02다. `let`이 없고, 식이 `;`로 이어지며, 가운데에 `?`가 있다. 이 문장을 고친 뒤에도 같은 `.fl`이 나오면 이 밀도를 계속 쓴다. 표면에 런타임을 더하지 않는다. 실행은 기존 FX다.
 
 사용자 1호의 다음 검증은 fixture 02다. 바인딩 없는 순차와 조건이다.
 
