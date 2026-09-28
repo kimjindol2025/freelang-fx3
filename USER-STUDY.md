@@ -185,6 +185,14 @@ DYNAMIC_INDEX=DEFERRED_OBSERVATION
 REPEATED_?~=DEFERRED_OBSERVATION
 ```
 
-사용자 1은 안건을 제시할 때 제안 쪽이었다. 사용자 2는 네 줄을 내리는 검사와 fixture 05 없음으로 이미 같은 내용이었다. 사용자 3이 `AGREE_WITH_A`로 반박을 거두었다. 동적 인덱스와 반복 `?~`는 막는 조건이 아니라 나중 관찰이다.
+사용자 1은 안건을 제시할 때 제안 쪽이었다. 사용자 3이 `AGREE_WITH_A`로 반박을 거두었다. 사용자 2도 제안 쪽을 명시했다. 동적 인덱스와 반복 `?~`는 막는 조건이 아니라 나중 관찰이다.
+
+```text
+USER_2=AGREE_WITH_A
+USER_2_REBUTTAL_OF_TWO_LINES=YES
+TWO_LINES_BEFORE_CHECK=NO
+```
+
+그록은 반박 문장에 반대한다. `@$users[$i].profile.name`과 반복 `?~`는 검사 앞에 올리지 않고 보류 사유로만 둔다. 통과해도 Core v0 완전 확정은 아니다.
 
 따라서 다음은 fixture 01부터 04를 golden `.fl` 바이트로 내리는 검사다. Core v0 완전 확정은 아니다. 실행 런타임은 만들지 않는다.
