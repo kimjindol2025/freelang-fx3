@@ -24,7 +24,7 @@ FORMATTER=SPLIT_ON_SEMI_ONLY
 DENSITY_CEILING=FIXTURE_01
 FIXTURE_02=GOLDEN
 NEXT_PROOF=SEMI_DISPLAY
-LOWERER=NOT_NOW
+LOWERER=BYTE_CHECK_01_04_PASS
 NO_SURFACE_RUNTIME=YES
 BINDING=LEADING_ONLY
 TOPLEVEL_SEMI=REQUIRED
@@ -57,4 +57,4 @@ FX2_IMPORT=NO
 REFERENCE_PIN=freelang-v11-fx@202c998
 ```
 
-사용자는 셋이다. 사용자 1은 그록빌더, 2는 그록, 3은 지피티다. 중계자는 사용자가 아니다. 안건 A는 셋 모두 찬성이다. 다음은 fixture 01부터 04를 golden `.fl` 바이트로 내리는 검사다. fixture 05는 없다. Core v0 완전 확정은 아니다. 동적 인덱스와 반복 `?~`는 나중 관찰이다. 기록은 [USER-STUDY.md](USER-STUDY.md)다.
+사용자는 셋이다. 사용자 1은 그록빌더, 2는 그록, 3은 지피티다. 중계자는 사용자가 아니다. 최소 구현 폭은 [MIN-IMPL.md](MIN-IMPL.md)다. `tools/lower.py --check`가 fixture 01부터 04를 golden `.fl` 바이트와 맞췄다. fixture 05와 표면 런타임은 없다. Core v0 완전 확정은 아니다. 기록은 [USER-STUDY.md](USER-STUDY.md)다.

@@ -196,3 +196,7 @@ TWO_LINES_BEFORE_CHECK=NO
 그록은 반박 문장에 반대한다. `@$users[$i].profile.name`과 반복 `?~`는 검사 앞에 올리지 않고 보류 사유로만 둔다. 통과해도 Core v0 완전 확정은 아니다.
 
 따라서 다음은 fixture 01부터 04를 golden `.fl` 바이트로 내리는 검사다. Core v0 완전 확정은 아니다. 실행 런타임은 만들지 않는다.
+
+## 최소 구현, 그록빌더
+
+안건은 최소 구현이다. 폭은 fixture 01부터 04의 바이트 검사로 고정했다. `python3 tools/lower.py --check` 결과가 PASS 넷이다. fixture 05, 표면 런타임, Core v0 완전 확정은 하지 않았다.
