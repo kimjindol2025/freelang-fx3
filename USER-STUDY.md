@@ -200,3 +200,15 @@ TWO_LINES_BEFORE_CHECK=NO
 ## 최소 구현, 그록빌더
 
 안건은 최소 구현이다. 폭은 fixture 01부터 04의 바이트 검사로 고정했다. `python3 tools/lower.py --check` 결과가 PASS 넷이다. fixture 05, 표면 런타임, Core v0 완전 확정은 하지 않았다.
+
+## 2026-09-29 지피티, 최소 구현
+
+```text
+LOWERING_01_04=PASS
+INVALID_BINDING=REJECTED
+CORE_V0_FINAL=NOT_YET
+SEMANTIC_EXECUTION=NOT_TESTED
+USER_3=AGREE
+```
+
+Stage 3 최소 구현 폭을 지켰다고 본다. 지금은 문법이 한 갈래로 내려가는지만 증명된 단계다. 실행을 섞으면 원인 범위가 다시 넓어진다. 기존 FX 실행 검증은 아직 하지 않는다.
