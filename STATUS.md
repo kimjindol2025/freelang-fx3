@@ -46,6 +46,10 @@ NO_PRETTIER=YES
 NO_SHORTER=YES
 FX3_CORE_01=KEEP
 NEXT_USER_TEST=READ_FIXTURE_04
+GROK_FIXTURE_04=KEEP
+GROK_NEXT=LOWER_FOUR
+INDEX_KEY=ANY_EXPR
+NO_FIXTURE_05=YES
 APP_MIGRATION=NOT_YET
 SYMBOL_CLUSTER=?~ WATCH
 ABBREVIATION=UNFIXED
@@ -53,4 +57,4 @@ FX2_IMPORT=NO
 REFERENCE_PIN=freelang-v11-fx@202c998
 ```
 
-구현 없는 언어 설계 프로젝트다. 지금을 완성된 언어로 보지 않는다. golden은 fixture 01부터 04다. 03에서 맵과 블록은 갈렸다. `NEXT_USER_TEST=MAP`은 끝났다. 04는 `@$rows[0].id`다. 사용자 기록은 [USER-STUDY.md](USER-STUDY.md)다. `?`는 유지하고 `?~`만 지켜본다. 실행기를 만들 차례는 아니다.
+구현 없는 언어 설계 프로젝트다. 지금을 완성된 언어로 보지 않는다. golden은 fixture 01부터 04다. Grok은 04의 `@$rows[0].id`를 데이터 접근으로 유지하고, `[0]`만이 아니라 `[$i]`도 같은 `get`으로 둔다. 다섯 번째 fixture는 만들지 않는다. 다음은 이 넷을 `.fl` 바이트로 내리는 검사다. 새 런타임은 아니다. 사용자 기록은 [USER-STUDY.md](USER-STUDY.md)다.
