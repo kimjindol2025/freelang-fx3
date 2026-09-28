@@ -44,6 +44,8 @@ LOWERING_CONTRACT=LOCKED
 
 - [LANGUAGE_IDENTITY.md](LANGUAGE_IDENTITY.md) — 이름과 정체성
 - [CORE.md](CORE.md) — FX3 Core. 이름은 보존하고 반복 구조만 압축한다
+- [PROCESS.md](PROCESS.md) — 정본 분리, 변경 절차, 불변식
+- [FX3-DOD.md](FX3-DOD.md) — 1차 완성 정의. 지금 할 일 목록이 아님
 - [USER-STUDY.md](USER-STUDY.md) — 사용자 판정 기록. Core 규칙과 섞지 않는다
 - [PLAN.md](PLAN.md) — 지피티가 제안한 전체 최소 플랜. 아직 채택 전
 - [STRUCTURE.md](STRUCTURE.md) — Core 밖의 맵, 벡터, `try`, `loop` 초안
@@ -66,4 +68,4 @@ golden fixture 03: [examples/make-result.fx3](examples/make-result.fx3) → [exa
 
 golden fixture 04: [examples/first-id.fx3](examples/first-id.fx3) → [examples/first-id.fl](examples/first-id.fl)
 
-04는 `@$rows[0].id`다. 내리는 도구는 아직 없다. 지금을 완성된 언어로 보지 않는다.
+04는 `@$rows[0].id`다. 지금을 완성된 언어로 보지 않는다.

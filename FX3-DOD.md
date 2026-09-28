@@ -1,0 +1,37 @@
+# FX3 1차 완성 정의
+
+이 파일은 완성 조건만 적는다. 지금 할 일 목록이 아니다.
+
+```text
+CORE_V1=OPEN
+LOWERING=PASS_01_04
+INVALID_SYNTAX=OPEN
+FORMATTER=OPEN
+FX_SEMANTIC_MATCH=OPEN
+APP_CORPUS=OPEN
+STDLIB_CORPUS=OPEN
+SELFHOST_CORPUS=OPEN
+AI_USER_TEST=OPEN
+FX3_RUNTIME=NOT_REQUIRED
+```
+
+1차 완성으로 보려면 아래가 모두 PASS여야 한다.
+
+```text
+CORE_V1=LOCKED
+LOWERING=PASS
+INVALID_SYNTAX=PASS
+FORMATTER=PASS
+FX_SEMANTIC_MATCH=PASS
+APP_CORPUS=PASS
+STDLIB_CORPUS=PASS
+SELFHOST_CORPUS=PASS
+AI_USER_TEST=PASS
+```
+
+규칙:
+
+- 현재 Core 밀도 잠금은 `CORE_V1=LOCKED`가 아니다
+- `LOWERING=PASS_01_04`는 fixture 01~04 바이트 검사다. 전체 lowering PASS가 아니다
+- 항목을 지금 구현하라는 뜻이 아니다
+- 별도 FX3 runtime은 필요성이 증명되기 전에는 완성 조건이 아니다
