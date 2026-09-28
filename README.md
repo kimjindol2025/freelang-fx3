@@ -45,6 +45,7 @@ LOWERING_CONTRACT=LOCKED
 - [LANGUAGE_IDENTITY.md](LANGUAGE_IDENTITY.md) — 이름과 정체성
 - [CORE.md](CORE.md) — FX3 Core. 이름은 보존하고 반복 구조만 압축한다
 - [USER-STUDY.md](USER-STUDY.md) — 사용자 판정 기록. Core 규칙과 섞지 않는다
+- [PLAN.md](PLAN.md) — 지피티가 제안한 전체 최소 플랜. 아직 채택 전
 - [STRUCTURE.md](STRUCTURE.md) — Core 밖의 맵, 벡터, `try`, `loop` 초안
 - [GRAMMAR-V0.md](GRAMMAR-V0.md) — Compact 표면 초안
 - [LOWERING_CONTRACT.md](LOWERING_CONTRACT.md) — 잠긴 최소 내리기. Core의 일부
