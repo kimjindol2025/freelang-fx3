@@ -1,0 +1,6 @@
+(defn handle-rate-single [$req]
+  (let [$cur  (str_upper (get (get $req "params") "currency"))
+        $body (http-get-body RATE_URL)]
+    (if (null? $body)
+      (json-err "환율 API 오류")
+      (json-ok $body))))
