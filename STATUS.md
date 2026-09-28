@@ -29,7 +29,9 @@ LOWERING_01_04=PASS
 INVALID_BINDING=REJECTED
 CORE_V0_FINAL=NOT_YET
 SEMANTIC_EXECUTION=NOT_TESTED
+USER_2_MIN_IMPL=AGREE
 USER_3_MIN_IMPL=AGREE
+BYTE_CHECK=CLOSED_PASS
 NO_SURFACE_RUNTIME=YES
 BINDING=LEADING_ONLY
 TOPLEVEL_SEMI=REQUIRED
@@ -62,4 +64,4 @@ FX2_IMPORT=NO
 REFERENCE_PIN=freelang-v11-fx@202c998
 ```
 
-사용자는 셋이다. 사용자 1은 그록빌더, 2는 그록, 3은 지피티다. 중계자는 사용자가 아니다. 최소 구현 폭은 [MIN-IMPL.md](MIN-IMPL.md)다. `tools/lower.py --check`가 fixture 01부터 04를 golden `.fl` 바이트와 맞췄다. fixture 05와 표면 런타임은 없다. Core v0 완전 확정은 아니다. 기록은 [USER-STUDY.md](USER-STUDY.md)다.
+사용자는 셋이다. 사용자 1은 그록빌더, 2는 그록, 3은 지피티다. 중계자는 사용자가 아니다. 최소 구현의 바이트 검사는 통과로 닫혔다. 그록과 지피티가 그 폭에 동의했다. FX 실행으로 넓히지 않는다. Core v0 완전 확정은 아니다. 기록은 [USER-STUDY.md](USER-STUDY.md)와 [MIN-IMPL.md](MIN-IMPL.md)다.
