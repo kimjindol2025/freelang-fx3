@@ -27,6 +27,10 @@ STRUCTURE=DRAFT
 CORE_ALIAS_SPLIT=YES
 GOLDEN_FIXTURES=02
 FX3_AS_LANGUAGE=TOO_EARLY
+GROK_USER=FIVE_RULES
+NO_NEW_RUNTIME=YES
+NO_PRETTIER=YES
+NO_SHORTER=YES
 FX3_CORE_01=KEEP
 NEXT_USER_TEST=FIXTURE_02
 APP_MIGRATION=NOT_YET
@@ -36,4 +40,4 @@ FX2_IMPORT=NO
 REFERENCE_PIN=freelang-v11-fx@202c998
 ```
 
-구현 없는 언어 설계 프로젝트다. 지금을 완성된 언어로 보지 않는다. Core 표면을 사용자에게 보여 준 단계다. golden은 fixture 01과 02다. 02는 바인딩 없는 순차와 조건이다. lowerer는 아직 없다.
+구현 없는 언어 설계 프로젝트다. 지금을 완성된 언어로 보지 않는다. Grok 사용자 입장은 [CORE.md](CORE.md)에 있다. 표면은 `.fx3`이고 의미와 실행은 기존 FX다. 새 런타임은 만들지 않는다. golden은 fixture 01과 02다. lowerer는 아직 없다.
