@@ -84,3 +84,47 @@ fixture 01의 기대 `.fl`은 Core 철자 `str_upper` 기준이다. 연산자는
 저장과 전송은 한 줄이다. 다시 읽을 때만 formatter가 `;`마다 줄을 나눈다. 줄바꿈은 문법이 아니다.
 
 원하는 언어는 처음 생성만 싼 언어가 아니다. 다시 읽기 좋은 언어다.
+
+## 사용자 1호
+
+저장소를 읽고 고른 판정이다.
+
+```text
+USER_01=WOULD_USE
+CORE_DENSITY=GOOD
+SEMANTIC_NAMES=KEEP
+VAR_SIGIL=KEEP
+EXPR_END=;
+HOT_ALIAS=OPTIONAL_ONLY
+MAIN_REQUEST=MAKE_RULES_EXCEPTIONLESS
+```
+
+철학 문구는 이렇게 둔다.
+
+> **사람 가독성은 목표가 아니다. AI 가독성을 우선한다.**
+
+의미 있는 이름을 보존하므로, 사람 가독성을 전부 버린 언어가 아니다. 그 문구는 극단 압축의 근거로 쓰지 않는다.
+
+바인딩은 블록 맨 앞만 허용한다. `{$a=foo();bar();$b=baz()}`는 문법 오류다.
+
+최상위는 `;`가 필수다. `F a[]{...};F b[]{...}`만 두 선언이다. `}`는 다음 선언의 경계가 아니다.
+
+`@$rows.length`는 항상 `(get $rows "length")`다. `length` 함수로 바꾸지 않는다.
+
+읽을 때 formatter가 보여 주는 형태:
+
+```text
+F handle-rate-single[$req]{
+  $cur=str_upper(@$req.params.currency);
+  $body=http-get-body(RATE_URL);
+  ?~$body{
+    json-err("환율 API 오류")
+  }{
+    json-ok($body)
+  }
+}
+```
+
+저장과 전송은 한 줄이다. 두 표기는 같은 `.fl`이다. formatter는 아직 없다.
+
+첫 구현은 fixture 01만 내리는 최소 lowerer다. 그다음 사용자 테스트는 이 철자로 프로그램 10개를 직접 쓰고 고치는 것이다.

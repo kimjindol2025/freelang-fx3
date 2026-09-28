@@ -109,7 +109,9 @@ $x=foo();$y=bar($x);$x+$y
   (+ $x $y))
 ```
 
-표면에서 `let`은 없다. 블록 앞쪽의 assignment만 lexical binding이다. 연속된 binding은 하나의 `let`이다.
+표면에서 `let`은 없다. 블록 맨 앞의 assignment만 lexical binding이다. 연속된 binding은 하나의 `let`이다. 첫 일반식 뒤의 `$이름=식`은 문법 오류다. `{$a=foo();bar();$b=baz()}`는 거부한다.
+
+최상위도 `;`로 끊는다. `F a[]{...};F b[]{...}`만 두 선언이다. `F a[]{...}F b[]{...}`는 문법 오류다. `}`는 본문의 끝이지, 다음 선언과의 경계가 아니다.
 
 ## 7. 조건
 
