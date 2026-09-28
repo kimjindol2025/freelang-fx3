@@ -156,13 +156,13 @@ finish($x)}
 
 저장은 한 줄이다. 두 표기는 같은 `.fl`이다. formatter는 아직 없다.
 
-다음에 쓰는 문장은 실행기가 아니다. fixture 02다. `let`이 없고, 식이 `;`로 이어지며, 가운데에 `?`가 있다. 이 문장을 고친 뒤에도 같은 `.fl`이 나오면 이 밀도를 계속 쓴다. 표면에 런타임을 더하지 않는다. 실행은 기존 FX다.
+fixture 02는 이미 golden이다. 다음 증명은 실행기가 아니다. 기준 줄과 02를 `;`에서만 나눈 표시다. 표면에 런타임을 더하지 않는다. 실행은 기존 FX다.
 
 사용자 1호의 다음 검증은 fixture 02다. 바인딩 없는 순차와 조건이다.
 
 ```text
 FX3_CORE_01=KEEP
-NEXT_USER_TEST=FIXTURE_02
+NEXT_USER_TEST=SEMI_DISPLAY
 TARGET=SEQUENCE_WITHOUT_BINDING
 SEMICOLON=KEEP
 SYMBOL_CLUSTER=?~ WATCH
