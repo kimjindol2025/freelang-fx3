@@ -122,10 +122,29 @@ F a[]{...};F b[]{...};main()
 
 `;`는 `log-start`, `?`, `finish` 세 식의 경계다. `?`는 순차의 가운데에 있어도 한 식이다.
 
+## Golden fixture 03
+
+한 줄 안의 맵이다. 블록과 다른 모양이다.
+
+소스: [examples/make-result.fx3](examples/make-result.fx3)
+
+기대값: [examples/make-result.fl](examples/make-result.fl)
+
+```text
+(defn make-result [$rows]
+  (result {"ok" true
+           "data" $rows
+           "count" (count $rows)}))
+```
+
+`{ok:true,data:$rows,count:count($rows)}`는 맵이다. 이름 키는 문자열 키다. `count($rows)`는 `(count $rows)`다.
+
+같은 자리의 `{a();b();c()}`는 블록이다. `:`와 `,`가 있으면 맵이고, `;`로 식이 이어지면 블록이다. 한 기호가 두 뜻을 갖지 않는다.
+
 ## 기호 연속
 
 `?~$body`는 유지한다. 지금 바꾸지 않는다. fixture가 5개에서 10개 사이에 `?~`, `?!`, `?@`가 반복해서 붙으면, 그때 조건 표면만 다시 사용자 테스트한다.
 
 ## 이 잠금의 PASS
 
-지금 FX3를 완성된 언어로 판정하지 않는다. 잠긴 것은 Core 표면의 golden 두 개다. lowerer는 아직 없다. 첫 구현은 fixture 01과 02를 canonical `.fl`로 내리는 최소 lowerer다.
+지금 FX3를 완성된 언어로 판정하지 않는다. 잠긴 golden은 fixture 01, 02, 03이다. lowerer는 아직 없다. 실행기를 만들 차례는 아니다.

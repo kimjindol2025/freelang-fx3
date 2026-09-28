@@ -44,6 +44,7 @@ LOWERING_CONTRACT=LOCKED
 
 - [LANGUAGE_IDENTITY.md](LANGUAGE_IDENTITY.md) — 이름과 정체성
 - [CORE.md](CORE.md) — FX3 Core. 이름은 보존하고 반복 구조만 압축한다
+- [USER-STUDY.md](USER-STUDY.md) — 사용자 판정 기록. Core 규칙과 섞지 않는다
 - [STRUCTURE.md](STRUCTURE.md) — Core 밖의 맵, 벡터, `try`, `loop` 초안
 - [GRAMMAR-V0.md](GRAMMAR-V0.md) — Compact 표면 초안
 - [LOWERING_CONTRACT.md](LOWERING_CONTRACT.md) — 잠긴 최소 내리기. Core의 일부
@@ -58,4 +59,6 @@ golden fixture 01: [examples/handle-rate-single.fx3](examples/handle-rate-single
 
 golden fixture 02: [examples/check-and-log.fx3](examples/check-and-log.fx3) → [examples/check-and-log.fl](examples/check-and-log.fl)
 
-02는 바인딩 없는 순차와 조건이다. 내리는 도구는 아직 없다. 지금을 완성된 언어로 보지 않는다.
+golden fixture 03: [examples/make-result.fx3](examples/make-result.fx3) → [examples/make-result.fl](examples/make-result.fl)
+
+03은 한 줄 안의 맵이다. `{key:value,...}`는 맵이고 `{expr;expr}`는 블록이다. 내리는 도구는 아직 없다. 지금을 완성된 언어로 보지 않는다.

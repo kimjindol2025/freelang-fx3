@@ -1,0 +1,4 @@
+(defn make-result [$rows]
+  (result {"ok" true
+           "data" $rows
+           "count" (count $rows)}))
