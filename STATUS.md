@@ -32,6 +32,12 @@ SEMANTIC_EXECUTION=NOT_TESTED
 USER_2_MIN_IMPL=AGREE
 USER_3_MIN_IMPL=AGREE
 BYTE_CHECK=CLOSED_PASS
+BYTE_MATCH=PASS
+FX_EXECUTION=NOT_OPENED
+STAGE_MIN_IMPL=CLOSED
+USER_1=AGREE
+USER_2=AGREE
+USER_3=AGREE
 NO_SURFACE_RUNTIME=YES
 BINDING=LEADING_ONLY
 TOPLEVEL_SEMI=REQUIRED
@@ -64,4 +70,4 @@ FX2_IMPORT=NO
 REFERENCE_PIN=freelang-v11-fx@202c998
 ```
 
-사용자는 셋이다. 사용자 1은 그록빌더, 2는 그록, 3은 지피티다. 중계자는 사용자가 아니다. 최소 구현의 바이트 검사는 통과로 닫혔다. 그록과 지피티가 그 폭에 동의했다. FX 실행으로 넓히지 않는다. Core v0 완전 확정은 아니다. 기록은 [USER-STUDY.md](USER-STUDY.md)와 [MIN-IMPL.md](MIN-IMPL.md)다.
+사용자는 셋이다. 사용자 1은 그록빌더, 2는 그록, 3은 지피티다. 중계자는 사용자가 아니다. 최소 구현 단계는 셋의 동의로 닫혔다. 01~04 바이트 검사만 통과다. 다음 문장이 오기 전에 폭을 넓히지 않는다. FX 실행과 Core v0 완전 확정은 아직 아니다. 기록은 [USER-STUDY.md](USER-STUDY.md)와 [MIN-IMPL.md](MIN-IMPL.md)다.

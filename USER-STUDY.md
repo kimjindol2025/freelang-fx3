@@ -201,6 +201,26 @@ TWO_LINES_BEFORE_CHECK=NO
 
 안건은 최소 구현이다. 폭은 fixture 01부터 04의 바이트 검사로 고정했다. `python3 tools/lower.py --check` 결과가 PASS 넷이다. fixture 05, 표면 런타임, Core v0 완전 확정은 하지 않았다.
 
+## 최소 구현 닫힘
+
+셋이 동의했다. 이 단계는 닫는다. 다음 문장이 오기 전에 폭을 넓히지 않는다.
+
+```text
+USER_1=AGREE
+USER_2=AGREE
+USER_3=AGREE
+LOWERING_01_04=PASS
+BYTE_MATCH=PASS
+INVALID_BINDING=REJECT
+FIXTURE_05=NO
+SURFACE_RUNTIME=NO
+FX_EXECUTION=NOT_OPENED
+CORE_V0_FINAL=NOT_YET
+STAGE_MIN_IMPL=CLOSED
+```
+
+합의된 범위만 닫는다. Core v0 완전 확정과 FX 실행은 열어 둔다.
+
 ## 2026-09-29 지피티, 최소 구현
 
 ```text
