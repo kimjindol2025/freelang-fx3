@@ -1,0 +1,14 @@
+Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.
+LANGUAGE: Rust
+RUST_SIGNATURE: fn upper_city(city: &str) -> String
+TASK_TEXT: Define `upper-city` with `$city` and return the uppercase form of the string.
+INPUT: city="seoul"
+EXPECTED_OUTPUT: withheld from the model
+
+The current attempt failed validation. Repair only this trial. Return only the complete corrected source code. Do not add a main function.
+CURRENT_SOURCE:
+fn upper_city(city: &str) -> String {
+    city.to_uppercase()
+}
+VISIBLE_VALIDATION_LOG:
+BENCH_PASS

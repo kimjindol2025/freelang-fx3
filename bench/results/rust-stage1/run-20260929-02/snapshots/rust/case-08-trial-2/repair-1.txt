@@ -1,0 +1,14 @@
+Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.
+LANGUAGE: Rust
+RUST_SIGNATURE: fn indexed_code(rows: &[Row]) -> String
+TASK_TEXT: Define `indexed-code` with `$rows` and return the `code` field of the item at numeric index 1.
+INPUT: rows=[{"code":"A1"},{"code":"B2"}]
+EXPECTED_OUTPUT: withheld from the model
+
+The current attempt failed validation. Repair only this trial. Return only the complete corrected source code. Do not add a main function.
+CURRENT_SOURCE:
+fn indexed_code(rows: &[Row]) -> String {
+    rows[1].code.clone()
+}
+VISIBLE_VALIDATION_LOG:
+BENCH_PASS

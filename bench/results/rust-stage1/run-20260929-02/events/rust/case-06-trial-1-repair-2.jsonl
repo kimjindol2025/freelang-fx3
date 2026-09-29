@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec15-fe88-7931-a995-081d2dcaeb91"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn choose_code(payload: &Payload) -> String {\n    if payload.ok >= 1 {\n        payload.code.to_string()\n    } else {\n        \"rejected\".to_string()\n    }\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":12859,"cached_input_tokens":12032,"cache_write_input_tokens":0,"output_tokens":414,"reasoning_output_tokens":368}}

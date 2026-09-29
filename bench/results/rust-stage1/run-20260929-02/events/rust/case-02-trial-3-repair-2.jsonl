@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec13-93e7-7262-8f69-f73697317a91"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn add_points(score: i64, bonus: i64) -> i64 {\n    score + bonus\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":12833,"cached_input_tokens":9984,"cache_write_input_tokens":0,"output_tokens":56,"reasoning_output_tokens":27}}

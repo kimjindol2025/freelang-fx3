@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec18-9943-7dd1-b1e4-254dbf8adaa9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn indexed_code(rows: &[Row]) -> String {\n    rows[1].code.to_owned()\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":13779,"cached_input_tokens":9984,"cache_write_input_tokens":0,"output_tokens":359,"reasoning_output_tokens":332}}

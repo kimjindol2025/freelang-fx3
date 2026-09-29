@@ -1,0 +1,6 @@
+Write only the requested function in the FX3 Core .fx3 surface. Use only F, leading bindings, ?, ~, @ nested/index get, maps, function calls, arithmetic/comparison operators, variables, and ;. Do not use loops, async, network, database, file I/O, external libraries, Hot Alias, or new syntax. Return source code only.
+LANGUAGE: FX3 Core
+FX3_SIGNATURE: F matrix-cell[$matrix,$i]
+TASK_TEXT: Define `matrix-cell` with `$matrix` and `$i`, and return the value at row index `$i` and column index 0.
+INPUT: matrix=[[10,11],[20,21]], i=1
+EXPECTED_OUTPUT: withheld from the model

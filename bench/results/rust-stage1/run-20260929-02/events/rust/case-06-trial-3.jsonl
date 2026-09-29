@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec16-2af6-7ba3-87e4-dbc9cda785e3"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn choose_code(payload: &Payload) -> String {\n    if payload.ok >= 1 {\n        payload.code.clone()\n    } else {\n        \"rejected\".to_string()\n    }\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":12774,"cached_input_tokens":12032,"cache_write_input_tokens":0,"output_tokens":99,"reasoning_output_tokens":54}}

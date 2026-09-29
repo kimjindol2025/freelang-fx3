@@ -1,0 +1,4 @@
+F side-product[$data]
+?left @ $data.left.value;
+?right @ $data.right.value;
+left * right;

@@ -14,6 +14,7 @@ NO_DAEMON_FLAG=CLI_NOT_EXPOSED
 PREVIOUS_OUTPUTS_SHOWN=NO
 EXPECTED_CODE_SHOWN=NO
 EXPECTED_OUTPUT_SHOWN=NO
+PROMPT_SIGNATURE_CONTEXT=FX3_HEADER_AND_RUST_SIGNATURE
 CORE_CHANGED=NO
 FIXTURE_01_04_CHANGED=NO
 NEW_FX3_SYNTAX=NO
@@ -26,6 +27,7 @@ RESULT_RECORDS=72
 NO_FAKE_RESULTS=YES
 NO_CHERRY_PICK=YES
 PRE_MEASUREMENT_FREEZE=REQUIRED
+FREEZE_MANIFEST=bench/rust-stage1/freeze-manifest.tsv
 HIDDEN_CASES_PER_TASK=1
 CRITERIA=10
 ```
@@ -113,10 +115,14 @@ C09 RAW_EVIDENCE_COMPLETENESS
     established, 측정 불가.
 
 C10 TOOL_MAINTENANCE_TIME
-    value = post-freeze milliseconds spent changing the benchmark, lowerer,
-            compiler setup, or validator, recorded in tool-maintenance.tsv
-    PASS if FX3 maintenance time <= Rust maintenance time * 0.99.
-    An empty or missing maintenance log is 측정 불가, not zero.
+    value = the sum of post-freeze maintenance milliseconds per language,
+            recorded as one or more evidence-backed rows in tool-maintenance.tsv
+    if either language has no valid maintenance total, the criterion is 측정 불가.
+    if FX3_ms == 0 and Rust_ms == 0, the criterion is 측정 불가, not PASS.
+    otherwise calculate threshold = Rust_ms * 0.99 and delta = FX3_ms - Rust_ms;
+            PASS if FX3_ms <= threshold; FAIL otherwise.
+    Every positive maintenance row must include a non-empty evidence field.
+    An empty, malformed, or evidence-less log is 측정 불가, not zero.
 ```
 
 For C01/C02/C08, a trial is counted only when its row is `RECORD_COMPLETE=YES`
@@ -184,8 +190,17 @@ means `NA`, not zero recurrence. `FIRST_OUTPUT_MATCH` and
 `FIRST_HIDDEN_MATCH` are judged before any repair. `FINAL_OUTPUT_MATCH` and
 `FINAL_HIDDEN_MATCH` are judged only after the last recorded validation.
 `TOOL_MAINTENANCE_MS` comes from the frozen maintenance log and is not AI
-work. Existing reference files, lowering outputs, and fixture outputs are
-never counted as AI-generated successes.
+work. The log header is:
+
+```text
+LANGUAGE	MAINTENANCE_MS	STATUS	EVIDENCE
+```
+
+`STATUS=NO_CHANGE` with `MAINTENANCE_MS=0` is valid evidence of no tool work,
+but the paired `0/0` C10 comparison is still 측정 불가. A positive row records
+the measured elapsed milliseconds and the concrete file/command evidence for
+the maintenance operation. Existing reference files, lowering outputs, and
+fixture outputs are never counted as AI-generated successes.
 
 ## Evidence layout
 
@@ -209,3 +224,17 @@ summary.md
 `trials.tsv` is the only aggregate input. It is independently re-read after
 the run and its row count, hashes, validation exits, and record completeness
 are checked before any comparison is reported.
+
+## Pre-measurement freeze
+
+Before the first counted model call, the locked runner verifies
+`freeze-manifest.tsv`. The manifest records the UTC freeze time and SHA256 for
+the prompt specification, prompt generators, C10 calculation protocol, and
+all protected tasks, reference sources, golden `.fl` files, the existing
+lowerer, and fixture inputs. A measurement must not start if any manifest
+entry differs. The manifest is itself excluded from its entry list so its
+recorded hashes remain stable.
+
+The freeze fixes the prompt fields, C10 piecewise calculation, and protected
+file bytes before measurement. It does not authorize changing tasks, reference
+code, golden `.fl` files, or the existing lowering implementation.

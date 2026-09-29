@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec12-3c07-7ed0-b914-294a3b10cabc"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn pick_name(profile: &Profile) -> String {\n    profile.name.clone()\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":12754,"cached_input_tokens":9984,"cache_write_input_tokens":0,"output_tokens":99,"reasoning_output_tokens":76}}

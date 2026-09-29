@@ -1,0 +1,10 @@
+fn profile_band(profile: &ScoredProfile) -> String {
+    let name = &profile.profile.name;
+    let score = profile.profile.score;
+
+    if score >= 70 {
+        name.clone()
+    } else {
+        "unrated".to_string()
+    }
+}

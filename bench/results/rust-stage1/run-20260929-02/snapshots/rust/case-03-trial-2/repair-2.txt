@@ -1,0 +1,14 @@
+Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.
+LANGUAGE: Rust
+RUST_SIGNATURE: fn status_label(score: i64) -> &'static str
+TASK_TEXT: Define `status-label` with `$score`; return `"pass"` when the score is at least 60 and `"retry"` otherwise.
+INPUT: score=72
+EXPECTED_OUTPUT: withheld from the model
+
+The current attempt failed validation. Repair only this trial. Return only the complete corrected source code. Do not add a main function.
+CURRENT_SOURCE:
+fn status_label(score: i64) -> &'static str {
+    if score >= 60 { "pass" } else { "retry" }
+}
+VISIBLE_VALIDATION_LOG:
+BENCH_PASS

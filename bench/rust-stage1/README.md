@@ -2,6 +2,29 @@
 
 This is a separate benchmark from the earlier FX-vs-FX3 stage2 run.
 
+## Controlled baseline
+
+The counted run uses `run_stage1_locked.sh` only. Before any model call it
+verifies `freeze-manifest.tsv`, which fixes the prompt specification, the FX3
+declaration headers, the C10 calculation, and the protected task/reference/
+golden/lowering bytes.
+
+Prompt inspection does not call the model:
+
+```bash
+bash bench/rust-stage1/run_stage1_locked.sh /tmp/fx3-stage1-check prompt FX3 01
+```
+
+C10 is calculated from an evidence-backed `tool-maintenance.tsv`:
+
+```bash
+bash bench/rust-stage1/run_stage1_locked.sh RUN_ROOT c10
+```
+
+When both language totals are zero, C10 is `측정 불가`; zero is
+never treated as a passing maintenance comparison. Positive maintenance rows
+must include elapsed milliseconds and evidence.
+
 ```text
 TASK=FX3_VS_RUST_AI_BENCHMARK_STAGE1
 CASES=12

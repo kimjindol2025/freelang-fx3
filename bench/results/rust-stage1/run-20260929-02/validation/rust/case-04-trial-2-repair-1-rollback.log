@@ -1,0 +1,3 @@
+WARNING: linker: Warning: "/tmp/fx3-rust-stage1-04-2-repair-1-rollback" unused DT entry: unknown processor-specific (type 0x70000012 arg 0xc18) (ignoring)
+WARNING: linker: Warning: "/tmp/fx3-rust-stage1-04-2-repair-1-rollback" unused DT entry: unknown processor-specific (type 0x70000011 arg 0x98) (ignoring)
+WARNING: linker: Warning: "/tmp/fx3-rust-stage1-04-2-repair-1-rollback" unused DT entry: unknown processor-specific (type 0x70000013 arg 0x8) (ignoring)

@@ -1,0 +1,19 @@
+error[E0609]: no field `profile` on type `&ScoredProfile`
+ --> /root/freelang-fx3/bench/results/rust-stage1/run-20260929-02/validation/rust/case-09-trial-3-repair-2-rollback.rs:3:25
+  |
+3 |     let name = &profile.profile.name;
+  |                         ^^^^^^^ unknown field
+  |
+  = note: available fields are: `name`, `score`
+
+error[E0609]: no field `profile` on type `&ScoredProfile`
+ --> /root/freelang-fx3/bench/results/rust-stage1/run-20260929-02/validation/rust/case-09-trial-3-repair-2-rollback.rs:4:25
+  |
+4 |     let score = profile.profile.score;
+  |                         ^^^^^^^ unknown field
+  |
+  = note: available fields are: `name`, `score`
+
+error: aborting due to 2 previous errors
+
+For more information about this error, try `rustc --explain E0609`.

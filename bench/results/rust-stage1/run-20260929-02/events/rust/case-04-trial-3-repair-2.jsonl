@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec14-77eb-7413-9b04-1a6708e76c1d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn upper_city(city: &str) -> String {\n    city.to_uppercase()\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":12818,"cached_input_tokens":12032,"cache_write_input_tokens":0,"output_tokens":52,"reasoning_output_tokens":28}}

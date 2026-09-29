@@ -1,0 +1,3 @@
+fn fallback_email(profile: &EmailProfile) -> String {
+    profile.email.as_deref().unwrap_or("none").to_string()
+}

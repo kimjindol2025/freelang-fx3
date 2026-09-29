@@ -1,0 +1,11 @@
+error[E0609]: no field `profile` on type `&Profile`
+ --> /root/freelang-fx3/bench/results/rust-stage1/run-20260929-02/validation/rust/case-01-trial-1-repair-2.rs:3:13
+  |
+3 |     profile.profile.name.clone()
+  |             ^^^^^^^ unknown field
+  |
+  = note: available field is: `name`
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0609`.

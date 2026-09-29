@@ -3,15 +3,17 @@ set -u
 
 # Locked benchmark boundary. This script only orchestrates external AI,
 # compiler, lowerer, and runtime tools; it does not change task or golden files.
+# The prompt and C10 inspection modes do not start model measurements.
 
 ROOT=$(cd "$(dirname "$0")/../.." && pwd)
-RUN_ROOT=${1:?usage: run_stage1_locked.sh RUN_ROOT [one LANGUAGE CASE TRIAL]}
+RUN_ROOT=${1:?usage: run_stage1_locked.sh RUN_ROOT [prompt LANGUAGE CASE|c10|one LANGUAGE CASE TRIAL]}
 CLI=/root/.nvm/versions/node/v24.15.0/bin/codex
 MODEL=gpt-5.6-luna
 AI_LIMIT=120
 VALIDATION_LIMIT=30
 LINKER=/data/data/com.termux/files/usr/bin/clang
 MAINTENANCE_LOG="$RUN_ROOT/tool-maintenance.tsv"
+FREEZE_MANIFEST="$ROOT/bench/rust-stage1/freeze-manifest.tsv"
 
 mkdir -p "$RUN_ROOT" "$RUN_ROOT/rows" "$RUN_ROOT/prompts" "$RUN_ROOT/raw" \
   "$RUN_ROOT/events" "$RUN_ROOT/validation" "$RUN_ROOT/snapshots"
@@ -19,26 +21,100 @@ now_ms() { date +%s%3N; }
 now_utc() { date -u +%FT%TZ; }
 field() { sed -n "s/^$1: //p" "$2" | sed 's/^`//;s/`$//'; }
 
+fx3_signature() {
+  case "$1" in
+    01) printf '%s' 'F pick-name[$profile]' ;;
+    02) printf '%s' 'F add-points[$score,$bonus]' ;;
+    03) printf '%s' 'F status-label[$score]' ;;
+    04) printf '%s' 'F upper-city[$city]' ;;
+    05) printf '%s' 'F order-total[$order]' ;;
+    06) printf '%s' 'F choose-code[$payload]' ;;
+    07) printf '%s' 'F fallback-email[$profile]' ;;
+    08) printf '%s' 'F indexed-code[$rows]' ;;
+    09) printf '%s' 'F profile-band[$profile]' ;;
+    10) printf '%s' 'F side-product[$data]' ;;
+    11) printf '%s' 'F score-band[$data]' ;;
+    12) printf '%s' 'F matrix-cell[$matrix,$i]' ;;
+    *) return 1 ;;
+  esac
+}
+
+verify_freeze() {
+  [ -s "$FREEZE_MANIFEST" ] || { printf 'FREEZE_FAIL missing %s\n' "$FREEZE_MANIFEST" >&2; return 1; }
+  local role path expected actual failures=0
+  while IFS=$'\t' read -r role path expected; do
+    case "$role" in
+      ''|'#'*) continue ;;
+      ROLE) continue ;;
+    esac
+    [ -n "$path" ] && [ -n "$expected" ] || { failures=$((failures+1)); continue; }
+    if [ ! -f "$ROOT/$path" ]; then
+      printf 'FREEZE_FAIL missing %s\n' "$path" >&2
+      failures=$((failures+1))
+      continue
+    fi
+    actual=$(sha256sum "$ROOT/$path" | awk '{print $1}')
+    if [ "$actual" != "$expected" ]; then
+      printf 'FREEZE_FAIL hash %s expected=%s actual=%s\n' "$path" "$expected" "$actual" >&2
+      failures=$((failures+1))
+    fi
+  done < "$FREEZE_MANIFEST"
+  [ "$failures" -eq 0 ]
+}
+
+calculate_c10() {
+  local out=${1:-"$RUN_ROOT/c10.tsv"}
+  local rust_ms=0 fx3_ms=0 rust_rows=0 fx3_rows=0 invalid=0
+  local lang ms status evidence
+  if [ -s "$MAINTENANCE_LOG" ]; then
+    while IFS=$'\t' read -r lang ms status evidence; do
+      [ "$lang" = LANGUAGE ] && continue
+      case "$lang" in RUST|FX3) ;; *) invalid=1; continue ;; esac
+      case "$ms" in ''|*[!0-9]*) invalid=1; continue ;; esac
+      if [ "$ms" -gt 0 ] && [ -z "$evidence" ]; then invalid=1; fi
+      if [ "$lang" = RUST ]; then rust_ms=$((rust_ms+ms)); rust_rows=$((rust_rows+1)); fi
+      if [ "$lang" = FX3 ]; then fx3_ms=$((fx3_ms+ms)); fx3_rows=$((fx3_rows+1)); fi
+    done < "$MAINTENANCE_LOG"
+  else
+    invalid=1
+  fi
+  {
+    printf 'CRITERION\tRUST_MAINTENANCE_MS\tFX3_MAINTENANCE_MS\tDELTA_MS\tTHRESHOLD_MS\tRESULT\tREASON\n'
+    if [ "$invalid" -ne 0 ] || [ "$rust_rows" -eq 0 ] || [ "$fx3_rows" -eq 0 ]; then
+      printf 'C10\t%s\t%s\t0\t0\t측정 불가\tinvalid-or-missing-maintenance-evidence\n' "$rust_ms" "$fx3_ms"
+    elif [ "$rust_ms" -eq 0 ] && [ "$fx3_ms" -eq 0 ]; then
+      printf 'C10\t0\t0\t0\t0\t측정 불가\tboth-zero-no-maintenance-denominator\n'
+    else
+      awk -v rust="$rust_ms" -v fx3="$fx3_ms" 'BEGIN {
+        threshold = rust * 0.99
+        delta = fx3 - rust
+        result = (fx3 <= threshold) ? "PASS" : "FAIL"
+        printf "C10\t%d\t%d\t%d\t%.3f\t%s\tpost-freeze-maintenance-comparison\n", rust, fx3, delta, threshold, result
+      }'
+    fi
+  } > "$out"
+}
+
 if [ ! -e "$MAINTENANCE_LOG" ]; then
   {
     printf 'LANGUAGE\tMAINTENANCE_MS\tSTATUS\tEVIDENCE\n'
-    printf 'RUST\t0\tLOCKED\tNo post-freeze tool change\n'
-    printf 'FX3\t0\tLOCKED\tNo post-freeze tool change\n'
+    printf 'RUST\t0\tNO_CHANGE\tNo post-freeze tool change\n'
+    printf 'FX3\t0\tNO_CHANGE\tNo post-freeze tool change\n'
   } > "$MAINTENANCE_LOG"
 fi
 
 make_prompt() {
   local lang=$1 case_id=$2 out=$3 task
   task="$ROOT/bench/rust-stage1/tasks/case-$case_id.md"
-  local task_text input rust_sig
-  task_text=$(field TASK_TEXT "$task"); input=$(field INPUT "$task"); rust_sig=$(field RUST_SIGNATURE "$task")
+  local task_text input rust_sig fx3_sig
+  task_text=$(field TASK_TEXT "$task"); input=$(field INPUT "$task"); rust_sig=$(field RUST_SIGNATURE "$task"); fx3_sig=$(fx3_signature "$case_id")
   {
     if [ "$lang" = RUST ]; then
       printf '%s\n' 'Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.'
       printf 'LANGUAGE: Rust\nRUST_SIGNATURE: %s\nTASK_TEXT: %s\nINPUT: %s\nEXPECTED_OUTPUT: withheld from the model\n' "$rust_sig" "$task_text" "$input"
     else
       printf '%s\n' 'Write only the requested function in the FX3 Core .fx3 surface. Use only F, leading bindings, ?, ~, @ nested/index get, maps, function calls, arithmetic/comparison operators, variables, and ;. Do not use loops, async, network, database, file I/O, external libraries, Hot Alias, or new syntax. Return source code only.'
-      printf 'LANGUAGE: FX3 Core\nTASK_TEXT: %s\nINPUT: %s\nEXPECTED_OUTPUT: withheld from the model\n' "$task_text" "$input"
+      printf 'LANGUAGE: FX3 Core\nFX3_SIGNATURE: %s\nTASK_TEXT: %s\nINPUT: %s\nEXPECTED_OUTPUT: withheld from the model\n' "$fx3_sig" "$task_text" "$input"
     fi
   } > "$out"
 }
@@ -179,6 +255,26 @@ run_one() {
   rm -rf "$workdir" "$workdir-repair-1" "$workdir-repair-2"
 }
 
-if [ "${2:-}" = one ]; then run_one "$3" "$4" "$5"; else
+if ! verify_freeze; then
+  exit 2
+fi
+
+if [ "${2:-}" = prompt ]; then
+  [ "$#" -eq 4 ] || { printf 'usage: run_stage1_locked.sh RUN_ROOT prompt LANGUAGE CASE\n' >&2; exit 2; }
+  make_prompt "$3" "$4" /dev/stdout
+elif [ "${2:-}" = prompts ]; then
+  for lang in RUST FX3; do
+    for c in 01 02 03 04 05 06 07 08 09 10 11 12; do
+      out="$RUN_ROOT/prompts/${lang,,}/case-$c.txt"
+      mkdir -p "$(dirname "$out")"
+      make_prompt "$lang" "$c" "$out"
+    done
+  done
+elif [ "${2:-}" = c10 ]; then
+  calculate_c10
+  cat "$RUN_ROOT/c10.tsv"
+elif [ "${2:-}" = one ]; then
+  run_one "$3" "$4" "$5"
+else
   pids=(); for lang in RUST FX3; do for c in 01 02 03 04 05 06 07 08 09 10 11 12; do for trial in 1 2 3; do run_one "$lang" "$c" "$trial" & pids+=("$!"); if [ "${#pids[@]}" -ge 4 ]; then wait "${pids[0]}" || true; pids=("${pids[@]:1}"); fi; done; done; done; for pid in "${pids[@]}"; do wait "$pid" || true; done
 fi

@@ -1,0 +1,3 @@
+fn pick_name(profile: &Profile) -> String {
+    profile.profile.name.clone()
+}

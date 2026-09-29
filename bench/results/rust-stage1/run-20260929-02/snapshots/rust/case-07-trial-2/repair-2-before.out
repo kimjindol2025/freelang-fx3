@@ -1,0 +1,3 @@
+fn fallback_email(profile: &EmailProfile) -> String {
+    profile.email.clone().unwrap_or_else(|| "none".to_string())
+}

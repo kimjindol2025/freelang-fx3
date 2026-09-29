@@ -1,0 +1,1 @@
+F score-band[$data] ~a=@$data["a"]; ~b=@$data["b"]; ~c=@$data["c"]; ~sum=a+b+c; ? sum>=100 "high" "low"

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec18-0812-7003-b8d8-2daa42cf5006"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn fallback_email(profile: &EmailProfile) -> String {\n    match &profile.email {\n        Some(email) => email.clone(),\n        None => \"none\".to_string(),\n    }\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":13780,"cached_input_tokens":13056,"cache_write_input_tokens":0,"output_tokens":136,"reasoning_output_tokens":92}}

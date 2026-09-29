@@ -1,0 +1,12 @@
+Write only the requested function in the FX3 Core .fx3 surface. Use only F, leading bindings, ?, ~, @ nested/index get, maps, function calls, arithmetic/comparison operators, variables, and ;. Do not use loops, async, network, database, file I/O, external libraries, Hot Alias, or new syntax. Return source code only.
+LANGUAGE: FX3 Core
+FX3_SIGNATURE: F profile-band[$profile]
+TASK_TEXT: Define `profile-band` with `$profile`; bind `name` and `score` from the nested profile, and return `name` when score is at least 70 or `"unrated"` otherwise.
+INPUT: {"name":"Mina","score":81}
+EXPECTED_OUTPUT: withheld from the model
+
+The current attempt failed validation. Repair only this trial. Return only the complete corrected source code. Do not add a main function.
+CURRENT_SOURCE:
+F profile-band[$profile] ? name @ $profile["name"]; ? score @ $profile["score"]; ? score >= 70 name ~ "unrated"
+VISIBLE_VALIDATION_LOG:
+ERROR 기대 '{' 위치 25

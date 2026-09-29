@@ -1,0 +1,12 @@
+Write only the requested function in the FX3 Core .fx3 surface. Use only F, leading bindings, ?, ~, @ nested/index get, maps, function calls, arithmetic/comparison operators, variables, and ;. Do not use loops, async, network, database, file I/O, external libraries, Hot Alias, or new syntax. Return source code only.
+LANGUAGE: FX3 Core
+FX3_SIGNATURE: F score-band[$data]
+TASK_TEXT: Define `score-band` with `$data`; bind `a`, `b`, and `c`, calculate their sum, and return `"high"` when the sum is at least 100 or `"low"` otherwise.
+INPUT: {"a":40,"b":35,"c":30}
+EXPECTED_OUTPUT: withheld from the model
+
+The current attempt failed validation. Repair only this trial. Return only the complete corrected source code. Do not add a main function.
+CURRENT_SOURCE:
+F score-band[$data] ~a=@$data["a"]; ~b=@$data["b"]; ~c=@$data["c"]; ~sum=a+b+c; ? sum>=100 "high" "low"
+VISIBLE_VALIDATION_LOG:
+ERROR 기대 '{' 위치 20

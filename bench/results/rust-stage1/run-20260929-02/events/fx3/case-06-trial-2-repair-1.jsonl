@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec24-b9d9-7691-b786-8b07afce42ae"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"F choose-code[$payload] { ? $payload@ok >= 1 ~ $payload@code ~ \"rejected\"; }"}}
+{"type":"turn.completed","usage":{"input_tokens":12882,"cached_input_tokens":12032,"cache_write_input_tokens":0,"output_tokens":125,"reasoning_output_tokens":93}}

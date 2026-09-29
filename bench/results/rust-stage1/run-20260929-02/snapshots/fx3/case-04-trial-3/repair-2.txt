@@ -1,0 +1,12 @@
+Write only the requested function in the FX3 Core .fx3 surface. Use only F, leading bindings, ?, ~, @ nested/index get, maps, function calls, arithmetic/comparison operators, variables, and ;. Do not use loops, async, network, database, file I/O, external libraries, Hot Alias, or new syntax. Return source code only.
+LANGUAGE: FX3 Core
+FX3_SIGNATURE: F upper-city[$city]
+TASK_TEXT: Define `upper-city` with `$city` and return the uppercase form of the string.
+INPUT: city="seoul"
+EXPECTED_OUTPUT: withheld from the model
+
+The current attempt failed validation. Repair only this trial. Return only the complete corrected source code. Do not add a main function.
+CURRENT_SOURCE:
+F upper-city[$city] $city@upper();
+VISIBLE_VALIDATION_LOG:
+ERROR 기대 '{' 위치 20

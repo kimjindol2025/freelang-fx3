@@ -1,0 +1,6 @@
+Write only the requested function in the FX3 Core .fx3 surface. Use only F, leading bindings, ?, ~, @ nested/index get, maps, function calls, arithmetic/comparison operators, variables, and ;. Do not use loops, async, network, database, file I/O, external libraries, Hot Alias, or new syntax. Return source code only.
+LANGUAGE: FX3 Core
+FX3_SIGNATURE: F indexed-code[$rows]
+TASK_TEXT: Define `indexed-code` with `$rows` and return the `code` field of the item at numeric index 1.
+INPUT: rows=[{"code":"A1"},{"code":"B2"}]
+EXPECTED_OUTPUT: withheld from the model

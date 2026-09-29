@@ -1,0 +1,6 @@
+fn fallback_email(profile: &EmailProfile) -> String {
+    match &profile.email {
+        Some(email) => email.clone(),
+        None => "none".to_string(),
+    }
+}

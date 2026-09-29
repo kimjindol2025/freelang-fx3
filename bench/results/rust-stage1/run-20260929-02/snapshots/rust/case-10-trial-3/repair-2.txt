@@ -1,0 +1,14 @@
+Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.
+LANGUAGE: Rust
+RUST_SIGNATURE: fn side_product(data: &Sides) -> i64
+TASK_TEXT: Define `side-product` with `$data`; bind `left.value` and `right.value` and return their product.
+INPUT: {"left":{"value":6},"right":{"value":7}}
+EXPECTED_OUTPUT: withheld from the model
+
+The current attempt failed validation. Repair only this trial. Return only the complete corrected source code. Do not add a main function.
+CURRENT_SOURCE:
+fn side_product(data: &Sides) -> i64 {
+    data.left.value * data.right.value
+}
+VISIBLE_VALIDATION_LOG:
+BENCH_PASS

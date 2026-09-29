@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec1a-5e1c-7cc1-84c1-1021e6bf964b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn profile_band(profile: &ScoredProfile) -> String {\n    let name = profile.name.clone();\n    let score = profile.score;\n\n    if score >= 70 {\n        name\n    } else {\n        \"unrated\".to_string()\n    }\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":14050,"cached_input_tokens":13056,"cache_write_input_tokens":0,"output_tokens":77,"reasoning_output_tokens":18}}

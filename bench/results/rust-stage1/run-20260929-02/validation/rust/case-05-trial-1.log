@@ -1,0 +1,15 @@
+error[E0608]: cannot index into a value of type `&Order`
+ --> /root/freelang-fx3/bench/results/rust-stage1/run-20260929-02/validation/rust/case-05-trial-1-initial.rs:3:25
+  |
+3 |     let subtotal = order["subtotal"];
+  |                         ^^^^^^^^^^^^
+
+error[E0608]: cannot index into a value of type `&Order`
+ --> /root/freelang-fx3/bench/results/rust-stage1/run-20260929-02/validation/rust/case-05-trial-1-initial.rs:4:20
+  |
+4 |     let tax = order["tax"];
+  |                    ^^^^^^^
+
+error: aborting due to 2 previous errors
+
+For more information about this error, try `rustc --explain E0608`.

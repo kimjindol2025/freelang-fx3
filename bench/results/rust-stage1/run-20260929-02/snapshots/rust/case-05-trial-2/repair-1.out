@@ -1,0 +1,5 @@
+fn order_total(order: &Order) -> i64 {
+    let subtotal = order.subtotal;
+    let tax = order.tax;
+    subtotal + tax
+}

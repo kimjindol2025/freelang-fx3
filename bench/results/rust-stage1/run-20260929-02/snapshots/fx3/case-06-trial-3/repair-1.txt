@@ -1,0 +1,12 @@
+Write only the requested function in the FX3 Core .fx3 surface. Use only F, leading bindings, ?, ~, @ nested/index get, maps, function calls, arithmetic/comparison operators, variables, and ;. Do not use loops, async, network, database, file I/O, external libraries, Hot Alias, or new syntax. Return source code only.
+LANGUAGE: FX3 Core
+FX3_SIGNATURE: F choose-code[$payload]
+TASK_TEXT: Define `choose-code` with `$payload`; return the nested `code` when numeric `ok` is at least 1, otherwise return `"rejected"`.
+INPUT: {"ok":1,"code":"A7"}
+EXPECTED_OUTPUT: withheld from the model
+
+The current attempt failed validation. Repair only this trial. Return only the complete corrected source code. Do not add a main function.
+CURRENT_SOURCE:
+F choose-code[$payload] ? $ok @ $payload["ok"]; ~ $ok >= 1 ? @ $payload["code"] ; "rejected";
+VISIBLE_VALIDATION_LOG:
+ERROR 기대 '{' 위치 24

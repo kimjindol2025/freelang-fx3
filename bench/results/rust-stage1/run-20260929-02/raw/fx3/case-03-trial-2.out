@@ -1,0 +1,1 @@
+F status-label[$score] ? $score >= 60 ~ "pass" ; "retry"

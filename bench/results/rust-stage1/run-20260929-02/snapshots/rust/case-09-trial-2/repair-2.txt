@@ -1,0 +1,38 @@
+Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.
+LANGUAGE: Rust
+RUST_SIGNATURE: fn profile_band(profile: &ScoredProfile) -> String
+TASK_TEXT: Define `profile-band` with `$profile`; bind `name` and `score` from the nested profile, and return `name` when score is at least 70 or `"unrated"` otherwise.
+INPUT: {"name":"Mina","score":81}
+EXPECTED_OUTPUT: withheld from the model
+
+The current attempt failed validation. Repair only this trial. Return only the complete corrected source code. Do not add a main function.
+CURRENT_SOURCE:
+fn profile_band(profile: &ScoredProfile) -> String {
+    let name = &profile.profile.name;
+    let score = profile.profile.score;
+    if score >= 70 {
+        name.clone()
+    } else {
+        "unrated".to_string()
+    }
+}
+VISIBLE_VALIDATION_LOG:
+error[E0609]: no field `profile` on type `&ScoredProfile`
+ --> /root/freelang-fx3/bench/results/rust-stage1/run-20260929-02/validation/rust/case-09-trial-2-initial.rs:3:25
+  |
+3 |     let name = &profile.profile.name;
+  |                         ^^^^^^^ unknown field
+  |
+  = note: available fields are: `name`, `score`
+
+error[E0609]: no field `profile` on type `&ScoredProfile`
+ --> /root/freelang-fx3/bench/results/rust-stage1/run-20260929-02/validation/rust/case-09-trial-2-initial.rs:4:25
+  |
+4 |     let score = profile.profile.score;
+  |                         ^^^^^^^ unknown field
+  |
+  = note: available fields are: `name`, `score`
+
+error: aborting due to 2 previous errors
+
+For more information about this error, try `rustc --explain E0609`.

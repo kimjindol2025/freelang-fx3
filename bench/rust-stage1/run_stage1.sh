@@ -17,19 +17,38 @@ now_ms() { date +%s%3N; }
 now_utc() { date -u +%FT%TZ; }
 field() { sed -n "s/^$1: //p" "$2" | sed 's/^`//;s/`$//'; }
 
+fx3_signature() {
+  case "$1" in
+    01) printf '%s' 'F pick-name[$profile]' ;;
+    02) printf '%s' 'F add-points[$score,$bonus]' ;;
+    03) printf '%s' 'F status-label[$score]' ;;
+    04) printf '%s' 'F upper-city[$city]' ;;
+    05) printf '%s' 'F order-total[$order]' ;;
+    06) printf '%s' 'F choose-code[$payload]' ;;
+    07) printf '%s' 'F fallback-email[$profile]' ;;
+    08) printf '%s' 'F indexed-code[$rows]' ;;
+    09) printf '%s' 'F profile-band[$profile]' ;;
+    10) printf '%s' 'F side-product[$data]' ;;
+    11) printf '%s' 'F score-band[$data]' ;;
+    12) printf '%s' 'F matrix-cell[$matrix,$i]' ;;
+    *) return 1 ;;
+  esac
+}
+
 make_prompt() {
   local lang=$1 case_id=$2 out=$3 task="$ROOT/bench/rust-stage1/tasks/case-$case_id.md"
-  local task_text input rust_sig
+  local task_text input rust_sig fx3_sig
   task_text=$(field TASK_TEXT "$task")
   input=$(field INPUT "$task")
   rust_sig=$(field RUST_SIGNATURE "$task")
+  fx3_sig=$(fx3_signature "$case_id")
   {
     if [ "$lang" = RUST ]; then
       printf '%s\n' 'Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.'
       printf 'LANGUAGE: Rust\nRUST_SIGNATURE: %s\nTASK_TEXT: %s\nINPUT: %s\nEXPECTED_OUTPUT: withheld from the model\n' "$rust_sig" "$task_text" "$input"
     else
       printf '%s\n' 'Write only the requested function in the FX3 Core .fx3 surface. Use only F, leading bindings, ?, ~, @ nested/index get, maps, function calls, arithmetic/comparison operators, variables, and ;. Do not use loops, async, network, database, file I/O, external libraries, Hot Alias, or new syntax. Return source code only.'
-      printf 'LANGUAGE: FX3 Core\nTASK_TEXT: %s\nINPUT: %s\nEXPECTED_OUTPUT: withheld from the model\n' "$task_text" "$input"
+      printf 'LANGUAGE: FX3 Core\nFX3_SIGNATURE: %s\nTASK_TEXT: %s\nINPUT: %s\nEXPECTED_OUTPUT: withheld from the model\n' "$fx3_sig" "$task_text" "$input"
     fi
   } > "$out"
 }

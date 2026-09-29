@@ -1,0 +1,7 @@
+fn score_band(data: &Metrics) -> &'static str {
+    let a = data.a;
+    let b = data.b;
+    let c = data.c;
+    let sum = a + b + c;
+    if sum >= 100 { "high" } else { "low" }
+}

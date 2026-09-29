@@ -1,0 +1,23 @@
+Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.
+LANGUAGE: Rust
+RUST_SIGNATURE: fn score_band(data: &Metrics) -> &'static str
+TASK_TEXT: Define `score-band` with `$data`; bind `a`, `b`, and `c`, calculate their sum, and return `"high"` when the sum is at least 100 or `"low"` otherwise.
+INPUT: {"a":40,"b":35,"c":30}
+EXPECTED_OUTPUT: withheld from the model
+
+The current attempt failed validation. Repair only this trial. Return only the complete corrected source code. Do not add a main function.
+CURRENT_SOURCE:
+fn score_band(data: &Metrics) -> &'static str {
+    let a = data.a;
+    let b = data.b;
+    let c = data.c;
+    let sum = a + b + c;
+
+    if sum >= 100 {
+        "high"
+    } else {
+        "low"
+    }
+}
+VISIBLE_VALIDATION_LOG:
+BENCH_PASS

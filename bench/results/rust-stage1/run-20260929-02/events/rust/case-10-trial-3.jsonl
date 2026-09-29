@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec1b-aeeb-7c83-ba13-3fd1dd65a040"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn side_product(data: &Sides) -> i64 {\n    data.left.value * data.right.value\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":13712,"cached_input_tokens":13056,"cache_write_input_tokens":0,"output_tokens":119,"reasoning_output_tokens":91}}

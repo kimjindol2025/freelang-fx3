@@ -1,0 +1,9 @@
+error[E0609]: no field `name` on type `String`
+ --> /root/freelang-fx3/bench/results/rust-stage1/run-20260929-02/validation/rust/case-01-trial-2-repair-1.rs:3:18
+  |
+3 |     profile.name.name.clone()
+  |                  ^^^^ unknown field
+
+error: aborting due to 1 previous error
+
+For more information about this error, try `rustc --explain E0609`.

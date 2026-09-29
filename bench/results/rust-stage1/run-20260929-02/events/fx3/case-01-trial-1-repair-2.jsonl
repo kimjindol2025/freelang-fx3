@@ -1,0 +1,5 @@
+{"type":"thread.started","thread_id":"01a0ec20-4681-7213-af7e-0059613949cf"}
+{"type":"turn.started"}
+2026-09-29T07:45:35.199209Z ERROR codex_models_manager::manager: failed to refresh available models: request timed out
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"F pick-name[$profile] { ~ $profile @ name; }"}}
+{"type":"turn.completed","usage":{"input_tokens":12850,"cached_input_tokens":12032,"cache_write_input_tokens":0,"output_tokens":132,"reasoning_output_tokens":112}}

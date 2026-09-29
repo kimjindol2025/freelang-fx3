@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec14-1e34-7a32-930f-8497ab9be99b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn status_label(score: i64) -> &'static str {\n    if score >= 60 {\n        \"pass\"\n    } else {\n        \"retry\"\n    }\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":12845,"cached_input_tokens":9984,"cache_write_input_tokens":0,"output_tokens":61,"reasoning_output_tokens":20}}

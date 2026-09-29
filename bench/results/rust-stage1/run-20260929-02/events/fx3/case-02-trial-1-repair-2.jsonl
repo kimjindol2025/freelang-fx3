@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec20-2115-7d13-b7d7-810e385bf50b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"F add-points[$score,$bonus] { ~ $score + $bonus; }"}}
+{"type":"turn.completed","usage":{"input_tokens":12861,"cached_input_tokens":12032,"cache_write_input_tokens":0,"output_tokens":114,"reasoning_output_tokens":90}}

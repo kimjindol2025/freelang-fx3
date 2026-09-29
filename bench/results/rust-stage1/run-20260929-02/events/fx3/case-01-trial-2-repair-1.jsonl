@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec1f-e2d3-7193-a1d1-2c83b3d2b9f6"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"F pick-name[$profile] { @$profile.name };"}}
+{"type":"turn.completed","usage":{"input_tokens":12848,"cached_input_tokens":12032,"cache_write_input_tokens":0,"output_tokens":146,"reasoning_output_tokens":129}}

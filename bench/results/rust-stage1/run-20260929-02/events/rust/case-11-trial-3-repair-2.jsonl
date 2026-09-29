@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec1f-0c53-72a1-bd4d-e961edf0779e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn score_band(data: &Metrics) -> &'static str {\n    let a = data.a;\n    let b = data.b;\n    let c = data.c;\n    let sum = a + b + c;\n    if sum >= 100 { \"high\" } else { \"low\" }\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":12897,"cached_input_tokens":9984,"cache_write_input_tokens":0,"output_tokens":135,"reasoning_output_tokens":67}}

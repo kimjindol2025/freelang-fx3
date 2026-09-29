@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec2b-8e06-7c20-87f9-69d2249a8d63"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"F score-band[$data]{a~$data@a; b~$data@b; c~$data@c; sum~a+b+c; ? sum>=100~\"high\"~\"low\";}"}}
+{"type":"turn.completed","usage":{"input_tokens":12916,"cached_input_tokens":12032,"cache_write_input_tokens":0,"output_tokens":144,"reasoning_output_tokens":92}}

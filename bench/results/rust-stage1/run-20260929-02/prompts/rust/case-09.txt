@@ -1,0 +1,6 @@
+Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.
+LANGUAGE: Rust
+RUST_SIGNATURE: fn profile_band(profile: &ScoredProfile) -> String
+TASK_TEXT: Define `profile-band` with `$profile`; bind `name` and `score` from the nested profile, and return `name` when score is at least 70 or `"unrated"` otherwise.
+INPUT: {"name":"Mina","score":81}
+EXPECTED_OUTPUT: withheld from the model

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec28-62e2-7480-908d-905bdcd11dbc"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"F profile-band[$profile] { $name @ $profile @ name; $score @ $profile @ score; ? $score >= 70 $name ~ \"unrated\"; }"}}
+{"type":"turn.completed","usage":{"input_tokens":12901,"cached_input_tokens":12032,"cache_write_input_tokens":0,"output_tokens":153,"reasoning_output_tokens":110}}

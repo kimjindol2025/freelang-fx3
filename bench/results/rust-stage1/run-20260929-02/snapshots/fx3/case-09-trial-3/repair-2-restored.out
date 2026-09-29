@@ -1,0 +1,1 @@
+F profile-band[$profile] ? name @ $profile name; ? score @ $profile score; ~ ? score >= 70 name "unrated";

@@ -1,0 +1,5 @@
+fn side_product(data: &Sides) -> i64 {
+    let left = data.left.value;
+    let right = data.right.value;
+    left * right
+}

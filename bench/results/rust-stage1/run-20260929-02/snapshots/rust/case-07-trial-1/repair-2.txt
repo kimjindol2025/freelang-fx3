@@ -1,0 +1,17 @@
+Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.
+LANGUAGE: Rust
+RUST_SIGNATURE: fn fallback_email(profile: &EmailProfile) -> String
+TASK_TEXT: Define `fallback-email` with `$profile`; return `"none"` when the `email` field is null or missing, otherwise return the email unchanged.
+INPUT: {}
+EXPECTED_OUTPUT: withheld from the model
+
+The current attempt failed validation. Repair only this trial. Return only the complete corrected source code. Do not add a main function.
+CURRENT_SOURCE:
+fn fallback_email(profile: &EmailProfile) -> String {
+    profile
+        .email
+        .clone()
+        .unwrap_or_else(|| "none".to_string())
+}
+VISIBLE_VALIDATION_LOG:
+BENCH_PASS

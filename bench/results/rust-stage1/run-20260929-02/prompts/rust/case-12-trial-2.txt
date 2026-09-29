@@ -1,0 +1,6 @@
+Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.
+LANGUAGE: Rust
+RUST_SIGNATURE: fn matrix_cell(matrix: &[Vec<i64>], i: usize) -> i64
+TASK_TEXT: Define `matrix-cell` with `$matrix` and `$i`, and return the value at row index `$i` and column index 0.
+INPUT: matrix=[[10,11],[20,21]], i=1
+EXPECTED_OUTPUT: withheld from the model

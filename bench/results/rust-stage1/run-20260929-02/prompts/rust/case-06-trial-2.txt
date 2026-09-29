@@ -1,0 +1,6 @@
+Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.
+LANGUAGE: Rust
+RUST_SIGNATURE: fn choose_code(payload: &Payload) -> String
+TASK_TEXT: Define `choose-code` with `$payload`; return the nested `code` when numeric `ok` is at least 1, otherwise return `"rejected"`.
+INPUT: {"ok":1,"code":"A7"}
+EXPECTED_OUTPUT: withheld from the model

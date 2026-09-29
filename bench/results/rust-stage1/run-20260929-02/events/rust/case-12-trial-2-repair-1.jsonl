@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec1e-cbcd-7862-b25c-a274c1c2b589"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn matrix_cell(matrix: &[Vec<i64>], i: usize) -> i64 {\n    matrix[i][0]\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":12854,"cached_input_tokens":12032,"cache_write_input_tokens":0,"output_tokens":60,"reasoning_output_tokens":28}}

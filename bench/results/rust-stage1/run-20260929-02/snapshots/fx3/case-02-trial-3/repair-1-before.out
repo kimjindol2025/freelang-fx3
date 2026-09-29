@@ -1,0 +1,1 @@
+F add-points[$score,$bonus] $score + $bonus;

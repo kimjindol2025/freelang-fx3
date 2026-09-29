@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec23-ef4b-77f0-953a-43c10ec5a0e2"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"F order-total[$order]{subtotal @ $order[\"subtotal\"]; tax @ $order[\"tax\"]; subtotal + tax;}"}}
+{"type":"turn.completed","usage":{"input_tokens":12873,"cached_input_tokens":12032,"cache_write_input_tokens":0,"output_tokens":168,"reasoning_output_tokens":138}}

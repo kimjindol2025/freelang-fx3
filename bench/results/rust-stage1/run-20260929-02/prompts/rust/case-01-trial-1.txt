@@ -1,0 +1,6 @@
+Write only the Rust function requested below. Use stable rustc and the standard library only. Do not add crates, file I/O, network calls, or a main function. Return source code only.
+LANGUAGE: Rust
+RUST_SIGNATURE: fn pick_name(profile: &Profile) -> String
+TASK_TEXT: Define `pick-name` with `$profile` and return the nested `name` field.
+INPUT: {"name":"Ada"}
+EXPECTED_OUTPUT: withheld from the model

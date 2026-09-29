@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0ec16-9aca-7f93-af4d-12ce3e714a87"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"fn fallback_email(profile: &EmailProfile) -> String {\n    profile.email.as_deref().unwrap_or(\"none\").to_string()\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":12845,"cached_input_tokens":9984,"cache_write_input_tokens":0,"output_tokens":291,"reasoning_output_tokens":257}}

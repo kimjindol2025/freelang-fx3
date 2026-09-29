@@ -1,0 +1,1 @@
+F choose-code[$payload] { ? $ok @ $payload["ok"]; ~ $ok >= 1 ? @ $payload["code"]; "rejected"; }
