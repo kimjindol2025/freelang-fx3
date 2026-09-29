@@ -1,0 +1,4 @@
+trial,language,first_pass,final_pass,corrections,ai_generation_ms,ai_repair_ms,lowering_ms,execution_ms,test_ms,active_total_ms
+fx3-guided-1,FX3-guided,YES,YES,0,31890,0,166,312,29,32397
+fx3-guided-2,FX3-guided,YES,YES,0,22642,0,122,148,30,22942
+fx3-guided-3,FX3-guided,YES,YES,0,26920,0,106,133,24,27183

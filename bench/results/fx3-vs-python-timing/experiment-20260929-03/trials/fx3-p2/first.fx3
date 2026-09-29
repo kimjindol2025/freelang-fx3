@@ -1,0 +1,4 @@
+F order-total[$order]{
+$subtotal=@$order.subtotal;
+?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+}

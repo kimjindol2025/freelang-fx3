@@ -1,0 +1,9 @@
+(defn order-total [$order]
+  (let [$subtotal (get $order "subtotal")]
+    (if (>= $subtotal 5000)
+      $subtotal
+      (+ $subtotal (get $order "shipping")))))
+(println (order-total {"subtotal" 4200 "shipping" 300}))
+(println (order-total {"subtotal" 5000 "shipping" 300}))
+(println (order-total {"subtotal" 9999 "shipping" 500}))
+(println (order-total {"subtotal" 0 "shipping" 0}))

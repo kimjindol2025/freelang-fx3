@@ -1,0 +1,11 @@
+You are the first AI authoring attempt in a clean repository. Create exactly one
+file named answer.py in the current directory and then stop. Do not inspect
+outside the current directory. Do not run tests or edit this task file.
+
+Task: implement an order-total function. The input is an order mapping with
+integer fields subtotal and shipping. If subtotal is at least 5000, return
+subtotal; otherwise return subtotal plus shipping.
+
+Required declaration: def order_total(order: dict[str, int]) -> int
+
+Use only Python standard language features. Do not include a test harness.

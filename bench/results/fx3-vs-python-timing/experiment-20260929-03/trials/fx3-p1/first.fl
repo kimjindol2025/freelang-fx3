@@ -1,0 +1,6 @@
+(defn order-total [$order]
+  (let [$subtotal (get $order "subtotal")
+        $shipping (get $order "shipping")]
+    (if (>= $subtotal 5000)
+      $subtotal
+      (+ $subtotal $shipping))))

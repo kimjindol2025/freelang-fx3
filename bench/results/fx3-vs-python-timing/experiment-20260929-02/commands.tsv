@@ -1,0 +1,9 @@
+trial,phase,command_or_source
+all,model,gpt-5.6-luna; reasoning=high; codex exec --sandbox danger-full-access --ephemeral --json
+all,prompt,requirements/fx3-guided.txt; only added function-body braces and mandatory binding semicolon rules
+fx3-guided-1,first,codex exec -C /tmp/fx3-python-guided-1 < task.txt
+fx3-guided-1,verify,python3 tools/lower.py first.fx3; /root/freelang-v11/bin/fl run first-run.fl; awk numeric-output comparator
+fx3-guided-2,first,codex exec -C /tmp/fx3-python-guided-2 < task.txt
+fx3-guided-2,verify,python3 tools/lower.py first.fx3; /root/freelang-v11/bin/fl run first-run.fl; awk numeric-output comparator
+fx3-guided-3,first,codex exec -C /tmp/fx3-python-guided-3 < task.txt
+fx3-guided-3,verify,python3 tools/lower.py first.fx3; /root/freelang-v11/bin/fl run first-run.fl; awk numeric-output comparator

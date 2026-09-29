@@ -1,0 +1,17 @@
+You are the first AI authoring attempt in a clean repository. Create exactly one
+file named answer.fx3 in the current directory and then stop. Do not inspect
+outside the current directory. Do not run tests or edit this task file.
+
+Task: implement an order-total function. The input is an order map with integer
+fields subtotal and shipping. If subtotal is at least 5000, return subtotal;
+otherwise return subtotal plus shipping.
+
+Required declaration: F order-total[$order]
+
+Use only this supported FX3 Core surface: F function declarations, leading
+bindings `$name=expression`, map access `@$order.field`, integer comparison,
+integer addition, and `?condition{yes}{no}`. Do not include a test harness.
+
+Additional syntax rules for this trial:
+- A function body is enclosed by `F name[$params]{본문}`.
+- Every leading binding expression must end with a mandatory `;`.

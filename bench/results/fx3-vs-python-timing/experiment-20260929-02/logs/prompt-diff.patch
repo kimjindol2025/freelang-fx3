@@ -1,0 +1,10 @@
+--- /root/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/requirements/fx3.txt	2026-09-29 08:26:58.915997151 +0000
++++ /root/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/requirements/fx3-guided.txt	2026-09-29 10:18:57.811994588 +0000
+@@ -11,3 +11,7 @@
+ Use only this supported FX3 Core surface: F function declarations, leading
+ bindings `$name=expression`, map access `@$order.field`, integer comparison,
+ integer addition, and `?condition{yes}{no}`. Do not include a test harness.
++
++Additional syntax rules for this trial:
++- A function body is enclosed by `F name[$params]{본문}`.
++- Every leading binding expression must end with a mandatory `;`.

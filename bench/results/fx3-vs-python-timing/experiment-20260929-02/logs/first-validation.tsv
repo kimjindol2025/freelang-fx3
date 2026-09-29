@@ -1,0 +1,4 @@
+trial	brace	mandatory_semicolon	lowering_ms	execution_ms	test_ms	outputs
+fx3-1	YES	YES	166	312	29	4500,5000,9999,0
+fx3-2	YES	YES	122	148	30	4500,5000,9999,0
+fx3-3	YES	YES	106	133	24	4500,5000,9999,0

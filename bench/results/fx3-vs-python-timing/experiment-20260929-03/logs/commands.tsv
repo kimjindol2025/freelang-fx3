@@ -1,0 +1,11 @@
+field,value
+model,gpt-5.6-luna
+reasoning,high
+runner,/root/.nvm/versions/node/v24.15.0/bin/codex exec --sandbox danger-full-access --ephemeral --json
+fx3_runner,python3 tools/lower.py then /root/freelang-v11/bin/fl run
+python_runner,python3 importlib evaluator
+tests,4 identical order-total inputs with expected outputs 4500 5000 9999 0
+cross_order,pair1=FX3->Python; pair2=Python->FX3; pair3=FX3->Python
+isolation,each scratch directory contained only its task prompt before AI generation
+prior_results_provided,no
+source_changes,no language/check/fmt/lowerer changes
