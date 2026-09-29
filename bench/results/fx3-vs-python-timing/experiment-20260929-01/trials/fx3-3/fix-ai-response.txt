@@ -1,0 +1,1 @@
+Repaired [answer.fx3](/tmp/fx3-python-timing-fx3-3/answer.fx3) by adding the required function-body braces. The function name, signature, and logic are preserved.

@@ -1,0 +1,5 @@
+case,subtotal,shipping,expected
+below-free-shipping,4200,300,4500
+at-free-shipping,5000,300,5000
+above-free-shipping,9999,500,9999
+zero-order,0,0,0

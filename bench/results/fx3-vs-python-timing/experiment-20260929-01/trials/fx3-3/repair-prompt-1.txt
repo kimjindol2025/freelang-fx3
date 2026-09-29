@@ -1,0 +1,8 @@
+This is the repair phase of this trial. Inspect only the current directory.
+The first answer.fx3 did not lower. The evaluator reported:
+
+ERROR 기대 '{' 위치 24
+
+Repair answer.fx3 so it satisfies the original task in task.txt and supported
+FX3 Core syntax. Preserve the required function name and signature. Do not edit
+task.txt or create a test harness. Do not inspect outside this directory.

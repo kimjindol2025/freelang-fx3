@@ -1,0 +1,7 @@
+trial	language	first_pass	final_pass	outputs
+fx3-1	FX3	NO	YES	4500,5000,9999,0
+fx3-2	FX3	NO	YES	4500,5000,9999,0
+fx3-3	FX3	NO	YES	4500,5000,9999,0
+python-1	Python	YES	YES	4500,5000,9999,0
+python-2	Python	YES	YES	4500,5000,9999,0
+python-3	Python	YES	YES	4500,5000,9999,0

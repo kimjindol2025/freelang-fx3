@@ -1,0 +1,7 @@
+trial,language,first_pass,final_pass,corrections,ai_generation_ms,ai_repair_ms,lowering_ms,execution_ms,test_ms,active_total_ms,wall_window_ms
+fx3-1,FX3,NO,YES,2,27350,88553,183,451,36,116573,225364
+fx3-2,FX3,NO,YES,2,27710,101047,130,164,25,129076,217230
+fx3-3,FX3,NO,YES,2,24497,74405,146,172,38,99258,182915
+python-1,Python,YES,YES,0,15349,0,NA,130,27,15506,37702
+python-2,Python,YES,YES,0,25791,0,NA,104,26,25921,43942
+python-3,Python,YES,YES,0,14047,0,NA,128,31,14206,29480

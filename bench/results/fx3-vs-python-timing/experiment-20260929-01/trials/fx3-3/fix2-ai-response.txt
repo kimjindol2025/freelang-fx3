@@ -1,0 +1,1 @@
+Fixed [`answer.fx3`](/tmp/fx3-python-timing-fx3-3/answer.fx3) by adding explicit semicolons to both leading bindings. No other files were modified, and no test harness was created.

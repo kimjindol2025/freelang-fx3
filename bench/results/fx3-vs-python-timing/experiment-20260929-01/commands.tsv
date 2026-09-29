@@ -1,0 +1,18 @@
+trial,phase,command_or_source
+all,model,gpt-5.6-luna; reasoning=high; codex exec --sandbox danger-full-access --ephemeral --json
+all,prompt,requirements/fx3.txt or requirements/python.txt copied into clean scratch/task.txt
+fx3-1,first,codex exec -C /tmp/fx3-python-timing-fx3-1 < task.txt
+fx3-1,repair,codex exec -C /tmp/fx3-python-timing-fx3-1 < fix-task.txt; codex exec -C /tmp/fx3-python-timing-fx3-1 < fix-task-2.txt
+fx3-1,verify,python3 tools/lower.py final.fx3; /root/freelang-v11/bin/fl run final-run.fl; awk numeric-output comparator
+fx3-2,first,codex exec -C /tmp/fx3-python-timing-fx3-2 < task.txt
+fx3-2,repair,codex exec -C /tmp/fx3-python-timing-fx3-2 < fix-task.txt; codex exec -C /tmp/fx3-python-timing-fx3-2 < fix-task-2.txt
+fx3-2,verify,python3 tools/lower.py final.fx3; /root/freelang-v11/bin/fl run final-run.fl; awk numeric-output comparator
+fx3-3,first,codex exec -C /tmp/fx3-python-timing-fx3-3 < task.txt
+fx3-3,repair,codex exec -C /tmp/fx3-python-timing-fx3-3 < fix-task.txt; codex exec -C /tmp/fx3-python-timing-fx3-3 < fix-task-2.txt
+fx3-3,verify,python3 tools/lower.py final.fx3; /root/freelang-v11/bin/fl run final-run.fl; awk numeric-output comparator
+python-1,first,codex exec -C /tmp/fx3-python-timing-python-1 < task.txt
+python-1,verify,python3 importlib evaluator with four JSON inputs; awk numeric-output comparator
+python-2,first,codex exec -C /tmp/fx3-python-timing-python-2 < task.txt
+python-2,verify,python3 importlib evaluator with four JSON inputs; awk numeric-output comparator
+python-3,first,codex exec -C /tmp/fx3-python-timing-python-3 < task.txt
+python-3,verify,python3 importlib evaluator with four JSON inputs; awk numeric-output comparator

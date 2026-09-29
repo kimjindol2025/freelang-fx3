@@ -1,0 +1,9 @@
+Repair phase 2 of this trial. Inspect only the current directory.
+The current answer.fx3 still fails lowering with:
+
+ERROR 본문 식이 없음
+
+Fix answer.fx3 for the original task and supported FX3 Core syntax. Every
+leading binding expression must end with an explicit semicolon before the next
+expression. Keep the required function name and signature. Do not edit
+task.txt or create a test harness. Do not inspect outside this directory.
