@@ -1,0 +1,3 @@
+fn status_label(score: i64) -> &'static str {
+    if score >= 60 { "pass" } else { "retry" }
+}

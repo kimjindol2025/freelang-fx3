@@ -1,0 +1,3 @@
+fn side_product(data: &Sides) -> i64 {
+    data.left.value * data.right.value
+}

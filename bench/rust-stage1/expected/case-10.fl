@@ -1,0 +1,4 @@
+(defn side-product [$data]
+  (let [$left  (get (get $data "left") "value")
+        $right (get (get $data "right") "value")]
+    (* $left $right)))

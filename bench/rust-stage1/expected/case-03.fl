@@ -1,0 +1,4 @@
+(defn status-label [$score]
+  (if (>= $score 60)
+    "pass"
+    "retry"))

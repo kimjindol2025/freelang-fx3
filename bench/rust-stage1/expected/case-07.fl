@@ -1,0 +1,5 @@
+(defn fallback-email [$profile]
+  (let [$email (get $profile "email")]
+    (if (null? $email)
+      "none"
+      $email)))

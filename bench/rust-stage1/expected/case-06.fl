@@ -1,0 +1,4 @@
+(defn choose-code [$payload]
+  (if (>= (get $payload "ok") 1)
+    (get $payload "code")
+    "rejected"))

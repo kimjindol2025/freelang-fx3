@@ -1,0 +1,8 @@
+(defn score-band [$data]
+  (let [$a   (get $data "a")
+        $b   (get $data "b")
+        $c   (get $data "c")
+        $sum (+ (+ $a $b) $c)]
+    (if (>= $sum 100)
+      "high"
+      "low")))

@@ -1,0 +1,4 @@
+(defn order-total [$order]
+  (let [$subtotal (get $order "subtotal")
+        $tax      (get $order "tax")]
+    (+ $subtotal $tax)))

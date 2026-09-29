@@ -1,0 +1,2 @@
+(defn indexed-code [$rows]
+  (get (get $rows 1) "code"))

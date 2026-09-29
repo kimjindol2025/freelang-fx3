@@ -1,0 +1,3 @@
+fn order_total(order: &Order) -> i64 {
+    order.subtotal + order.tax
+}

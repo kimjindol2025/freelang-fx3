@@ -1,0 +1,3 @@
+fn choose_code(payload: &Payload) -> String {
+    if payload.ok >= 1 { payload.code.clone() } else { "rejected".to_string() }
+}

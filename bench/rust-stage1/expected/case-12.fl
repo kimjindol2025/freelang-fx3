@@ -1,0 +1,2 @@
+(defn matrix-cell [$matrix $i]
+  (get (get $matrix $i) 0))

@@ -1,0 +1,2 @@
+(defn upper-city [$city]
+  (str_upper $city))

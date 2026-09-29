@@ -1,0 +1,15 @@
+COMMAND:
+rustc bench/rust-stage1/validation/reference_harness.rs -o /tmp/fx3-rust-stage1-reference
+
+rustc 1.94.1 (e408947bf 2026-03-25) (built from a source tarball)
+host: aarch64-linux-android
+target-libdir: /data/data/com.termux/files/usr/lib/rustlib/aarch64-linux-android/lib
+
+ERROR:
+error: linking with `cc` failed: exit status: 1
+  = note: "cc" "/tmp/rustcgUgUzF/symbols.o" "<2 object files omitted>" "-Wl,--as-needed" "-Wl,-Bstatic" "<sysroot>/lib/rustlib/aarch64-linux-android/lib/{libstd-*,libpanic_unwind-*,libobject-*,libmemchr-*,libaddr2line-*,libgimli-*,libcfg_if-*,librustc_demangle-*,libstd_detect-*,libhashbrown-*,liballoc-*,libcore-*,libcompiler_builtins-*}.rlib" "-Wl,-Bdynamic" "-ldl" "-llog" "-lunwind" "-ldl" "-lm" "-lc" "-L" "/tmp/rustcgUgUzF/raw-dylibs" "-Wl,--eh-frame-hdr" "-Wl,-z,noexecstack" "-o" "/tmp/fx3-rust-stage1-reference" "-Wl,--gc-sections" "-pie" "-Wl,-z,relro,-z,now" "-nodefaultlibs"
+  = note: /usr/bin/ld: cannot find -llog: No such file or directory
+          /usr/bin/ld: cannot find -lunwind: No such file or directory
+          collect2: error: ld returned 1 exit status
+
+error: aborting due to 1 previous error

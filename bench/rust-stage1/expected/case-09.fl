@@ -1,0 +1,6 @@
+(defn profile-band [$profile]
+  (let [$name  (get $profile "name")
+        $score (get $profile "score")]
+    (if (>= $score 70)
+      $name
+      "unrated")))

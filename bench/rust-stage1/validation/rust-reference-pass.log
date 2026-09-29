@@ -1,0 +1,6 @@
+COMMAND:
+rustc -C linker=/data/data/com.termux/files/usr/bin/clang bench/rust-stage1/validation/reference_harness.rs -o /tmp/fx3-rust-stage1-reference
+/tmp/fx3-rust-stage1-reference
+
+OUTPUT:
+REFERENCE_RUST_PASS=12/12

@@ -1,0 +1,2 @@
+(defn pick-name [$profile]
+  (get $profile "name"))

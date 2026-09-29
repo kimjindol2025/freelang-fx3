@@ -1,0 +1,50 @@
+(defn pick-name [$profile]
+  (get $profile "name"))
+(defn add-points [$score $bonus]
+  (+ $score $bonus))
+(defn status-label [$score]
+  (if (>= $score 60) "pass" "retry"))
+(defn upper-city [$city]
+  (str_upper $city))
+(defn order-total [$order]
+  (let [$subtotal (get $order "subtotal")
+        $tax (get $order "tax")]
+    (+ $subtotal $tax)))
+(defn choose-code [$payload]
+  (if (>= (get $payload "ok") 1)
+    (get $payload "code")
+    "rejected"))
+(defn fallback-email [$profile]
+  (let [$email (get $profile "email")]
+    (if (null? $email) "none" $email)))
+(defn indexed-code [$rows]
+  (get (get $rows 1) "code"))
+(defn profile-band [$profile]
+  (let [$name (get $profile "name")
+        $score (get $profile "score")]
+    (if (>= $score 70) $name "unrated")))
+(defn side-product [$data]
+  (let [$left (get (get $data "left") "value")
+        $right (get (get $data "right") "value")]
+    (* $left $right)))
+(defn score-band [$data]
+  (let [$a (get $data "a")
+        $b (get $data "b")
+        $c (get $data "c")
+        $sum (+ (+ $a $b) $c)]
+    (if (>= $sum 100) "high" "low")))
+(defn matrix-cell [$matrix $i]
+  (get (get $matrix $i) 0))
+
+(println (pick-name {"name" "Ada"}))
+(println (add-points 7 5))
+(println (status-label 72))
+(println (upper-city "seoul"))
+(println (order-total {"subtotal" 100 "tax" 18}))
+(println (choose-code {"ok" 1 "code" "A7"}))
+(println (fallback-email {}))
+(println (indexed-code [{"code" "A1"} {"code" "B2"}]))
+(println (profile-band {"name" "Mina" "score" 81}))
+(println (side-product {"left" {"value" 6} "right" {"value" 7}}))
+(println (score-band {"a" 40 "b" 35 "c" 30}))
+(println (matrix-cell [[10 11] [20 21]] 1))
