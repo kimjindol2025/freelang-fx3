@@ -1,0 +1,6 @@
+(defn welcome-profile [$req]
+  (let [$body (load-profile $req)
+        $name (str_upper (get (get $body "user") "name"))]
+    (if (null? $name)
+      (missing-name)
+      (welcome $name))))

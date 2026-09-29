@@ -1,0 +1,1 @@
+F compare-total[$a,$b]{record-start();?$a+$b>100{record-high($a,$b)}{record-low($a,$b)};record-end()}

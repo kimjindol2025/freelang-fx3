@@ -1,0 +1,7 @@
+(defn compare-total [$a $b]
+  (do
+    (record-start)
+    (if (> (+ $a $b) 100)
+      (record-high $a $b)
+      (record-low $a $b))
+    (record-end)))

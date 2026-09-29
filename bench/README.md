@@ -73,6 +73,12 @@ Broken-first repair pack under [u2-smoke/](u2-smoke/) and
 [results/u2-smoke-20260929/](results/u2-smoke-20260929/). Measures **U2**
 final validity and `EDIT_LOCALITY` only.
 
+## U3 smoke
+
+Re-read / non-bloat pack under [u3-smoke/](u3-smoke/) and
+[results/u3-smoke-20260929/](results/u3-smoke-20260929/). Measures **U3**
+AI-ENTRY stability, no name abbreviation, and regen validity.
+
 ## AI metrics frame
 
 Wall-clock comparison with Python is a separate timing experiment. The metrics
