@@ -53,3 +53,17 @@ expected source are not shown.
 No result table is included until the 72 generations and both validation
 pipelines have actually run. A failed or unavailable validation is recorded as
 `FAIL` or `BLOCKED`, never as a fabricated pass.
+
+## Harness fixes (post run-20260929-02)
+
+`run-20260929-02` stays as historical evidence. These runner bugs contaminated
+that score and are fixed in `run_stage1_locked.sh` for the next measured run:
+
+1. Rust hidden sources used `$w.hidden.rs`, so `rustc` rejected crate names
+   containing `.` (example: `case_01_trial_1_initial.rs.hidden`). Hidden
+   sources now use `case-XX-trial-N-tag-hidden.rs`.
+2. Row `validation_ms` stayed `0` because the runner never copied
+   `VALIDATION_MS`. It now accumulates after each validate call.
+3. FX3 visible lowering failures skipped the hidden log, so
+   `row_complete` stayed `NO`. A `HIDDEN_SKIPPED` hidden log is always written.
+4. The row `printf` format had an extra `%s`; field count is now 25.

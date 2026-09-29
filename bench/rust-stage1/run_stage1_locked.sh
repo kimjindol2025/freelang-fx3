@@ -201,25 +201,42 @@ write_result() { printf 'VISIBLE_PASS=%s\nHIDDEN_PASS=%s\nVISIBLE_EXIT=%s\nHIDDE
 
 validate_rust() {
   local c=$1 source=$2 log=$3 hlog=$4 tag=$5 result=$6
-  local w="$RUN_ROOT/validation/rust/case-$c-trial-$TRIAL-$tag.rs" b="/tmp/fx3-rust-stage1-$c-$TRIAL-$tag" start end ce re hce hre
-  local p="$w.prefix" s="$w.suffix" hs="$w.hidden_suffix"
+  local w="$RUN_ROOT/validation/rust/case-$c-trial-$TRIAL-$tag.rs"
+  # Hidden source must not be "$w.hidden.rs": rustc crate names reject the extra '.' in "*.rs.hidden".
+  local hidden_src="$RUN_ROOT/validation/rust/case-$c-trial-$TRIAL-$tag-hidden.rs"
+  local b="/tmp/fx3-rust-stage1-$c-$TRIAL-$tag" bh="/tmp/fx3-rust-stage1-$c-$TRIAL-$tag-hidden" start end ce re hce hre
+  local p="$RUN_ROOT/validation/rust/case-$c-trial-$TRIAL-$tag.prefix" s="$RUN_ROOT/validation/rust/case-$c-trial-$TRIAL-$tag.suffix" hs="$RUN_ROOT/validation/rust/case-$c-trial-$TRIAL-$tag.hidden-suffix"
   mkdir -p "$(dirname "$w")"; rust_prefix "$c" "$p"; rust_suffix "$c" "$s"; rust_hidden_suffix "$c" "$hs"; cat "$p" "$source" "$s" > "$w"
   start=$(now_ms); rustc -C linker="$LINKER" "$w" -o "$b" > "$log" 2>&1; ce=$?
   if [ "$ce" -eq 0 ]; then timeout --foreground "${VALIDATION_LIMIT}s" "$b" >> "$log" 2>&1; re=$?; else re=$ce; fi
   if [ "$ce" -eq 0 ] && [ "$re" -eq 0 ] && grep -q BENCH_PASS "$log"; then VISIBLE_PASS=YES; else VISIBLE_PASS=NO; fi; VISIBLE_EXIT=$re
-  cat "$p" "$source" "$hs" > "$w.hidden.rs"; rustc -C linker="$LINKER" "$w.hidden.rs" -o "$b.hidden" > "$hlog" 2>&1; hce=$?
-  if [ "$hce" -eq 0 ]; then timeout --foreground "${VALIDATION_LIMIT}s" "$b.hidden" >> "$hlog" 2>&1; hre=$?; else hre=$hce; fi
+  cat "$p" "$source" "$hs" > "$hidden_src"; rustc -C linker="$LINKER" "$hidden_src" -o "$bh" > "$hlog" 2>&1; hce=$?
+  if [ "$hce" -eq 0 ]; then timeout --foreground "${VALIDATION_LIMIT}s" "$bh" >> "$hlog" 2>&1; hre=$?; else hre=$hce; fi
   if [ "$hce" -eq 0 ] && [ "$hre" -eq 0 ] && grep -q HIDDEN_PASS "$hlog"; then HIDDEN_PASS=YES; else HIDDEN_PASS=NO; fi; HIDDEN_EXIT=$hre
   end=$(now_ms); VALIDATION_MS=$((end-start)); [ "$ce" -eq 0 ] && PARSE_PASS=YES || PARSE_PASS=NO; [ "$VISIBLE_PASS" = YES ] && MATCH=YES || MATCH=NO; [ "$PARSE_PASS" = YES ] && [ "$VISIBLE_PASS" = YES ] && [ "$HIDDEN_PASS" = YES ] && OVERALL_PASS=YES || OVERALL_PASS=NO; write_result "$result"; VALIDATION_EXIT=$re
-  rm -f "$b" "$b.hidden" "$w" "$w.hidden.rs" "$p" "$s" "$hs"
+  rm -f "$b" "$bh" "$w" "$hidden_src" "$p" "$s" "$hs"
 }
 
 validate_fx3() {
   local c=$1 source=$2 log=$3 hlog=$4 tag=$5 result=$6
   local l="$RUN_ROOT/validation/fx3/case-$c-trial-$TRIAL-$tag.fl" w="$RUN_ROOT/validation/fx3/case-$c-trial-$TRIAL-$tag-run.fl" hl="$RUN_ROOT/validation/fx3/case-$c-trial-$TRIAL-$tag-hidden.fl" hw="$RUN_ROOT/validation/fx3/case-$c-trial-$TRIAL-$tag-hidden-run.fl" start end le re hre actual hactual
-  mkdir -p "$(dirname "$l")"; start=$(now_ms); python3 "$ROOT/tools/lower.py" "$source" > "$l" 2> "$log"; le=$?
+  mkdir -p "$(dirname "$l")"; : > "$hlog"; start=$(now_ms); python3 "$ROOT/tools/lower.py" "$source" > "$l" 2> "$log"; le=$?
   if [ "$le" -eq 0 ]; then cat "$l" > "$w"; fx3_call "$c" >> "$w"; timeout --foreground "${VALIDATION_LIMIT}s" /root/lang/freelang-v11/bin/fl run "$w" >> "$log" 2>&1; re=$?; actual=$(tail -1 "$log"); [ "$re" -eq 0 ] && [ "$actual" = "$(expected "$c")" ] && VISIBLE_PASS=YES || VISIBLE_PASS=NO; else re=$le; VISIBLE_PASS=NO; fi; VISIBLE_EXIT=$re
-  if [ "$le" -eq 0 ]; then python3 "$ROOT/tools/lower.py" "$source" > "$hl" 2> "$hlog"; local hle=$?; if [ "$hle" -eq 0 ]; then cat "$hl" > "$hw"; fx3_hidden_call "$c" >> "$hw"; timeout --foreground "${VALIDATION_LIMIT}s" /root/lang/freelang-v11/bin/fl run "$hw" >> "$hlog" 2>&1; hre=$?; hactual=$(tail -1 "$hlog"); [ "$hre" -eq 0 ] && [ "$hactual" = "$(hidden_expected "$c")" ] && HIDDEN_PASS=YES || HIDDEN_PASS=NO; else hre=$hle; HIDDEN_PASS=NO; fi; else hre=$le; HIDDEN_PASS=NO; fi; HIDDEN_EXIT=$hre
+  if [ "$le" -eq 0 ]; then
+    python3 "$ROOT/tools/lower.py" "$source" > "$hl" 2> "$hlog"; local hle=$?
+    if [ "$hle" -eq 0 ]; then
+      cat "$hl" > "$hw"; fx3_hidden_call "$c" >> "$hw"
+      timeout --foreground "${VALIDATION_LIMIT}s" /root/lang/freelang-v11/bin/fl run "$hw" >> "$hlog" 2>&1; hre=$?
+      hactual=$(tail -1 "$hlog"); [ "$hre" -eq 0 ] && [ "$hactual" = "$(hidden_expected "$c")" ] && HIDDEN_PASS=YES || HIDDEN_PASS=NO
+    else
+      hre=$hle; HIDDEN_PASS=NO
+    fi
+  else
+    # Always leave a hidden log so row_complete can see evidence when visible lowering fails.
+    printf 'HIDDEN_SKIPPED visible lowering failed with exit %s\n' "$le" > "$hlog"
+    hre=$le; HIDDEN_PASS=NO
+  fi
+  HIDDEN_EXIT=$hre
   end=$(now_ms); VALIDATION_MS=$((end-start)); [ "$le" -eq 0 ] && PARSE_PASS=YES || PARSE_PASS=NO; [ "$VISIBLE_PASS" = YES ] && MATCH=YES || MATCH=NO; [ "$PARSE_PASS" = YES ] && [ "$VISIBLE_PASS" = YES ] && [ "$HIDDEN_PASS" = YES ] && OVERALL_PASS=YES || OVERALL_PASS=NO; write_result "$result"; VALIDATION_EXIT=$re; rm -f "$l" "$w" "$hl" "$hw"
 }
 
@@ -240,18 +257,20 @@ run_one() {
   mkdir -p "$(dirname "$prompt")" "$(dirname "$raw")" "$(dirname "$events")" "$(dirname "$log")" "$snap"; make_prompt "$lang" "$c" "$prompt"; local start_utc=$(now_utc) work_ms=0 validation_ms=0 repairs=0 rolls=0 ry=0 iy=0 rec=0 recc=0 current_source="$raw" current_log="$log" current_hlog="$hlog" current_result="$snap/initial.result" final_source="$raw" error_type=NONE
   run_ai "$prompt" "$raw" "$events" "$workdir"; work_ms=$AI_MS; local ai_exit=$AI_EXIT
   if [ "$lang" = RUST ]; then validate_rust "$c" "$raw" "$log" "$hlog" initial "$current_result"; else validate_fx3 "$c" "$raw" "$log" "$hlog" initial "$current_result"; fi
+  validation_ms=$VALIDATION_MS
   local first_parse=$PARSE_PASS first_run=$VISIBLE_PASS first_match=$MATCH first_hidden=$HIDDEN_PASS final_match=$MATCH final_hidden=$HIDDEN_PASS final_exit=$VALIDATION_EXIT previous_error=NONE
   [ "$OVERALL_PASS" = YES ] || error_type=$(classify "$log"); previous_error=$error_type
   while [ "$OVERALL_PASS" != YES ] && [ "$repairs" -lt 2 ]; do
     local n=$((repairs+1))
     local before="$snap/repair-$n-before.out" before_result="$snap/repair-$n-before.result" rp="$snap/repair-$n.txt" ro="$snap/repair-$n.out" ev="$RUN_ROOT/events/${lang,,}/$base-repair-$n.jsonl" rl="$RUN_ROOT/validation/${lang,,}/$base-repair-$n.log" rh="$RUN_ROOT/validation/${lang,,}/$base-repair-$n-hidden.log" rr="$snap/repair-$n.result"
-    cp "$current_source" "$before"; cp "$current_result" "$before_result"; printf 'ROUND\tBEFORE_SOURCE_SHA256\tBEFORE_RESULT_SHA256\n' > "$snap/repair-$n-rollback.tsv"; local bs=$(sha256sum "$before" | awk '{print $1}') brs=$(sha256sum "$before_result" | awk '{print $1}'); printf '%s\t%s\t%s\n' "$n" "$bs" "$brs" >> "$snap/repair-$n-rollback.tsv"; repair_prompt "$prompt" "$current_source" "$current_log" "$current_hlog" "$rp"; run_ai "$rp" "$ro" "$ev" "$workdir-repair-$n"; work_ms=$((work_ms+AI_MS)); repairs=$n; if [ "$lang" = RUST ]; then validate_rust "$c" "$ro" "$rl" "$rh" "repair-$n" "$rr"; else validate_fx3 "$c" "$ro" "$rl" "$rh" "repair-$n" "$rr"; fi; final_match=$MATCH; final_hidden=$HIDDEN_PASS; final_exit=$VALIDATION_EXIT; local repair_error=NONE; [ "$OVERALL_PASS" = YES ] || repair_error=$(classify "$rl"); recc=$((recc+1)); [ "$repair_error" = "$previous_error" ] && [ "$repair_error" != NONE ] && rec=$((rec+1)); previous_error=$repair_error
+    cp "$current_source" "$before"; cp "$current_result" "$before_result"; printf 'ROUND\tBEFORE_SOURCE_SHA256\tBEFORE_RESULT_SHA256\n' > "$snap/repair-$n-rollback.tsv"; local bs=$(sha256sum "$before" | awk '{print $1}') brs=$(sha256sum "$before_result" | awk '{print $1}'); printf '%s\t%s\t%s\n' "$n" "$bs" "$brs" >> "$snap/repair-$n-rollback.tsv"; repair_prompt "$prompt" "$current_source" "$current_log" "$current_hlog" "$rp"; run_ai "$rp" "$ro" "$ev" "$workdir-repair-$n"; work_ms=$((work_ms+AI_MS)); repairs=$n; if [ "$lang" = RUST ]; then validate_rust "$c" "$ro" "$rl" "$rh" "repair-$n" "$rr"; else validate_fx3 "$c" "$ro" "$rl" "$rh" "repair-$n" "$rr"; fi; validation_ms=$((validation_ms+VALIDATION_MS)); final_match=$MATCH; final_hidden=$HIDDEN_PASS; final_exit=$VALIDATION_EXIT; local repair_error=NONE; [ "$OVERALL_PASS" = YES ] || repair_error=$(classify "$rl"); recc=$((recc+1)); [ "$repair_error" = "$previous_error" ] && [ "$repair_error" != NONE ] && rec=$((rec+1)); previous_error=$repair_error
     if [ "$OVERALL_PASS" = YES ]; then final_source="$ro"; current_source="$ro"; current_log="$rl"; current_hlog="$rh"; current_result="$rr"; error_type=NONE; break; fi
-    local restored="$snap/repair-$n-restored.out" restored_result="$snap/repair-$n-restored.result" rlog="$RUN_ROOT/validation/${lang,,}/$base-repair-$n-rollback.log" rhlog="$RUN_ROOT/validation/${lang,,}/$base-repair-$n-rollback-hidden.log"; cp "$before" "$restored"; cp "$before_result" "$restored_result"; if [ "$lang" = RUST ]; then validate_rust "$c" "$restored" "$rlog" "$rhlog" "repair-$n-rollback" "$restored_result"; else validate_fx3 "$c" "$restored" "$rlog" "$rhlog" "repair-$n-rollback" "$restored_result"; fi; local as=$(sha256sum "$restored" | awk '{print $1}') ars=$(sha256sum "$restored_result" | awk '{print $1}') bytes=NO result=NO; cmp -s "$before" "$restored" && bytes=YES; cmp -s "$before_result" "$restored_result" && result=YES; printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$n" "$bs" "$as" "$brs" "$ars" "$bytes" "$result" >> "$snap/repair-$n-rollback.tsv"; rolls=$n; [ "$bytes" = YES ] && [ "$result" = YES ] && [ "$OVERALL_PASS" = NO ] && ry=$((ry+1)) && iy=$((iy+1)); current_source="$before"; current_log="$log"; current_hlog="$hlog"; current_result="$before_result"; final_source="$before"; final_match=$(sed -n 's/^VISIBLE_PASS=//p' "$before_result"); final_hidden=$(sed -n 's/^HIDDEN_PASS=//p' "$before_result"); error_type=$previous_error
+    local restored="$snap/repair-$n-restored.out" restored_result="$snap/repair-$n-restored.result" rlog="$RUN_ROOT/validation/${lang,,}/$base-repair-$n-rollback.log" rhlog="$RUN_ROOT/validation/${lang,,}/$base-repair-$n-rollback-hidden.log"; cp "$before" "$restored"; cp "$before_result" "$restored_result"; if [ "$lang" = RUST ]; then validate_rust "$c" "$restored" "$rlog" "$rhlog" "repair-$n-rollback" "$restored_result"; else validate_fx3 "$c" "$restored" "$rlog" "$rhlog" "repair-$n-rollback" "$restored_result"; fi; validation_ms=$((validation_ms+VALIDATION_MS)); local as=$(sha256sum "$restored" | awk '{print $1}') ars=$(sha256sum "$restored_result" | awk '{print $1}') bytes=NO result=NO; cmp -s "$before" "$restored" && bytes=YES; cmp -s "$before_result" "$restored_result" && result=YES; printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$n" "$bs" "$as" "$brs" "$ars" "$bytes" "$result" >> "$snap/repair-$n-rollback.tsv"; rolls=$n; [ "$bytes" = YES ] && [ "$result" = YES ] && [ "$OVERALL_PASS" = NO ] && ry=$((ry+1)) && iy=$((iy+1)); current_source="$before"; current_log="$log"; current_hlog="$hlog"; current_result="$before_result"; final_source="$before"; final_match=$(sed -n 's/^VISIBLE_PASS=//p' "$before_result"); final_hidden=$(sed -n 's/^HIDDEN_PASS=//p' "$before_result"); error_type=$previous_error
   done
   local rollback_status=NA integrity_status=NA recurrence_status=NA; [ "$rolls" -gt 0 ] && rollback_status=NO && integrity_status=NO && [ "$ry" -eq "$rolls" ] && rollback_status=YES && [ "$iy" -eq "$rolls" ] && integrity_status=YES; [ "$repairs" -gt 0 ] && recurrence_status=NO && [ "$rec" -gt 0 ] && recurrence_status=YES
   local end_utc=$(now_utc) ph=$(sha256sum "$prompt" | awk '{print $1}') ch=$(sha256sum "$final_source" | awk '{print $1}') maintenance=$(awk -F '\t' -v l="$lang" '$1==l {print $2}' "$MAINTENANCE_LOG") complete=NO; row_complete "$lang" "$base" "$repairs" && complete=YES
-  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$lang" "$c" "$trial" "$MODEL" "$ph" "$start_utc" "$end_utc" "$work_ms" "$validation_ms" "$first_parse" "$first_run" "$first_match" "$final_match" "$first_hidden" "$final_hidden" "$repairs" "$rolls" "$rollback_status" "$integrity_status" "$recurrence_status" "$maintenance" "$error_type" "$ch" "$final_exit" "$complete" > "$RUN_ROOT/rows/${lang,,}-$base.tsv"
+  # 25 fields: keep format count aligned with args (complete is last).
+  printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' "$lang" "$c" "$trial" "$MODEL" "$ph" "$start_utc" "$end_utc" "$work_ms" "$validation_ms" "$first_parse" "$first_run" "$first_match" "$final_match" "$first_hidden" "$final_hidden" "$repairs" "$rolls" "$rollback_status" "$integrity_status" "$recurrence_status" "$maintenance" "$error_type" "$ch" "$final_exit" "$complete" > "$RUN_ROOT/rows/${lang,,}-$base.tsv"
   rm -rf "$workdir" "$workdir-repair-1" "$workdir-repair-2"
 }
 
