@@ -1,0 +1,308 @@
+OpenAI Codex v0.158.0
+--------
+workdir: /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-03
+model: gpt-5.6-luna
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: low
+reasoning summaries: none
+session id: 01a0ed9d-e87f-77a2-96af-4d9d79f0cb3b
+--------
+user
+Return only one FX3 Core source file. No markdown fences. No commentary.
+
+DIALECT: FX3 Core (.fx3). Meaning lowers to existing FX .fl. No new runtime.
+Rules:
+- Function form: F name[$params]{body}. Body braces are required.
+- Every leading binding `$name=expr` must end with `;`.
+- Bindings only at the start of a block. Names stay full (no one-letter opcodes).
+- Expression end is `;`. Newlines are not meaningful.
+Example:
+F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+
+# WEAK-03
+
+TASK_PROMPT: Write one FX3 Core function that takes one map with numeric fields "a" and "b". Return a + b.
+
+CONSTRAINTS: Use only FX3 Core from AI-ENTRY. Do not invent one-letter builtin aliases. You choose the function and parameter names.
+
+
+exec
+/bin/bash -lc "sed -n '1,240p' AI-ENTRY.md" in /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-03
+ exited 2 in 0ms:
+sed: can't read AI-ENTRY.md: No such file or directory
+
+exec
+/bin/bash -lc 'find .. -name AI-ENTRY.md -o -name MINIMUM_FROM_FX.md | head -20' in /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-03
+ succeeded in 0ms:
+exec
+/bin/bash -lc "rg --files -g '*.fx3' -g '*.fl' -g 'AI-ENTRY.md' /home/kim/kim/platform/freelang-fx3 2>/dev/null | head -80" in /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-03
+ succeeded in 0ms:
+/home/kim/kim/platform/freelang-fx3/examples/check-and-log.fx3
+/home/kim/kim/platform/freelang-fx3/examples/check-and-log.fl
+/home/kim/kim/platform/freelang-fx3/examples/make-result.fx3
+/home/kim/kim/platform/freelang-fx3/examples/first-id.fx3
+/home/kim/kim/platform/freelang-fx3/examples/handle-rate-single.fx3
+/home/kim/kim/platform/freelang-fx3/examples/first-id.fl
+/home/kim/kim/platform/freelang-fx3/examples/handle-rate-single.fl
+/home/kim/kim/platform/freelang-fx3/examples/make-result.fl
+/home/kim/kim/platform/freelang-fx3/AI-ENTRY.md
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-07.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-03.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-04.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-05.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-11.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-06.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-10.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-09.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-02.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-08.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-01.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-12.fl
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-03.fx3
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-09.fx3
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-02.fx3
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-05.fx3
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-01.fx3
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-08.fx3
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-10.fx3
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-11.fx3
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-12.fx3
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-06.fx3
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-07.fx3
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-04.fx3
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-03.fx3
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-07.fl
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-03.fl
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-09.fx3
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-04.fl
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-02.fx3
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-05.fx3
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-01.fx3
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-08.fx3
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-05.fl
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-11.fl
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-06.fl
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-10.fx3
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-11.fx3
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-12.fx3
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-10.fl
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-09.fl
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-02.fl
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-08.fl
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-01.fl
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-06.fx3
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-12.fl
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-07.fx3
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-04.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-03.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-02.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-05.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-01.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-06.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-04.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-03.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-04.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-05.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-06.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-02.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-01.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/first/case-03.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/first.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/excluded/fx3-p2-unmetered/answer.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/final.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/first-run.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/first.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/final.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/first.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/final.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/first-run.fl
+
+exec
+/bin/bash -lc "sed -n '1,220p' /home/kim/kim/platform/freelang-fx3/AI-ENTRY.md; echo '---'; cat /home/kim/kim/platform/freelang-fx3/bench/expected/case-03.fx3; echo '---'; cat /home/kim/kim/platform/freelang-fx3/bench/expected/case-03.fl" in /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-03
+ succeeded in 0ms:
+# FX3 AI 진입 계약
+
+기준일: 2026-09-29
+
+```text
+DIALECT=FX3_CORE
+SURFACE=.fx3
+MEANING=FX_.fl
+RUNTIME=EXISTING_FX_ONLY
+CORE=UNCHANGED
+PURPOSE=FIRST_PASS_CONTRACT
+SUCCESS_LOCK=AI-USE-SUCCESS.md
+```
+
+AI가 FX3를 쓰기 전에 이 파일만 앞에 둔다. Core 밀도를 바꾸지 않는다. 새 기호를 만들지 않는다. 이미 잠긴 규칙과 fixture 01을 한곳에 모은 것이다.
+
+실험 `bench/results/fx3-vs-python-timing/experiment-20260929-02`에서, 아래 두 규칙을 프롬프트에 넣자 첫 시도가 0/3에서 3/3이 됐다. 언어·lowerer는 바꾸지 않았다.
+
+## 방언
+
+지금 쓰는 언어는 **FX3 Core**다.
+
+- 파일 확장자: `.fx3`
+- 의미: 기존 FX `.fl`
+- 실행: 기존 FX만. FX3 전용 런타임 없음
+- AFJ kebab-case, FX underscore Lisp, FreeLangScript와 섞지 않는다
+
+## 필수 규칙
+
+1. 함수는 `F name[$a,$b]{본문}`이다. 본문은 반드시 `{` `}`로 감싼다.
+2. 블록 맨 앞의 `$이름=식`만 바인딩이다. 각 바인딩 식 끝에는 `;`가 필요하다.
+3. 일반식이 나온 뒤의 `$이름=식`은 오류다. 바인딩은 앞에만 둔다.
+4. 식의 끝은 `;`다. 줄바꿈은 의미를 바꾸지 않는다.
+5. 최상위 선언도 `;`로 끝낸다. `}F`처럼 바로 이어 쓰지 않는다. 파일 끝 마지막 항목만 `;` 생략 가능.
+6. 이름은 줄이지 않는다. `str_upper`를 `U`로 쓰지 않는다.
+7. 변수는 `$이름`이다. 맵·경로는 `@$x.a.b`다.
+8. 조건은 `?cond{yes}{no}`다. `null?`는 `~primary`다.
+9. 호출은 `foo(a,b)`다. 인자는 콤마다.
+
+자세한 내리기는 [LOWERING_CONTRACT.md](LOWERING_CONTRACT.md)다. 밀도 잠금은 [CORE.md](CORE.md)다. 방언 칸 전체는 [DIALECT-FX3-CORE.md](DIALECT-FX3-CORE.md)다.
+
+## 짧은 예제
+
+fixture 01. 이 한 줄이 Core 밀도다.
+
+```text
+F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+```
+
+읽는 표시만 `;`에서 나눈 모습:
+
+```text
+F handle-rate-single[$req]{
+$cur=str_upper(@$req.params.currency);
+$body=http-get-body(RATE_URL);
+?~$body{json-err("환율 API 오류")}{json-ok($body)}
+}
+```
+
+원본: [examples/handle-rate-single.fx3](examples/handle-rate-single.fx3)  
+기대 `.fl`: [examples/handle-rate-single.fl](examples/handle-rate-single.fl)
+
+## 프롬프트에 붙일 최소 조각
+
+작업 프롬프트 앞에 아래를 그대로 넣는다.
+
+```text
+DIALECT: FX3 Core (.fx3). Meaning lowers to existing FX .fl. No new runtime.
+Rules:
+- Function form: F name[$params]{body}. Body braces are required.
+- Every leading binding `$name=expr` must end with `;`.
+- Bindings only at the start of a block. Names stay full (no one-letter opcodes).
+- Expression end is `;`. Newlines are not meaningful.
+Example:
+F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+```
+
+## 쓰지 않는 것
+
+- AFJ / Front / FreeLangScript 문법
+- FX2 import
+- `U` `J` `L` `R` 등 Core 밖 한 글자 opcode를 필수로 쓰기
+- FX3 전용 런타임
+- 정답 예제를 작업마다 새로 창작하기. 위 fixture 01을 쓴다
+---
+F route-payload[$req]{$payload=read-payload($req);$kind=@$payload.meta.kind;?@$payload.ok{accept($kind)}{reject($kind)}}
+---
+(defn route-payload [$req]
+  (let [$payload (read-payload $req)
+        $kind    (get (get $payload "meta") "kind")]
+    (if (get $payload "ok")
+      (accept $kind)
+      (reject $kind))))
+
+exec
+/bin/bash -lc "rg -n 'numeric|a.*b|add|\\+' /home/kim/kim/platform/freelang-fx3/bench /home/kim/kim/platform/freelang-fx3/examples -g '*.fx3' -g '*.fl' | head -80" in /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-03
+ succeeded in 19ms:
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:3:(defn add-points [$score $bonus]
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:4:  (+ $score $bonus))
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:5:(defn status-label [$score]
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:10:  (let [$subtotal (get $order "subtotal")
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:12:    (+ $subtotal $tax)))
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:17:(defn fallback-email [$profile]
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:32:        $b (get $data "b")
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:34:        $sum (+ (+ $a $b) $c)]
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:40:(println (add-points 7 5))
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:41:(println (status-label 72))
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:43:(println (order-total {"subtotal" 100 "tax" 18}))
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:45:(println (fallback-email {}))
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/validation/fx3_reference_harness.fl:49:(println (score-band {"a" 40 "b" 35 "c" 30}))
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-07.fl:1:(defn fallback-email [$profile]
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-03.fl:1:(defn status-label [$score]
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-05.fl:2:  (let [$subtotal (get $order "subtotal")
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-05.fl:4:    (+ $subtotal $tax)))
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-11.fl:3:        $b   (get $data "b")
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-11.fl:5:        $sum (+ (+ $a $b) $c)]
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-02.fl:1:(defn add-points [$score $bonus]
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/expected/case-02.fl:2:  (+ $score $bonus))
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-03.fx3:1:F status-label[$score]{?$score>=60{"pass"}{"retry"}}
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-02.fx3:1:F add-points[$score,$bonus]{$score+$bonus}
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-05.fx3:1:F order-total[$order]{$subtotal=@$order.subtotal;$tax=@$order.tax;$subtotal+$tax}
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-11.fx3:1:F score-band[$data]{$a=@$data.a;$b=@$data.b;$c=@$data.c;$sum=$a+$b+$c;?$sum>=100{"high"}{"low"}}
+/home/kim/kim/platform/freelang-fx3/bench/rust-stage1/references/fx3/case-07.fx3:1:F fallback-email[$profile]{$email=@$profile.email;?~$email{"none"}{$email}}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-02.fx3:1:F welcome-profile[$req]{$body=load-profile($req);$name=str_upper(@$body.user.name);?~$name{missing-name()}{welcome($name)}}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-05.fx3:1:F compare-total[$a,$b]{record-start();?$a+$b>100{record-high($a,$b)}{record-low($a,$b)};record-end()}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-01.fx3:1:F fetch-rate[$req]{$currency=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("missing rate")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-08.fx3:1:F build-response[$rows]{result({status:"ok",items:$rows,total:count($rows)+1})}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-02.fl:3:        $name (str_upper (get (get $body "user") "name"))]
+/home/kim/kim/platform/freelang-fx3/examples/check-and-log.fx3:1:F check-and-log[$x]{log-start($x);?$x>10{log-big($x)}{log-small($x)};finish($x)}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-08.fl:4:           "total" (+ (count $rows) 1)}))
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-05.fl:1:(defn compare-total [$a $b]
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-05.fl:4:    (if (> (+ $a $b) 100)
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-05.fl:5:      (record-high $a $b)
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-05.fl:6:      (record-low $a $b))
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-03.fx3:1:F sum-ab[$row]{$x=@$row.a;$y=@$row.b;$x+$y}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-02.fx3:1:F switch-label[$flag]{?$flag=="yes"{"on"}{"off"}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-05.fx3:1:F scale-sum[$x,$y,$z]{($x+$y)*$z}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-04.fx3:1:F maybe-double[$n]{?$n>=10{$n*2}{$n}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/lowered/case-03.fl:1:(defn sum-ab [$row]
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/lowered/case-03.fl:4:    (+ $x $y)))
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/lowered/case-04.fl:1:(defn maybe-double [$n]
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/lowered/case-05.fl:2:  (* (+ $x $y) $z))
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/lowered/case-02.fl:1:(defn switch-label [$flag]
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/first/case-02.fx3:1:F welcome-profile[$req]{$body=load-profile($req);$name=str_upper(@$body.user.name);?~$name{missing-name()}{welcome($name)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/first/case-05.fx3:1:F compare-total[$a,$b]{record-start();?$a+$b>100{record-high($a,$b)}{record-low($a,$b)};record-end()}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/first/case-01.fx3:1:F fetch-rate[$req]{$currency=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("missing rate")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/lowered/case-05.fl:1:(defn compare-total [$a $b]
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/lowered/case-05.fl:4:    (if (> (+ $a $b) 100)
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/lowered/case-05.fl:5:      (record-high $a $b)
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/lowered/case-05.fl:6:      (record-low $a $b))
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/lowered/case-02.fl:3:        $name (str_upper (get (get $body "user") "name"))]
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/adapters/fx3-calls.fl:1:(println (order-total {"subtotal" 4200 "shipping" 300}))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/adapters/fx3-calls.fl:2:(println (order-total {"subtotal" 5000 "shipping" 300}))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/adapters/fx3-calls.fl:3:(println (order-total {"subtotal" 9999 "shipping" 500}))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/adapters/fx3-calls.fl:4:(println (order-total {"subtotal" 0 "shipping" 0}))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/adapters/fx3-run.fl:2:  (let [$subtotal (get $order "subtotal")
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/adapters/fx3-run.fl:6:      (+ $subtotal $shipping))))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/adapters/fx3-run.fl:7:(println (order-total {"subtotal" 4200 "shipping" 300}))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/adapters/fx3-run.fl:8:(println (order-total {"subtotal" 5000 "shipping" 300}))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/adapters/fx3-run.fl:9:(println (order-total {"subtotal" 9999 "shipping" 500}))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/adapters/fx3-run.fl:10:(println (order-total {"subtotal" 0 "shipping" 0}))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/final/fx3.fl:2:  (let [$subtotal (get $order "subtotal")
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/final/fx3.fl:6:      (+ $subtotal $shipping))))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/final/fx3.fx3:1:F order-total[$order]{$subtotal=@$order.subtotal;$shipping=@$order.shipping;?$subtotal>=5000{$subtotal}{$subtotal+$shipping}}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/first/fx3.fx3:1:F order-total[$order]{$subtotal=@$order.subtotal;$shipping=@$order.shipping;?$subtotal>=5000{$subtotal}{$subtotal+$shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/excluded/fx3-p2-unmetered/answer.fx3:2:$subtotal=@$order.subtotal;
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/excluded/fx3-p2-unmetered/answer.fx3:3:?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/first.fx3:1:F order-total[$order]{$subtotal=@$order.subtotal;$shipping=@$order.shipping;?$subtotal>=5000{$subtotal}{$subtotal+$shipping}}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/final.fl:2:  (let [$subtotal (get $order "subtotal")
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/final.fl:6:      (+ $subtotal $shipping))))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/run.fl:2:  (let [$subtotal (get $order "subtotal")
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/run.fl:6:      (+ $subtotal $shipping))))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/run.fl:7:(println (order-total {"subtotal" 4200 "shipping" 300}))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/run.fl:8:(println (order-total {"subtotal" 5000 "shipping" 300}))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/run.fl:9:(println (order-total {"subtotal" 9999 "shipping" 500}))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/run.fl:10:(println (order-total {"subtotal" 0 "shipping" 0}))
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/first.fl:2:  (let [$subtotal (get $order "subtotal")
+
+codex
+F sum-numeric-fields[$values]{$value-a=@$values.a;$value-b=@$values.b;$value-a+$value-b}
+tokens used
+20,046
+F sum-numeric-fields[$values]{$value-a=@$values.a;$value-b=@$values.b;$value-a+$value-b}

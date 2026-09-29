@@ -1,0 +1,1 @@
+F add-three[$x,$y,$z]{$sum=$x+$y;$sum*$z;}

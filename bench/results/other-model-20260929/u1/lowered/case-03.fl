@@ -1,0 +1,4 @@
+(defn sum-numeric-fields [$values]
+  (let [$value-a (get $values "a")
+        $value-b (get $values "b")]
+    (+ $value-a $value-b)))

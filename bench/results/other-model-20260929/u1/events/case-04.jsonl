@@ -1,0 +1,227 @@
+OpenAI Codex v0.158.0
+--------
+workdir: /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-04
+model: gpt-5.6-luna
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: low
+reasoning summaries: none
+session id: 01a0ed9e-565e-7a93-8ed2-f501e941bb31
+--------
+user
+Return only one FX3 Core source file. No markdown fences. No commentary.
+
+DIALECT: FX3 Core (.fx3). Meaning lowers to existing FX .fl. No new runtime.
+Rules:
+- Function form: F name[$params]{body}. Body braces are required.
+- Every leading binding `$name=expr` must end with `;`.
+- Bindings only at the start of a block. Names stay full (no one-letter opcodes).
+- Expression end is `;`. Newlines are not meaningful.
+Example:
+F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+
+# WEAK-04
+
+TASK_PROMPT: Write one FX3 Core function that takes one number. If it is at least 10, return twice that number. Otherwise return the number unchanged.
+
+CONSTRAINTS: Use only FX3 Core from AI-ENTRY. Do not invent one-letter builtin aliases. You choose the function and parameter names.
+
+
+exec
+/bin/bash -lc "sed -n '1,240p' AI-ENTRY.md && printf '\\n---FILES---\\n' && rg --files -g 'AI-ENTRY.md' -g '*.fx3' -g '*.fl'" in /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-04
+ exited 2 in 0ms:
+sed: can't read AI-ENTRY.md: No such file or directory
+
+exec
+/bin/bash -lc 'pwd; find .. -name AI-ENTRY.md -o -name MINIMUM_FROM_FX.md -o -name LOWERING_CONTRACT.md | head -20; rg --files .. | head -50' in /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-04
+ succeeded in 0ms:
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-04
+../case-01/prompt.txt
+../case-02/prompt.txt
+../case-04/prompt.txt
+../case-03/prompt.txt
+
+exec
+/bin/bash -lc "find /home/kim/kim/platform/freelang-fx3 -name AI-ENTRY.md -o -name '*.fx3' -o -name '*.fl' | head -80" in /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-04
+ succeeded in 0ms:
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-01.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-02.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-06.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-05.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-04.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-03.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-04.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-06.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-01.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-05.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-02.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-03.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/lowered/case-01.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/lowered/case-02.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/lowered/case-03.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/broken/case-01.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/broken/case-02.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/broken/case-03.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/repaired/case-01.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/repaired/case-02.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/repaired/case-03.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/lowered/case-01.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/lowered/case-02.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/lowered/case-03.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-01.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-02.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-03.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-3/final.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-3/first.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-3/second.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-3/second.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-3/final-run.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-3/final.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-3/first.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-2/final.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-2/first.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-2/second.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-2/second.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-2/final-run.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-2/final.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-2/first.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/final.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/first.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/second.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/second.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/final-run.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/final-input.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/final.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/first.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-3/final.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-3/first.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-3/first-run.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-3/final.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-3/first.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/final.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/first.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/first-run.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/final.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/first.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/final.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/first.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/first-run.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/final.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/first.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p3/final.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p3/first.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p3/run.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p3/final.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p3/first.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p2/final.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p2/first.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p2/run.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p2/final.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p2/first.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/final.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/first.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/run.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/final.fl
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/first.fx3
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/excluded/fx3-p2-unmetered/answer.fx3
+find: ‘standard output’: Broken pipe
+find: write error
+
+exec
+/bin/bash -lc 'for f in /home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-04.fx3 /home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-04.fl /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-03.fx3 /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-02.fx3; do echo ---$f; sed -n '"'1,80p' \""'$f"; done' in /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-04
+ succeeded in 36ms:
+---/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-04.fx3
+F audit-score[$x]{start-audit($x);?$x>=80{mark-pass($x)}{mark-review($x)};finish-audit($x)}
+---/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-04.fl
+(defn audit-score [$x]
+  (do
+    (start-audit $x)
+    (if (>= $x 80)
+      (mark-pass $x)
+      (mark-review $x))
+    (finish-audit $x)))
+---/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-03.fx3
+F sum-numeric-fields[$values]{$value-a=@$values.a;$value-b=@$values.b;$value-a+$value-b}
+---/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-02.fx3
+F switch-label[$flag]{?$flag=="yes"{"on"}{"off"}}
+
+exec
+/bin/bash -lc "rg -n '\\*|multiply|times|>=|<=|\\"'$[A-Za-z0-9_-]+'"\\+' /home/kim/kim/platform/freelang-fx3/bench/results --glob '*.fx3' --glob '*.fl' | head -80" in /home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/work/case-04
+ succeeded in 0ms:
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-03.fx3:1:F sum-ab[$row]{$x=@$row.a;$y=@$row.b;$x+$y}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-05.fx3:1:F scale-sum[$x,$y,$z]{($x+$y)*$z}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-01.fx3:1:F product-if-positive[$left,$right]{?$left>0{?$right>0{$left*$right}{0}}{0}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-06.fx3:1:F square-or-zero[$value]{?~$value{0}{$value*$value}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-04.fx3:1:F maybe-double[$n]{?$n>=10{$n*2}{$n}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/lowered/case-04.fl:2:  (if (>= $n 10)
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/lowered/case-04.fl:3:    (* $n 2)
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/lowered/case-05.fl:2:  (* (+ $x $y) $z))
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/lowered/case-06.fl:4:    (* $value $value)))
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/lowered/case-01.fl:4:      (* $left $right)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/adapters/fx3-run.fl:4:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/final/fx3.fl:4:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/final/fx3.fx3:1:F order-total[$order]{$subtotal=@$order.subtotal;$shipping=@$order.shipping;?$subtotal>=5000{$subtotal}{$subtotal+$shipping}}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/first/fx3.fx3:1:F order-total[$order]{$subtotal=@$order.subtotal;$shipping=@$order.shipping;?$subtotal>=5000{$subtotal}{$subtotal+$shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/first/case-04.fx3:1:F audit-score[$x]{start-audit($x);?$x>=80{mark-pass($x)}{mark-review($x)};finish-audit($x)}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/lowered/case-04.fl:4:    (if (>= $x 80)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/first.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/final.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/final-input.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/final-run.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/second.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-1/final.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-2/first.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-2/final.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-2/final-run.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-2/second.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-2/final.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-3/first.fx3:4:  ?$subtotal>=5000{$subtotal}{$subtotal+$shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-3/final.fl:4:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/excluded/fx3-p2-unmetered/answer.fx3:3:?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/first.fx3:1:F order-total[$order]{$subtotal=@$order.subtotal;$shipping=@$order.shipping;?$subtotal>=5000{$subtotal}{$subtotal+$shipping}}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/final.fl:4:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/run.fl:4:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/first.fl:4:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p1/final.fx3:1:F order-total[$order]{$subtotal=@$order.subtotal;$shipping=@$order.shipping;?$subtotal>=5000{$subtotal}{$subtotal+$shipping}}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p2/first.fx3:3:?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p2/final.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p2/run.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p2/first.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p2/final.fx3:3:?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p3/first.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p3/final.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p3/run.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p3/first.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-03/trials/fx3-p3/final.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/first.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/final.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/first-run.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/first.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-1/final.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/first.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/final.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/first-run.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/first.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-2/final.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-3/first.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-3/final.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-3/first-run.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-3/first.fl:3:    (if (>= $subtotal 5000)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-02/trials/fx3-3/final.fx3:3:  ?$subtotal>=5000{$subtotal}{$subtotal+@$order.shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-03.fx3:1:F sum-numeric-fields[$values]{$value-a=@$values.a;$value-b=@$values.b;$value-a+$value-b}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-01.fx3:1:F product_if_positive[$first,$second]{?$first>0{?$second>0{$first*$second}{0}}{0}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/lowered/case-01.fl:4:      (* $first $second)
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-05.fx3:1:F compare-total[$a,$b]{record-start();?$a+$b>100{record-high($a,$b)}{record-low($a,$b)};record-end()}
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-04.fx3:1:F audit-score[$x]{start-audit($x);?$x>=80{mark-pass($x)}{mark-review($x)};finish-audit($x)}
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/lowered/case-04.fl:4:    (if (>= $x 80)
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-3/final.fx3:4:  ?$subtotal>=5000{$subtotal}{$subtotal+$shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/first/case-05.fx3:1:F compare-total[$a,$b]{record-start();?$a+$b>100{record-high($a,$b)}{record-low($a,$b)};record-end()}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-3/second.fx3:4:  ?$subtotal>=5000{$subtotal}{$subtotal+$shipping}
+/home/kim/kim/platform/freelang-fx3/bench/results/fx3-vs-python-timing/experiment-20260929-01/trials/fx3-3/final-run.fl:4:    (if (>= $subtotal 5000)
+
+codex
+F maybe-double[$number]{?$number>=10{$number*2}{$number}}
+tokens used
+20,904
+F maybe-double[$number]{?$number>=10{$number*2}{$number}}

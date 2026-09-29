@@ -1,0 +1,1 @@
+F maybe-double[$number]{?$number>=10{$number*2}{$number}}

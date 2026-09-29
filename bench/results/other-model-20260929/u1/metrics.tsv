@@ -1,0 +1,9 @@
+CASE	AI_EXIT	AI_MS	LOWER	SEMANTIC	FIRST_VALID	ABBREV	OUTPUT_TOKENS	SHAPE	NOTE
+case-01	0	29478	PASS	PASS	PASS	0	NOT_MEASURED	II[$I,$I]{?$I>0{?$I>0{$I*$I}{0}}{0}}	
+case-02	0	19540	PASS	PASS	PASS	0	NOT_MEASURED	"II[$I]{?$I==""I""{""I""}{""I""}}"	
+case-03	0	27725	PASS	PASS	PASS	0	NOT_MEASURED	II[$I]{$I=@$I.I;$I=@$I.I;$I+$I}	
+case-04	0	33747	PASS	PASS	PASS	0	NOT_MEASURED	II[$I]{?$I>=10{$I*2}{$I}}	
+case-05	0	21477	PASS	PASS	PASS	0	NOT_MEASURED	II[$I,$I,$I]{($I+$I)*$I}	
+case-06	0	23549	PASS	FAIL	FAIL	0	NOT_MEASURED	II[$I]{?~$I{0}{I($I,$I)}}	"Traceback (most recent call last):
+  File ""/home/kim/kim/platform/freelang-fx3/tools/eval_fl_min.py"", line 230, in <module>
+    raise SystemExit(main(sys.argv[1"

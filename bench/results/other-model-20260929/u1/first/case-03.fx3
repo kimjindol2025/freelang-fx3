@@ -1,0 +1,1 @@
+F sum-numeric-fields[$values]{$value-a=@$values.a;$value-b=@$values.b;$value-a+$value-b}

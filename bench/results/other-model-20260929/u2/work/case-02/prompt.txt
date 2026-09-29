@@ -1,0 +1,18 @@
+Repair this FX3 Core source. Return only the fixed FX3 source. No markdown fences. No commentary.
+
+DIALECT: FX3 Core (.fx3). Meaning lowers to existing FX .fl. No new runtime.
+Rules:
+- Function form: F name[$params]{body}. Body braces are required.
+- Every leading binding `$name=expr` must end with `;`.
+- Bindings only at the start of a block. Names stay full (no one-letter opcodes).
+- Expression end is `;`. Newlines are not meaningful.
+Example:
+F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+
+BROKEN:
+F welcome-profile[$req]{$body=load-profile($req)$name=str_upper(@$body.user.name)?~$name{missing-name()}{welcome($name)}}
+
+
+LOWER_ERROR:
+ERROR 본문 식이 없음
+

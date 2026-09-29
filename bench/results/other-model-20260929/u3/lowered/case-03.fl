@@ -1,0 +1,2 @@
+(defn add-fields [$values]
+  (+ (get $values "a") (get $values "b")))

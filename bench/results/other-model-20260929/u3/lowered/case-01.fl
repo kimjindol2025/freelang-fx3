@@ -1,0 +1,6 @@
+(defn product_if_positive [$first $second]
+  (if (> $first 0)
+    (if (> $second 0)
+      (* $first $second)
+      0)
+    0))

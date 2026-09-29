@@ -1,0 +1,4 @@
+(defn square-or-zero [$value]
+  (if (null? $value)
+    0
+    (* $value $value)))

@@ -1,0 +1,4 @@
+(defn maybe-double [$number]
+  (if (>= $number 10)
+    (* $number 2)
+    $number))

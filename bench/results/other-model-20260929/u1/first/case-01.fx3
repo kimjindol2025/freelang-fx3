@@ -1,0 +1,1 @@
+F product_if_positive[$first,$second]{?$first>0{?$second>0{$first*$second}{0}}{0}}

@@ -73,6 +73,12 @@ Broken-first repair pack under [u2-smoke/](u2-smoke/) and
 [results/u2-smoke-20260929/](results/u2-smoke-20260929/). Measures **U2**
 final validity and `EDIT_LOCALITY` only.
 
+## Other-model replay
+
+Codex `gpt-5.6-luna` replay of U1 weak → U2 → U3 under
+[other-model-replay/](other-model-replay/) and
+[results/other-model-20260929/](results/other-model-20260929/).
+
 ## U1 weak signature
 
 Meaning-fixed, shape-open pack under [u1-weak-signature/](u1-weak-signature/)

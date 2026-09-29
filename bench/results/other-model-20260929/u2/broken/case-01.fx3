@@ -1,0 +1,1 @@
+F fetch-rate[$req]$currency=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("missing rate")}{json-ok($body)}
