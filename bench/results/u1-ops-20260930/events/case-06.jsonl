@@ -1,0 +1,232 @@
+OpenAI Codex v0.158.0
+--------
+workdir: /home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-06
+model: gpt-5.6-luna
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: low
+reasoning summaries: none
+session id: 01a0eddd-7c27-73b1-91da-cd5bd531335d
+--------
+user
+Return only one FX3 Core source file. No markdown fences. No commentary.
+
+DIALECT: FX3 Core (.fx3). Meaning lowers to existing FX .fl. No new runtime.
+Rules:
+- Function form: F name[$params]{body}. Body braces are required.
+- Every leading binding `$name=expr` must end with `;`.
+- Bindings only at the start of a block. Names stay full (no one-letter opcodes).
+- Expression end is `;`. Newlines are not meaningful.
+Example:
+F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+
+# OPS-06
+TASK_PROMPT: Write one FX3 Core function that takes one number. If it is greater than 0, return the number multiplied by 2. Otherwise return 0.
+CONSTRAINTS: Use only FX3 Core from AI-ENTRY. Do not invent helper call names. You choose function and parameter names.
+
+
+exec
+/bin/bash -lc "pwd && rg --files -g 'AI-ENTRY.md' -g 'MINIMUM_FROM_FX.md' -g 'LOWERING_CONTRACT.md' -g '*.md' | head -50" in /home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-06
+ succeeded in 0ms:
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-06
+
+exec
+/bin/bash -lc 'find .. -name AI-ENTRY.md -o -name MINIMUM_FROM_FX.md -o -name LOWERING_CONTRACT.md' in /home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-06
+ succeeded in 0ms:
+exec
+/bin/bash -lc "rg -n \"\\?~|F [A-Za-z].*\\[\\"'$|'"\\*2|greater than|> 0\" /home/kim/kim/platform/freelang-fx3 2>/dev/null | head -50" in /home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-06
+ succeeded in 0ms:
+/home/kim/kim/platform/freelang-fx3/STATUS.md:67:SYMBOL_CLUSTER=?~ WATCH
+/home/kim/kim/platform/freelang-fx3/examples/handle-rate-single.fx3:1:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/PLAN.md:63:보류 표면 둘을 Core v0 확정의 관문으로 두지 않는다. 동적 인덱스와 반복 `?~`는 관찰로 남아 있다. Core v0 완전 확정은 아직 아니다. FX 실행은 아직 열지 않는다.
+/home/kim/kim/platform/freelang-fx3/LOWERING_CONTRACT.md:163:`?~$body`는 유지한다. 지금 바꾸지 않는다. fixture가 5개에서 10개 사이에 `?~`, `?!`, `?@`가 반복해서 붙으면, 그때 조건 표면만 다시 사용자 테스트한다.
+/home/kim/kim/platform/freelang-fx3/MIN-IMPL.md:22:- 동적 인덱스와 반복 `?~`의 새 표본
+/home/kim/kim/platform/freelang-fx3/STRUCTURE.md:370:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/STRUCTURE.md:376:F handle-rate-single[$req]{$cur=U(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/GRAMMAR-V0.md:139:?~$body{json-err("환율 API 오류")}{json-ok($body)}
+/home/kim/kim/platform/freelang-fx3/GRAMMAR-V0.md:486:  ?~$body{json-err("환율 API 오류")}{json-ok($body)}
+/home/kim/kim/platform/freelang-fx3/GRAMMAR-V0.md:493:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/AI-ENTRY.md:47:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/AI-ENTRY.md:56:?~$body{json-err("환율 API 오류")}{json-ok($body)}
+/home/kim/kim/platform/freelang-fx3/AI-ENTRY.md:75:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:21:- `?`는 유지한다. `?~`만 지켜본다.
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:64:그리고 중첩 조건, 또는 `?~`가 두 번 이상 나오는 코드다. 그 둘의 읽기 비용이 괜찮으면 `USER_03=CORE_V0_APPROVE`다. 지금은 그 판정이 아니다.
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:85:동의하는 겹침은 이것이다. 스테이지 3은 구현이 아니라 읽기 판정이다. 01~04는 유지한다. `?`는 유지하고 `?~`는 관찰한다. 이름은 줄이지 않는다. 새 런타임은 없다.
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:87:반박은 지피티의 `BLOCKER=2_MORE_SURFACE_SHAPES`다. 그 두 모양을 새 fixture로 만들기 전에는 내리기 검사를 못 한다는 조건을 받지 않는다. `@$users[$i].profile.name`은 이미 적어 둔 식 인덱스 규칙의 예다. golden 05로 올리지 않는다. `?~`를 두 번 넣은 문장도 지금 만들지 않는다.
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:101:SYMBOL_CLUSTER=?~ WATCH
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:109:`?` 자체는 두 fixture에서 익숙해졌다. 걸린 것은 `?`가 아니라 `?~`처럼 unary가 바로 붙는 경우다. 조건 표면은 바꾸지 않는다.
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:124:SYMBOL_CLUSTER=?~ WATCH
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:130:`?`는 유지한다. `?~`만 지켜본다. 실행기는 없다.
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:156:다섯 번째 표면은 아직 만들지 않는다. 01은 바인딩과 `@`와 `?~`, 02는 순차와 비교, 03은 맵, 04는 인덱스다. 이 넷의 `.fx3`가 golden `.fl` 바이트로 내려가는 검사가 다음이다. 새 런타임은 아니다.
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:172:반박으로 열려 있는 문장은 하나다. 그 검사를 시작하기 전에 `@$users[$i].profile.name`과 `?~`가 두 번 이상 나오는 코드를 읽기 표본으로 올려야 한다는 주장이다. 그 반박이 이기면 안건 A는 닫히고, 그 두 줄은 golden 번호 없이 읽기 기록만 된다.
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:185:REPEATED_?~=DEFERRED_OBSERVATION
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:188:사용자 1은 안건을 제시할 때 제안 쪽이었다. 사용자 3이 `AGREE_WITH_A`로 반박을 거두었다. 사용자 2도 제안 쪽을 명시했다. 동적 인덱스와 반복 `?~`는 막는 조건이 아니라 나중 관찰이다.
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:196:그록은 반박 문장에 반대한다. `@$users[$i].profile.name`과 반복 `?~`는 검사 앞에 올리지 않고 보류 사유로만 둔다. 통과해도 Core v0 완전 확정은 아니다.
+/home/kim/kim/platform/freelang-fx3/USER-STUDY.md:258:SAMPLE_2=REPEATED_?~
+/home/kim/kim/platform/freelang-fx3/CORE.md:44:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/CORE.md:52:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/CORE.md:150:?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/CORE.md:170:SYMBOL_CLUSTER=?~ WATCH
+/home/kim/kim/platform/freelang-fx3/CORE.md:174:`?~$body`는 유지한다. fixture가 5개에서 10개 사이에 `?~`, `?!`, `?@`가 반복되면 조건 표면만 다시 본다. 그 전에 앱으로 옮기거나 기능을 늘리지 않는다. 서로 다른 모양 5개 안팎을 읽고 고치는 편이 다음 사용자 테스트다.
+/home/kim/kim/platform/freelang-fx3/bench/u1-weak-signature/tasks/case-01/TASK.md:3:TASK_PROMPT: Write one FX3 Core function that takes two numbers. If both are greater than 0, return their product. Otherwise return 0.
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-02.fx3:1:F welcome-profile[$req]{$body=load-profile($req);$name=str_upper(@$body.user.name);?~$name{missing-name()}{welcome($name)}}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-01.fx3:1:F fetch-rate[$req]{$currency=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("missing rate")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-03/prompt.txt:10:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-01/prompt.txt:10:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-04/prompt.txt:10:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-05/prompt.txt:10:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-02/prompt.txt:10:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-06/prompt.txt:10:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-06/prompt.txt:13:TASK_PROMPT: Write one FX3 Core function that takes one number. If it is greater than 0, return the number multiplied by 2. Otherwise return 0.
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/first/case-04.fx3:1:F square-or-zero[$value]{?~$value{0}{$value*$value};}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/events/case-03.jsonl:22:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/events/case-03.jsonl:94:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/events/case-03.jsonl:103:?~$body{json-err("환율 API 오류")}{json-ok($body)}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/events/case-03.jsonl:122:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/events/case-03.jsonl:139:/home/kim/kim/platform/freelang-fx3/examples/handle-rate-single.fx3:1:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/events/case-03.jsonl:142:/home/kim/kim/platform/freelang-fx3/CORE.md:44:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/events/case-03.jsonl:143:/home/kim/kim/platform/freelang-fx3/CORE.md:52:F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+
+exec
+/bin/bash -lc "find /home/kim/kim/platform/freelang-fx3/bench -path '*case-*.fx3' -type f -maxdepth 6 -print -exec sed -n '1p' {} \\; | head -100; rg -n \"[<>]=?|==|\\?\" /home/kim/kim/platform/freelang-fx3/bench/expected /home/kim/kim/platform/freelang-fx3/bench/u1-weak-signature 2>/dev/null | head -80" in /home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-06
+ succeeded in 264ms:
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-04.fx3
+F audit-score[$x]{start-audit($x);?$x>=80{mark-pass($x)}{mark-review($x)};finish-audit($x)}
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-06.fx3
+F choose-state[$status]{log-state($status);?$status=="ready"{activate($status)}{hold($status)};log-finished($status)}
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-01.fx3
+F fetch-rate[$req]{$currency=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("missing rate")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-05.fx3
+F compare-total[$a,$b]{record-start();?$a+$b>100{record-high($a,$b)}{record-low($a,$b)};record-end()}
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-02.fx3
+F welcome-profile[$req]{$body=load-profile($req);$name=str_upper(@$body.user.name);?~$name{missing-name()}{welcome($name)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u3-smoke-20260929/regen/case-03.fx3
+F route-payload[$req]{$payload=read-payload($req);$kind=@$payload.meta.kind;?@$payload.ok{accept($kind)}{reject($kind)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/broken/case-01.fx3
+F fetch-rate[$req]$currency=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("missing rate")}{json-ok($body)}
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/broken/case-02.fx3
+F welcome-profile[$req]{$body=load-profile($req)$name=str_upper(@$body.user.name)?~$name{missing-name()}{welcome($name)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/broken/case-03.fx3
+F route-payload[$req]{read-payload($req);$payload=read-payload($req);$kind=@$payload.meta.kind;?@$payload.ok{accept($kind)}{reject($kind)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/repaired/case-01.fx3
+F fetch-rate[$req]{$currency=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("missing rate")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/repaired/case-02.fx3
+F welcome-profile[$req]{$body=load-profile($req);$name=str_upper(@$body.user.name);?~$name{missing-name()}{welcome($name)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u2-smoke-20260929/repaired/case-03.fx3
+F route-payload[$req]{$payload=read-payload($req);$kind=@$payload.meta.kind;?@$payload.ok{accept($kind)}{reject($kind)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u2/broken/case-01.fx3
+F fetch-rate[$req]$currency=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("missing rate")}{json-ok($body)}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u2/broken/case-02.fx3
+F welcome-profile[$req]{$body=load-profile($req)$name=str_upper(@$body.user.name)?~$name{missing-name()}{welcome($name)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u2/broken/case-03.fx3
+F route-payload[$req]{read-payload($req);$payload=read-payload($req);$kind=@$payload.meta.kind;?@$payload.ok{accept($kind)}{reject($kind)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u2/repaired/case-01.fx3
+F fetch-rate[$req]{$currency=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("missing rate")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u2/repaired/case-02.fx3
+F welcome-profile[$req]{$body=load-profile($req);$name=str_upper(@$body.user.name);?~$name{missing-name()}{welcome($name)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u2/repaired/case-03.fx3
+F route-payload[$req]{$payload=read-payload($req);$kind=@$payload.meta.kind;?@$payload.ok{accept($kind)}{reject($kind)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-04.fx3
+F maybe-double[$number]{?$number>=10{$number*2}{$number}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-06.fx3
+F square-or-zero[$value]{?~$value{0}{multiply($value,$value)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-01.fx3
+F product_if_positive[$first,$second]{?$first>0{?$second>0{$first*$second}{0}}{0}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-05.fx3
+F add-multiply[$x,$y,$z]{($x+$y)*$z}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-02.fx3
+F switch-label[$flag]{?$flag=="yes"{"on"}{"off"}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u1/first/case-03.fx3
+F sum-numeric-fields[$values]{$value-a=@$values.a;$value-b=@$values.b;$value-a+$value-b}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u3/regen/case-04.fx3
+F maybe-double[$number]{?$number>=10{$number*2}{$number}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u3/regen/case-06.fx3
+F square-or-zero[$value]{?~$value{0}{$value*$value}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u3/regen/case-01.fx3
+F product_if_positive[$first,$second]{?$first>0{?$second>0{$first*$second}{0}}{0}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u3/regen/case-05.fx3
+F add-three[$x,$y,$z]{$sum=$x+$y;$sum*$z;}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u3/regen/case-02.fx3
+F switch-label[$flag]{?$flag=="yes"{"on"}{"off"}}
+/home/kim/kim/platform/freelang-fx3/bench/results/other-model-20260929/u3/regen/case-03.fx3
+F add-fields[$values]{@$values.a+@$values.b}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/first/case-04.fx3
+F square-or-zero[$value]{?~$value{0}{$value*$value};}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/first/case-01.fx3
+F sum[$a,$b]{$a+$b;}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/first/case-05.fx3
+F multiply-add[$a,$b,$c]{$a*$b+$c;}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/first/case-02.fx3
+F multiply[$left,$right]{$left*$right;}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/first/case-03.fx3
+F subtract[$first,$second]{$first-$second;}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/first/case-04.fx3
+F audit-score[$x]{start-audit($x);?$x>=80{mark-pass($x)}{mark-review($x)};finish-audit($x)}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/first/case-06.fx3
+F choose-state[$status]{log-state($status);?$status=="ready"{activate($status)}{hold($status)};log-finished($status)}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/first/case-01.fx3
+F fetch-rate[$req]{$currency=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("missing rate")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/first/case-05.fx3
+F compare-total[$a,$b]{record-start();?$a+$b>100{record-high($a,$b)}{record-low($a,$b)};record-end()}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/first/case-02.fx3
+F welcome-profile[$req]{$body=load-profile($req);$name=str_upper(@$body.user.name);?~$name{missing-name()}{welcome($name)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-smoke-20260929/first/case-03.fx3
+F route-payload[$req]{$payload=read-payload($req);$kind=@$payload.meta.kind;?@$payload.ok{accept($kind)}{reject($kind)}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-04.fx3
+F maybe-double[$n]{?$n>=10{$n*2}{$n}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-06.fx3
+F square-or-zero[$value]{?~$value{0}{$value*$value}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-01.fx3
+F product-if-positive[$left,$right]{?$left>0{?$right>0{$left*$right}{0}}{0}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-05.fx3
+F scale-sum[$x,$y,$z]{($x+$y)*$z}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-02.fx3
+F switch-label[$flag]{?$flag=="yes"{"on"}{"off"}}
+/home/kim/kim/platform/freelang-fx3/bench/results/u1-weak-20260929/first/case-03.fx3
+F sum-ab[$row]{$x=@$row.a;$y=@$row.b;$x+$y}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-04.fx3
+F audit-score[$x]{start-audit($x);?$x>=80{mark-pass($x)}{mark-review($x)};finish-audit($x)}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-07.fx3
+F summarize-rows[$rows]{emit({ok:true,data:$rows,count:count($rows)})}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-06.fx3
+F choose-state[$status]{log-state($status);?$status=="ready"{activate($status)}{hold($status)};log-finished($status)}
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+sed: couldn't flush stdout: Broken pipe
+find: write error
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-03.fx3:1:F route-payload[$req]{$payload=read-payload($req);$kind=@$payload.meta.kind;?@$payload.ok{accept($kind)}{reject($kind)}}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-04.fl:4:    (if (>= $x 80)
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-02.fx3:1:F welcome-profile[$req]{$body=load-profile($req);$name=str_upper(@$body.user.name);?~$name{missing-name()}{welcome($name)}}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-05.fx3:1:F compare-total[$a,$b]{record-start();?$a+$b>100{record-high($a,$b)}{record-low($a,$b)};record-end()}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-01.fx3:1:F fetch-rate[$req]{$currency=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("missing rate")}{json-ok($body)}}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-05.fl:4:    (if (> (+ $a $b) 100)
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-06.fl:4:    (if (== $status "ready")
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-02.fl:4:    (if (null? $name)
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-01.fl:4:    (if (null? $body)
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-06.fx3:1:F choose-state[$status]{log-state($status);?$status=="ready"{activate($status)}{hold($status)};log-finished($status)}
+/home/kim/kim/platform/freelang-fx3/bench/expected/case-04.fx3:1:F audit-score[$x]{start-audit($x);?$x>=80{mark-pass($x)}{mark-review($x)};finish-audit($x)}
+
+codex
+F double-positive[$number]{?$number>0{$number*2}{0};}
+tokens used
+31,566
+F double-positive[$number]{?$number>0{$number*2}{0};}

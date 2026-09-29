@@ -1,0 +1,1 @@
+F multiply[$left,$right]{$left*$right;}

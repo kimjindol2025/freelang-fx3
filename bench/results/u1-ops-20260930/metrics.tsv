@@ -1,0 +1,8 @@
+CASE	LOWER	SEMANTIC	INVENTED_ARITH_CALL	ABBREV	FIRST_VALID	NOTE	SOURCE
+case-01	PASS	PASS	0	0	PASS		F sum[$a,$b]{$a+$b;}
+case-02	PASS	PASS	0	0	PASS		F multiply[$left,$right]{$left*$right;}
+case-03	FAIL	FAIL	0	0	FAIL	"ERROR 기대 '}' 위치 34
+"	F subtract[$first,$second]{$first-$second;}
+case-04	PASS	PASS	0	0	PASS		F square-or-zero[$value]{?~$value{0}{$value*$value};}
+case-05	PASS	PASS	0	0	PASS		F multiply-add[$a,$b,$c]{$a*$b+$c;}
+case-06	PASS	PASS	0	0	PASS		F double-positive[$number]{?$number>0{$number*2}{0};}

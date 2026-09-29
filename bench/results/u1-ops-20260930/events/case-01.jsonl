@@ -1,0 +1,44 @@
+OpenAI Codex v0.158.0
+--------
+workdir: /home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-01
+model: gpt-5.6-luna
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: low
+reasoning summaries: none
+session id: 01a0eddb-46dd-7f31-9d1d-f72fba4a99c4
+--------
+user
+Return only one FX3 Core source file. No markdown fences. No commentary.
+
+DIALECT: FX3 Core (.fx3). Meaning lowers to existing FX .fl. No new runtime.
+Rules:
+- Function form: F name[$params]{body}. Body braces are required.
+- Every leading binding `$name=expr` must end with `;`.
+- Bindings only at the start of a block. Names stay full (no one-letter opcodes).
+- Expression end is `;`. Newlines are not meaningful.
+Example:
+F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+
+# OPS-01
+TASK_PROMPT: Write one FX3 Core function that takes two numbers and returns their sum.
+CONSTRAINTS: Use only FX3 Core from AI-ENTRY. Do not invent helper call names. You choose function and parameter names.
+
+
+exec
+/bin/bash -lc "sed -n '1,240p' AI-ENTRY.md" in /home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-01
+ exited 2 in 0ms:
+sed: can't read AI-ENTRY.md: No such file or directory
+
+exec
+/bin/bash -lc 'find .. -name AI-ENTRY.md -o -name AGENTS.md' in /home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-01
+ succeeded in 0ms:
+exec
+/bin/bash -lc "rg -n --glob '*.fx3' 'F |\\"'$[A-Za-z_]+='"' .. | head -80" in /home/kim/kim/platform/freelang-fx3/bench/results/u1-ops-20260930/work/case-01
+ succeeded in 0ms:
+codex
+F sum[$a,$b]{$a+$b;}
+tokens used
+11,012
+F sum[$a,$b]{$a+$b;}

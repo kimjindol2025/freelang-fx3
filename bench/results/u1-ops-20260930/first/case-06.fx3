@@ -1,0 +1,1 @@
+F double-positive[$number]{?$number>0{$number*2}{0};}

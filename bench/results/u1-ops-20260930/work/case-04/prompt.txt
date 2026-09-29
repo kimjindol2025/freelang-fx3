@@ -1,0 +1,15 @@
+Return only one FX3 Core source file. No markdown fences. No commentary.
+
+DIALECT: FX3 Core (.fx3). Meaning lowers to existing FX .fl. No new runtime.
+Rules:
+- Function form: F name[$params]{body}. Body braces are required.
+- Every leading binding `$name=expr` must end with `;`.
+- Bindings only at the start of a block. Names stay full (no one-letter opcodes).
+- Expression end is `;`. Newlines are not meaningful.
+Example:
+F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
+
+# OPS-04
+TASK_PROMPT: Write one FX3 Core function that takes one value. If it is null, return 0. Otherwise return the value multiplied by itself.
+CONSTRAINTS: Use only FX3 Core from AI-ENTRY. Do not invent helper call names. You choose function and parameter names.
+

@@ -1,0 +1,1 @@
+F subtract[$first,$second]{$first-$second;}

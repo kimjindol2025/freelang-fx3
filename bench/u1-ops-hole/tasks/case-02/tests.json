@@ -1,0 +1,1 @@
+{"tests":[{"args":[3,4],"expect":12},{"args":[-2,5],"expect":-10},{"args":[0,9],"expect":0}]}

@@ -1,0 +1,2 @@
+(defn multiply [$left $right]
+  (* $left $right))

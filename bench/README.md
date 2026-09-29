@@ -73,6 +73,11 @@ Broken-first repair pack under [u2-smoke/](u2-smoke/) and
 [results/u2-smoke-20260929/](results/u2-smoke-20260929/). Measures **U2**
 final validity and `EDIT_LOCALITY` only.
 
+## U1 ops-hole
+
+Arithmetic/null focus pack under [u1-ops-hole/](u1-ops-hole/) and
+[results/u1-ops-20260930/](results/u1-ops-20260930/). AI-ENTRY unchanged.
+
 ## Other-model replay
 
 Codex `gpt-5.6-luna` replay of U1 weak → U2 → U3 under
