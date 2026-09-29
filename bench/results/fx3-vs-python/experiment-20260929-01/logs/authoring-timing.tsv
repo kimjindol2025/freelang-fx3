@@ -1,0 +1,6 @@
+artifact	mtime_ms	measurement
+fx3.fx3	1790669496000	file-save-time-only
+python.py	1790669496000	file-save-time-only
+fx3.fx3	1790669577000	file-save-time-only
+python.py	1790669577000	file-save-time-only
+model_generation_latency	NOT_MEASURED	serving latency is not exposed to this session

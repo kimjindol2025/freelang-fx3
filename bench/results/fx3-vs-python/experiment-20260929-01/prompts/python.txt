@@ -1,0 +1,10 @@
+MODEL_CONTEXT: same Codex/GPT-5 session as prompts/fx3.txt
+SURFACE: Python 3
+
+Write one Python function with signature
+`def order_total(order: dict[str, int]) -> int`.
+The input is an order mapping with integer keys `subtotal` and `shipping`.
+Return `subtotal` when `subtotal` is at least 5000; otherwise return
+`subtotal + shipping`. Keep the function self-contained and use only the
+standard language features. Do not use an existing example or reference
+implementation. Do not include a test harness.

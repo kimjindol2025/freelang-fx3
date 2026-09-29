@@ -1,0 +1,17 @@
+--- /root/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/first/python.py	2026-09-29 08:11:36.315997503 +0000
++++ /root/freelang-fx3/bench/results/fx3-vs-python/experiment-20260929-01/final/python.py	2026-09-29 08:12:57.339997472 +0000
+@@ -1,12 +1,6 @@
+-import json
+-import sys
+-
+-
+ def order_total(order: dict[str, int]) -> int:
+     subtotal = order["subtotal"]
+     shipping = order["shipping"]
++    if subtotal >= 5000:
++        return subtotal
+     return subtotal + shipping
+-
+-
+-if __name__ == "__main__":
+-    print(order_total(json.loads(sys.stdin.read())))

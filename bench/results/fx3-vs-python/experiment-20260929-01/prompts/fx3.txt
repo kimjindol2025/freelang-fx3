@@ -1,0 +1,9 @@
+MODEL_CONTEXT: same Codex/GPT-5 session as prompts/python.txt
+SURFACE: FreeLang FX3 Core locked surface only
+
+Write one FX3 function named `order-total` with signature `F order-total[$order]`.
+The input is an order map with integer keys `subtotal` and `shipping`.
+Return `subtotal` when `subtotal` is at least 5000; otherwise return
+`subtotal + shipping`. Keep the function self-contained and use only the
+currently supported FX3 Core surface. Do not use an existing example or
+golden file. Do not include a test harness.

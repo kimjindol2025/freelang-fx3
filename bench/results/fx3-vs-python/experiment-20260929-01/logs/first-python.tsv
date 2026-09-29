@@ -1,0 +1,5 @@
+case	start_ms	end_ms	elapsed_ms	actual	expected	result
+below-free-shipping	1790669563925	1790669564011	86	4500	4500	PASS
+at-free-shipping	1790669564025	1790669564124	99	5300	5000	FAIL
+above-free-shipping	1790669564136	1790669564222	86	10499	9999	FAIL
+zero-order	1790669564242	1790669564368	126	0	0	PASS
