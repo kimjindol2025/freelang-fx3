@@ -1,0 +1,1 @@
+F scale-sum[$x,$y,$z]{($x+$y)*$z}

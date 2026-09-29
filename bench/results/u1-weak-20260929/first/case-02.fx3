@@ -1,0 +1,1 @@
+F switch-label[$flag]{?$flag=="yes"{"on"}{"off"}}

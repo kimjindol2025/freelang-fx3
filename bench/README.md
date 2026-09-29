@@ -73,6 +73,12 @@ Broken-first repair pack under [u2-smoke/](u2-smoke/) and
 [results/u2-smoke-20260929/](results/u2-smoke-20260929/). Measures **U2**
 final validity and `EDIT_LOCALITY` only.
 
+## U1 weak signature
+
+Meaning-fixed, shape-open pack under [u1-weak-signature/](u1-weak-signature/)
+and [results/u1-weak-20260929/](results/u1-weak-20260929/). Scores semantic I/O
+via `tools/eval_fl_min.py` after lowering.
+
 ## U3 smoke
 
 Re-read / non-bloat pack under [u3-smoke/](u3-smoke/) and

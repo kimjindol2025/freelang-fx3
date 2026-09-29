@@ -171,3 +171,4 @@ FX3는 FX 계보 설명으로 정당화하지 않는다. 실행 다리는 필요
 | u1-smoke-20260929 | U1, case 01–06 | PASS 6/6 | [bench/results/u1-smoke-20260929/REPORT.md](bench/results/u1-smoke-20260929/REPORT.md) |
 | u2-smoke-20260929 | U2, case 01–03 repair | PASS 3/3, locality median 0.016 | [bench/results/u2-smoke-20260929/REPORT.md](bench/results/u2-smoke-20260929/REPORT.md) |
 | u3-smoke-20260929 | U3, regen 01–06 | PASS 6/6, ENTRY same 3204B | [bench/results/u3-smoke-20260929/REPORT.md](bench/results/u3-smoke-20260929/REPORT.md) |
+| u1-weak-20260929 | U1 weak signature 01–06 | PASS 6/6, shapes 6 | [bench/results/u1-weak-20260929/REPORT.md](bench/results/u1-weak-20260929/REPORT.md) |

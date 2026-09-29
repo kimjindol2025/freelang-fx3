@@ -1,0 +1,1 @@
+{"arity":1,"tests":[{"args":[10],"expect":20},{"args":[11],"expect":22},{"args":[9],"expect":9},{"args":[0],"expect":0}]}

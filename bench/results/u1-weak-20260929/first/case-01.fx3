@@ -1,0 +1,1 @@
+F product-if-positive[$left,$right]{?$left>0{?$right>0{$left*$right}{0}}{0}}

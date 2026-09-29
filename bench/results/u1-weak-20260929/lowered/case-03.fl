@@ -1,0 +1,4 @@
+(defn sum-ab [$row]
+  (let [$x (get $row "a")
+        $y (get $row "b")]
+    (+ $x $y)))

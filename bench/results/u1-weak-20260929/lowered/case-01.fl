@@ -1,0 +1,6 @@
+(defn product-if-positive [$left $right]
+  (if (> $left 0)
+    (if (> $right 0)
+      (* $left $right)
+      0)
+    0))

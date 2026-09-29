@@ -83,6 +83,9 @@ U2_SMOKE=bench/results/u2-smoke-20260929
 U2_SMOKE_VERDICT=PASS_3_OF_3
 U3_SMOKE=bench/results/u3-smoke-20260929
 U3_SMOKE_VERDICT=PASS_6_OF_6_ENTRY_SAME
+U1_WEAK=bench/results/u1-weak-20260929
+U1_WEAK_VERDICT=PASS_6_OF_6
+OTHER_MODEL_REPLAY=NOT_OPENED
 ```
 
 사용자는 셋이다. 사용자 1은 그록빌더, 2는 그록, 3은 지피티다. 중계자는 사용자가 아니다. 최소 구현 단계는 닫혔다. 전체 플랜은 [PLAN.md](PLAN.md) 제안이다. 그록과 그록빌더는 큰 줄과 수정 세 가지에 동의한다. 지피티는 그 수정을 아직 표결하지 않아 채택이 아니다. 단계 3의 FX 실행은 열지 않는다. Core v0는 8번 전에 닫지 않는다.

@@ -1,0 +1,4 @@
+(defn switch-label [$flag]
+  (if (== $flag "yes")
+    "on"
+    "off"))
