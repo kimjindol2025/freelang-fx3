@@ -61,6 +61,12 @@ GENERATION_ERROR_TYPE
 
 `AI_TRIALS=NOT_RUN` for this stage.
 
+## U1 smoke
+
+First-pass-only pack under [u1-smoke/](u1-smoke/) and
+[results/u1-smoke-20260929/](results/u1-smoke-20260929/). Measures
+[AI-USE-SUCCESS](../AI-USE-SUCCESS.md) **U1** only.
+
 ## AI metrics frame
 
 Wall-clock comparison with Python is a separate timing experiment. The metrics
