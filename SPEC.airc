@@ -1,0 +1,96 @@
+{
+  "brief": [
+    "핫은 (task-fx3-delimiter-trailing-semi) 내용 (trailing semicolon / delimiter U1만. FX 실행은 그다음) 다.",
+    "lock·graveyard에 있는 방향은 다시 꺼내지 않는다."
+  ],
+  "$": "airc-spec",
+  "version": "1.0.0",
+  "project": "freelang-fx3",
+  "date": "2026-09-30",
+  "cmd": "python3 ~/.grok/skills/checkpoint/scripts/print-hot.py SPEC.airc",
+  "identity": {
+    "what": "FreeLang FX3 — AI-primary Compact FX surface lowering to FX .fl",
+    "why": "AI가 쓰고 고치고 오래 다시 쓸 수 있는 표면. 사람 가독성 목표가 아님.",
+    "for": "Grok/Codex 등 AI 작성·수정 루프와 FX3 Core 계약",
+    "not": "파이썬 대체 자랑·FX 계보 설명·표면 전용 런타임·delimiter 전에 FX 실행 열기"
+  },
+  "hot": "task-fx3-delimiter-trailing-semi",
+  "constitution": {
+    "1": "AI 전용. 인간 가독성을 위한 구조 타협 금지",
+    "2": "identity는 잠긴다. 변경은 사용자 협의 필수. Claude 단독 변경 금지",
+    "3": "hot이 가리키는 task가 지금 당장 해야 할 일이다",
+    "4": "오류·실수도 nodes에 기록한다. 성공만 기록하지 않는다",
+    "5": "노드는 삭제하지 않는다. void 처리만 허용",
+    "6": "why 없는 lock·decision 등록 불가"
+  },
+  "types": {
+    "task": "t + v + entry + check + verified + next",
+    "decision": "t + v + why + lock",
+    "error": "t + v + cause + fix + repeat_risk"
+  },
+  "nodes": {
+    "task-001": {
+      "t": "task",
+      "v": "{{첫 번째로 할 일}}",
+      "entry": [
+        "{{파일 또는 명령}}"
+      ],
+      "check": [
+        "{{검증 명령}}"
+      ],
+      "verified": false,
+      "next": []
+    },
+    "task-fx3-ai-use-floor-pass": {
+      "t": "task",
+      "v": "FX3 AI사용 바닥 PASS (U1/U2/U3·weak·other-model·ops-hole)",
+      "entry": [
+        "AI-USE-SUCCESS.md + bench/results u1/u2/u3/weak/other-model/ops-hole"
+      ],
+      "check": [
+        "STATUS.md HANDOFF=바닥 PASS, 남은 구멍 delimiter → FX 실행"
+      ],
+      "verified": true,
+      "next": [
+        "task-fx3-delimiter-trailing-semi"
+      ]
+    },
+    "task-fx3-delimiter-trailing-semi": {
+      "t": "task",
+      "v": "trailing semicolon / delimiter U1만. FX 실행은 그다음",
+      "entry": [],
+      "check": [],
+      "verified": false,
+      "next": []
+    }
+  },
+  "lock": [
+    {
+      "rule": "{{금지 사항}}",
+      "why": "{{이유}}"
+    },
+    {
+      "id": "lock-fx-exec-after-delimiter",
+      "why": "지금 실행을 열면 ;/{}와 런타임이 한 측정에 섞인다. delimiter 안건 다음이다.",
+      "text": "FX 실행은 delimiter(trailing semicolon/구분자) 안건 이후에만 연다."
+    }
+  ],
+  "graveyard": [
+    {
+      "idea": "{{버린 아이디어}}",
+      "why": "{{버린 이유}}",
+      "final": true
+    }
+  ],
+  "handoff": {
+    "step1": "print-hot만 실행한다. SPEC.airc 본문(10줄 이후)은 읽지 않는다.",
+    "step2": "brief 2줄의 hot id만 실행한다. lock·graveyard 방향은 재도입 금지.",
+    "step3": "hot=task-fx3-delimiter-trailing-semi 실행. 완료 표식=FX3 AI사용 바닥 PASS (U1/U2/U3·weak·other-model·ops-hole)",
+    "step4": "너는 'FX3 AI사용 바닥 PASS'까지 끝난 상태다. 바닥 PASS, 남은 구멍 delimiter → FX 실행. 지금은 trailing semicolon / delimiter U1만 한다. FX 실행은 그다음이다.",
+    "step5": "identity 변경 필요 시 사용자에게 먼저 물어라",
+    "done": "FX3 AI사용 바닥 PASS (U1/U2/U3·weak·other-model·ops-hole)",
+    "next": "trailing semicolon / delimiter U1만. FX 실행은 그다음",
+    "checkpoint_at": "2026-09-30T01:41:04.031605+09:00",
+    "line": "바닥 PASS, 남은 구멍 delimiter → FX 실행"
+  }
+}

@@ -43,6 +43,7 @@ LOWERING_CONTRACT=LOCKED
 ## 문서
 
 - [AI-USE-SUCCESS.md](AI-USE-SUCCESS.md) — AI 사용 성공 정의 고정 (써도 됨 / 고칠 수 있음 / 질리지 않음)
+- [SPEC.airc](SPEC.airc) — AI 인수인계 (hot/next/handoff). 사람용 설명 아님
 - [AI-ENTRY.md](AI-ENTRY.md) — AI가 FX3를 쓰기 전 방언·필수 규칙·짧은 예제
 - [DIALECT-FX3-CORE.md](DIALECT-FX3-CORE.md) — FX3 Core 방언·표면·통과 이름 목록 (다른 방언 제외)
 - [LANGUAGE_IDENTITY.md](LANGUAGE_IDENTITY.md) — 이름과 정체성
