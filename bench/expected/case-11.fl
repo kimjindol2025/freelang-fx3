@@ -1,0 +1,2 @@
+(defn user-name [$users $i]
+  (show-name (get (get (get $users $i) "profile") "name")))

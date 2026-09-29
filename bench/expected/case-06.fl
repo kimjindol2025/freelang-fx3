@@ -1,0 +1,7 @@
+(defn choose-state [$status]
+  (do
+    (log-state $status)
+    (if (== $status "ready")
+      (activate $status)
+      (hold $status))
+    (log-finished $status)))

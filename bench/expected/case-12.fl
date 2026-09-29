@@ -1,0 +1,2 @@
+(defn first-value [$matrix $i]
+  (read-value (get (get $matrix $i) 0)))

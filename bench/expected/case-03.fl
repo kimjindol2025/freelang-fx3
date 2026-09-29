@@ -1,0 +1,6 @@
+(defn route-payload [$req]
+  (let [$payload (read-payload $req)
+        $kind    (get (get $payload "meta") "kind")]
+    (if (get $payload "ok")
+      (accept $kind)
+      (reject $kind))))

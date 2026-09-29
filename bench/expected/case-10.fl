@@ -1,0 +1,2 @@
+(defn second-code [$rows]
+  (log-code (get (get $rows 1) "code")))

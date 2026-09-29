@@ -1,0 +1,4 @@
+(defn summarize-rows [$rows]
+  (emit {"ok" true
+         "data" $rows
+         "count" (count $rows)}))

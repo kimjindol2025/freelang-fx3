@@ -1,0 +1,24 @@
+{
+  "schema_version": "stage1",
+  "ai_trials": "NOT_RUN",
+  "trial_record": {
+    "case_id": "string",
+    "surface": "FX_FL_DIRECT | FX3_FX3_TO_FL",
+    "session_id": "string",
+    "model": "string",
+    "first_pass_valid": "boolean | NOT_MEASURED",
+    "lowering_pass": "boolean | NOT_APPLICABLE | NOT_MEASURED",
+    "target_match": "boolean | NOT_MEASURED",
+    "correction_count": "integer | NOT_MEASURED",
+    "edit_span": "integer | NOT_MEASURED",
+    "output_bytes": "integer | NOT_MEASURED",
+    "output_tokens": "integer | NOT_MEASURED",
+    "generation_error_type": "delimiter | binding-order | access-path | condition | call | map/block | unknown | NONE | NOT_MEASURED"
+  },
+  "definitions": {
+    "first_pass_valid": "The first output satisfies the syntax of its assigned surface.",
+    "target_match": "The final canonical .fl is byte-identical to EXPECTED_FL.",
+    "correction_count": "Number of edits needed from the first output to the target.",
+    "edit_span": "Characters or syntax range changed while correcting the output."
+  }
+}

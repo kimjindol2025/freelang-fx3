@@ -1,0 +1,1 @@
+F first-value[$matrix,$i]{read-value(@$matrix[$i][0])}

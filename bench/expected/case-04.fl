@@ -1,0 +1,7 @@
+(defn audit-score [$x]
+  (do
+    (start-audit $x)
+    (if (>= $x 80)
+      (mark-pass $x)
+      (mark-review $x))
+    (finish-audit $x)))
