@@ -60,3 +60,16 @@ GENERATION_ERROR_TYPE
 ```
 
 `AI_TRIALS=NOT_RUN` for this stage.
+
+## AI metrics frame
+
+Wall-clock comparison with Python is a separate timing experiment. The metrics
+that match the language design live under [metrics/](metrics/):
+
+```bash
+python3 bench/metrics/score_metrics.py baseline
+python3 bench/metrics/score_metrics.py experiment bench/results/fx3-vs-python-timing/experiment-20260929-03
+```
+
+`OUTPUT_TOKENS` comes only from recorded AI `usage` fields. No tokenizer
+package is installed. Sample scored tables are in `bench/metrics/samples/`.
