@@ -9,6 +9,7 @@ MEANING=FX_.fl
 RUNTIME=EXISTING_FX_ONLY
 CORE=UNCHANGED
 PURPOSE=FIRST_PASS_CONTRACT
+SUCCESS_LOCK=AI-USE-SUCCESS.md
 ```
 
 AI가 FX3를 쓰기 전에 이 파일만 앞에 둔다. Core 밀도를 바꾸지 않는다. 새 기호를 만들지 않는다. 이미 잠긴 규칙과 fixture 01을 한곳에 모은 것이다.
