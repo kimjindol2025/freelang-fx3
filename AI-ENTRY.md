@@ -36,7 +36,7 @@ AI가 FX3를 쓰기 전에 이 파일만 앞에 둔다. Core 밀도를 바꾸지
 8. 조건은 `?cond{yes}{no}`다. `null?`는 `~primary`다.
 9. 호출은 `foo(a,b)`다. 인자는 콤마다.
 
-자세한 내리기는 [LOWERING_CONTRACT.md](LOWERING_CONTRACT.md)다. 밀도 잠금은 [CORE.md](CORE.md)다.
+자세한 내리기는 [LOWERING_CONTRACT.md](LOWERING_CONTRACT.md)다. 밀도 잠금은 [CORE.md](CORE.md)다. 방언 칸 전체는 [DIALECT-FX3-CORE.md](DIALECT-FX3-CORE.md)다.
 
 ## 짧은 예제
 
