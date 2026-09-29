@@ -2,6 +2,7 @@
 
 - 대화와 작업 보고는 한국어로 한다.
 - 공식 프로젝트명은 `FreeLang FX3`다.
+- AI가 `.fx3`를 생성·수정하기 전에 [AI-ENTRY.md](AI-ENTRY.md)를 앞에 둔다. Core 문법을 바꾸지 않는다.
 - 사람 가독성은 목표가 아니다. AI 가독성을 우선한다. 의미 있는 이름은 유지한다.
 - FX/FX1에서 가져오는 것은 [MINIMUM_FROM_FX.md](MINIMUM_FROM_FX.md)에 적힌 최소 형식뿐이다. 런타임, 앱, builtin 목록을 복사하지 않는다.
 - FX2 소스를 가져오지 않는다.
