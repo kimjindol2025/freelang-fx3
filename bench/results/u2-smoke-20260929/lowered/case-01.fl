@@ -1,0 +1,6 @@
+(defn fetch-rate [$req]
+  (let [$currency (str_upper (get (get $req "params") "currency"))
+        $body     (http-get-body RATE_URL)]
+    (if (null? $body)
+      (json-err "missing rate")
+      (json-ok $body))))

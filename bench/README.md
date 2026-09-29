@@ -67,6 +67,12 @@ First-pass-only pack under [u1-smoke/](u1-smoke/) and
 [results/u1-smoke-20260929/](results/u1-smoke-20260929/). Measures
 [AI-USE-SUCCESS](../AI-USE-SUCCESS.md) **U1** only.
 
+## U2 smoke
+
+Broken-first repair pack under [u2-smoke/](u2-smoke/) and
+[results/u2-smoke-20260929/](results/u2-smoke-20260929/). Measures **U2**
+final validity and `EDIT_LOCALITY` only.
+
 ## AI metrics frame
 
 Wall-clock comparison with Python is a separate timing experiment. The metrics

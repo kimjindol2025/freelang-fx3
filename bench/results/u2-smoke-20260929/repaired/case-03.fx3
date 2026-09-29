@@ -1,0 +1,1 @@
+F route-payload[$req]{$payload=read-payload($req);$kind=@$payload.meta.kind;?@$payload.ok{accept($kind)}{reject($kind)}}
