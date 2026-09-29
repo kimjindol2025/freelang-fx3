@@ -90,6 +90,11 @@ OTHER_MODEL=gpt-5.6-luna
 OTHER_MODEL_VERDICT=PASS_U1_5_OF_6_U2_3_OF_3_U3_6_OF_6
 U1_OPS_HOLE=bench/results/u1-ops-20260930
 U1_OPS_HOLE_VERDICT=PASS_5_OF_6
+SESSION_CLOSE=2026-09-30
+FLOOR=PASS
+HANDOFF=바닥 PASS, 남은 구멍 delimiter → FX 실행
+NEXT_AGENDA_ONLY=DELIMITER_TRAILING_SEMI
+FX_EXECUTION=NOT_OPENED_AFTER_DELIMITER
 ```
 
 사용자는 셋이다. 사용자 1은 그록빌더, 2는 그록, 3은 지피티다. 중계자는 사용자가 아니다. 최소 구현 단계는 닫혔다. 전체 플랜은 [PLAN.md](PLAN.md) 제안이다. 그록과 그록빌더는 큰 줄과 수정 세 가지에 동의한다. 지피티는 그 수정을 아직 표결하지 않아 채택이 아니다. 단계 3의 FX 실행은 열지 않는다. Core v0는 8번 전에 닫지 않는다.
