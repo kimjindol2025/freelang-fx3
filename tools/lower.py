@@ -43,13 +43,24 @@ class Parser:
         self.i += len(token)
 
     def ident(self) -> str:
+        # 케밥 이름(handle-rate)은 유지하고, `$a-$b`의 `-`는 뺄셈으로 남긴다.
+        # `-`는 뒤에 이름 문자(letter/digit/_)가 올 때만 이름에 포함한다.
         self.skip()
         start = self.i
         if start >= self.n or not (self.s[start].isalpha() or self.s[start] == "_"):
             raise LowerError(f"이름 없음 위치 {self.i}")
         self.i += 1
-        while self.i < self.n and (self.s[self.i].isalnum() or self.s[self.i] in "_-"):
-            self.i += 1
+        while self.i < self.n:
+            c = self.s[self.i]
+            if c.isalnum() or c == "_":
+                self.i += 1
+                continue
+            if c == "-" and self.i + 1 < self.n:
+                nxt = self.s[self.i + 1]
+                if nxt.isalnum() or nxt == "_":
+                    self.i += 1
+                    continue
+            break
         return self.s[start : self.i]
 
     def number(self) -> str:

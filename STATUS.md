@@ -92,17 +92,35 @@ U1_OPS_HOLE=bench/results/u1-ops-20260930
 U1_OPS_HOLE_VERDICT=PASS_5_OF_6
 SESSION_CLOSE=2026-09-30
 FLOOR=PASS
-HANDOFF=바닥 PASS, 남은 구멍 delimiter → FX 실행
-NEXT_AGENDA_ONLY=DELIMITER_TRAILING_SEMI
-FX_EXECUTION=NOT_OPENED_AFTER_DELIMITER
+DELIMITER_TRAILING_SEMI=CLOSED_PASS
+DELIMITER_ROOT_CAUSE=IDENT_HYPHEN_BEFORE_DOLLAR
+OPS_HOLE_AFTER_FIX=6_OF_6
+SEMANTIC_MIN=PASS
+FX_NATIVE_ELF=BLOCKED_CGC_LINK
+HANDOFF=delimiter 닫힘 + semantic_min PASS. 다음=네이티브 FX ELF 또는 코퍼스
+NEXT_AGENDA_ONLY=FX_NATIVE_OR_CORPUS
+FX_EXECUTION=SEMANTIC_MIN_OPENED
+MAIN_GOAL=FX3
 ```
 
-사용자는 셋이다. 사용자 1은 그록빌더, 2는 그록, 3은 지피티다. 중계자는 사용자가 아니다. 최소 구현 단계는 닫혔다. 전체 플랜은 [PLAN.md](PLAN.md) 제안이다. 그록과 그록빌더는 큰 줄과 수정 세 가지에 동의한다. 지피티는 그 수정을 아직 표결하지 않아 채택이 아니다. 단계 3의 FX 실행은 열지 않는다. Core v0는 8번 전에 닫지 않는다.
+사용자는 셋이다. 사용자 1은 그록빌더, 2는 그록, 3은 지피티다. 중계자는 사용자가 아니다. 최소 구현 단계는 닫혔다. 전체 플랜은 [PLAN.md](PLAN.md) 제안이다.
 
 앞방향 성공 판정은 [AI-USE-SUCCESS.md](AI-USE-SUCCESS.md)에 고정했다. 리서치·사용자 리뷰는 참고다. 파이썬 대비 속도·계보 자랑은 지금 성공 조건이 아니다. U1·U2·U3가 이긴다.
 
-## 세션 닫음 · 2026-09-30
+## 세션 · 2026-10-01 — delimiter 닫고 semantic_min
 
-바닥 PASS. 남은 구멍 delimiter → FX 실행.
+주 목표를 FX3로 전환했다.
 
-내일 한 수를 열면 **trailing `;` / 구분자만**. FX 실행은 그다음 안건이다. 지금 실행을 열면 `;`/`{}`와 런타임이 한 측정에 섞인다.
+U1 ops case-03 실패의 실제 원인은 trailing `;`가 아니라 **ident가 `-`를 `$` 앞까지 먹어 `$first-$second`가 깨진 것**이었다. `tools/lower.py` ident 규칙을 고쳤다: `-`는 뒤에 이름 문자가 있을 때만 이름에 포함한다.
+
+검증:
+
+```bash
+python3 tools/lower.py --check          # fixture 01–04 PASS
+python3 tools/check_delimiter.py        # ops 6/6 + `$a-$b` PASS
+python3 tools/check_semantic_min.py     # SEMANTIC_MIN=PASS
+```
+
+의미 검증은 저장소 `tools/eval_fl_min.py`로 열었다 (전용 FX3 런타임 없음). 네이티브 FX ELF는 `fl-build.sh`의 CGC 경로·링크 의존이 막혀 `FX_NATIVE_ELF=BLOCKED`로 남긴다.
+
+다음 안건: 네이티브 FX 빌드 경로 수리 후 ELF 의미 검증, 또는 코퍼스 표현 실험. Core v0 최종 확정은 아직 아니다.
