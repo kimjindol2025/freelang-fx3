@@ -96,10 +96,12 @@ DELIMITER_TRAILING_SEMI=CLOSED_PASS
 DELIMITER_ROOT_CAUSE=IDENT_HYPHEN_BEFORE_DOLLAR
 OPS_HOLE_AFTER_FIX=6_OF_6
 SEMANTIC_MIN=PASS
-FX_NATIVE_ELF=BLOCKED_CGC_LINK
-HANDOFF=delimiter 닫힘 + semantic_min PASS. 다음=네이티브 FX ELF 또는 코퍼스
-NEXT_AGENDA_ONLY=FX_NATIVE_OR_CORPUS
-FX_EXECUTION=SEMANTIC_MIN_OPENED
+FX_NATIVE_ELF=PASS
+FX_NATIVE_HARNESS=tools/check_semantic_native.sh
+FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
+HANDOFF=delimiter+semantic_min+FX_NATIVE PASS. 다음=코퍼스 또는 Core v0
+NEXT_AGENDA_ONLY=CORPUS_OR_CORE_V0
+FX_EXECUTION=NATIVE_OPENED
 MAIN_GOAL=FX3
 ```
 
@@ -121,6 +123,13 @@ python3 tools/check_delimiter.py        # ops 6/6 + `$a-$b` PASS
 python3 tools/check_semantic_min.py     # SEMANTIC_MIN=PASS
 ```
 
-의미 검증은 저장소 `tools/eval_fl_min.py`로 열었다 (전용 FX3 런타임 없음). 네이티브 FX ELF는 `fl-build.sh`의 CGC 경로·링크 의존이 막혀 `FX_NATIVE_ELF=BLOCKED`로 남긴다.
+의미 검증:
 
-다음 안건: 네이티브 FX 빌드 경로 수리 후 ELF 의미 검증, 또는 코퍼스 표현 실험. Core v0 최종 확정은 아직 아니다.
+```bash
+python3 tools/check_semantic_min.py          # SEMANTIC_MIN=PASS
+bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx --no-net)
+```
+
+`freelang-v11-fx/fl-build.sh`가 `CGC_BIN`을 환경·로컬 후보에서 찾도록 고쳤다. 전용 FX3 런타임은 없다.
+
+다음 안건: 코퍼스 표현 실험, 또는 Core v0 확정 준비.
