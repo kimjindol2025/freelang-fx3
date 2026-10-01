@@ -1,0 +1,5 @@
+CANDIDATE	RESULT	NOTE
+Hot Alias (U/J/…)	DISCARD_FROM_CORE	후보 기록만. Core 밀도 변경 금지
+극단 압축 표기	DISCARD_FROM_CORE	PLAN 경쟁 후보. 이 단계 승자로 채택하지 않음
+fixture 05	DISCARD_FROM_CORE	NO_FIXTURE_05
+app/self-host 표현	OUT_OF_SCOPE	GAP_ONLY. 로드맵6·7 폭 밖

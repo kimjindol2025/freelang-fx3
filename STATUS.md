@@ -99,14 +99,15 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=로드맵6 EXEC PASS (stdlib+fixture01-04). app GAP. 다음=로드맵7 밀도
-NEXT_AGENDA_ONLY=ROADMAP_7_DENSITY
+HANDOFF=로드맵7 밀도 PASS. Hot Alias·극단압축 Core 미채택. 다음=로드맵8 또는 정지
+NEXT_AGENDA_ONLY=ROADMAP_8_OR_STOP
 FX_EXECUTION=NATIVE_OPENED
 CORPUS_STDLIB=PASS
 CORPUS_APP=GAP_ONLY
 CORPUS_APP_PURE=PASS
 CORPUS_TOKEN_MASS=PASS
 ROADMAP6_EXEC=PASS
+ROADMAP7_DENSITY=PASS
 CORPUS_SELFHOST=NOT_STARTED
 CORE_V0_PREP=READY
 CORE_V0_VOTE=CLOSED
@@ -177,3 +178,11 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 - 폭: `corpus/stdlib` + fixture 01–04 만. app/self-host 표현 없음. 표면 변경 없음
 - `python3 tools/check_roadmap6_exec.py` → `ROADMAP6_EXEC=PASS`
 - 내린 `.fl` ≡ 원본 `.fl` (정규화) 후 동일 인자로 실행 결과 일치 (fixture는 동일 스텁)
+
+## 로드맵 7 · 밀도 경쟁 · 2026-10-01
+
+- 폭: stdlib + fixture 01–04 (로드맵6 통과분만)
+- `python3 tools/check_roadmap7_density.py` → `ROADMAP7_DENSITY=PASS`
+- FX3 바이트 승 **7/7**. Core 표면 변경 없음
+- 진 표기 Core 미채택: Hot Alias · 극단 압축 · fixture 05 · app/self-host
+- 결과: `bench/results/density-20261001/`
