@@ -23,7 +23,7 @@ MAIN_REQUEST=MAKE_RULES_EXCEPTIONLESS
 FORMATTER=SPLIT_ON_SEMI_ONLY
 DENSITY_CEILING=FIXTURE_01
 FIXTURE_02=GOLDEN
-NEXT_PROOF=SEMI_DISPLAY
+NEXT_PROOF=SEMI_DISPLAY_DONE
 LOWERER=BYTE_CHECK_01_04_PASS
 LOWERING_01_04=PASS
 INVALID_BINDING=REJECTED
@@ -99,7 +99,7 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=로드맵1–8 주기 닫힘. 8=STOP_NO_CUT. Core 표면 유지. 다음=새 안건만
+HANDOFF=SEMI_DISPLAY PASS (fixture01-04+stdlib). Core 미삭. 다음=새 안건만
 NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY
 FX_EXECUTION=NATIVE_OPENED
 CORPUS_STDLIB=PASS
@@ -109,6 +109,7 @@ CORPUS_TOKEN_MASS=PASS
 ROADMAP6_EXEC=PASS
 ROADMAP7_DENSITY=PASS
 ROADMAP8=STOP_NO_CUT
+SEMI_DISPLAY=PASS
 CORPUS_SELFHOST=NOT_STARTED
 CORE_V0_PREP=READY
 CORE_V0_VOTE=CLOSED
@@ -194,3 +195,10 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 - Hot Alias·극단 압축·fixture 05 미채택 유지
 - `bench/results/roadmap8-20261001/` · `ROADMAP_CYCLE=1_TO_8_CLOSED`
 - Core v1 선언 아님. 다음은 새 안건만
+
+## 세미콜론 표시 · 2026-10-01
+
+- 안건: 저장 한 줄 · 볼 때만 `;` 줄바꿈 · 줄바꿈 비문법 · 같은 `.fx3`→같은 `.fl`
+- 폭: fixture 01–04 + stdlib. Core 삭감·fixture05·Hot Alias·app·v1 없음
+- `python3 tools/check_semi_display.py` → `SEMI_DISPLAY=PASS`
+- 표시기: `tools/show.py`

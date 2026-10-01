@@ -298,6 +298,16 @@
       "check": [],
       "verified": false,
       "next": []
+    },
+    "task-fx3-semi-display-pass-fixture-stdlib": {
+      "t": "task",
+      "v": "FX3 SEMI_DISPLAY pass fixture+stdlib",
+      "entry": [],
+      "check": [],
+      "verified": true,
+      "next": [
+        "task-fx3-new-agenda-only"
+      ]
     }
   },
   "lock": [
@@ -321,11 +331,11 @@
   "handoff": {
     "step1": "print-hot만 실행한다. SPEC.airc 본문(10줄 이후)은 읽지 않는다.",
     "step2": "brief 2줄의 hot id만 실행한다. lock·graveyard 방향은 재도입 금지.",
-    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=FX3 roadmap8 STOP_NO_CUT closes 1-8 cycle",
-    "step4": "너는 'FX3 roadmap8 STOP_NO_CUT closes 1-8 cycle'까지 끝난 상태다. 'FX3 new agenda only'를 하면 된다.",
+    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=FX3 SEMI_DISPLAY pass fixture+stdlib",
+    "step4": "너는 'FX3 SEMI_DISPLAY pass fixture+stdlib'까지 끝난 상태다. 'FX3 new agenda only'를 하면 된다.",
     "step5": "identity 변경 필요 시 사용자에게 먼저 물어라",
-    "done": "FX3 roadmap8 STOP_NO_CUT closes 1-8 cycle",
+    "done": "FX3 SEMI_DISPLAY pass fixture+stdlib",
     "next": "FX3 new agenda only",
-    "checkpoint_at": "2026-10-01T21:24:51.463379+09:00"
+    "checkpoint_at": "2026-10-01T21:30:55.428573+09:00"
   }
 }
