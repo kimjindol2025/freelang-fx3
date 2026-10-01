@@ -2,13 +2,13 @@
 
 ```text
 DOC=CORE_V0_PREP
-CORE_V0_FINAL=NOT_YET
-DECLARE=FORBIDDEN
+CORE_V0_FINAL=PASS
+VOTE=CLOSED_3_OF_3
 DATE=2026-10-01
 ```
 
-이 문서는 **확정 선언이 아니다.** Core v0를 닫기 전에 무엇이 PASS인지·무엇이 남았는지·무엇을 열지 않는지만 고정한다.  
-PLAN 8 / 로드맵 8에 도달하기 전에는 `CORE_V0_FINAL=PASS`를 쓰지 않는다.
+준비 체크리스트는 유지한다. 확정 결과는 [CORE-V0-VOTE.md](CORE-V0-VOTE.md)다.  
+`CORE_V0_FINAL=PASS`는 **현재 표면 범위만** 잠근다. v1·언어 완성 선언이 아니다.
 
 ## 이미 잠긴 것 (다시 열지 않음)
 
@@ -82,12 +82,12 @@ DELIMITER PASS
 SEMANTIC_MIN=PASS
 FX_NATIVE=PASS
 CORPUS_STDLIB=PASS
-CORE_V0_FINAL=NOT_YET
+CORPUS_APP_PURE=PASS
+CORE_V0_FINAL=PASS
 ```
 
-## 다음 안건 후보 (하나만 연다 · 자동 개시 금지)
+## 다음 안건 후보 (v0 밖 · 하나만 연다)
 
-1. 세 사용자 Core v0 닫기 표결 안건
-2. Core 안 순수 app 헬퍼 (`get`/`if`/`null?`/산술만) — **후보**. 열 때 GAP 표 먼저 갱신. `server_json`/`mariadb`/`fn`/`loop` 금지
-
-확정 커밋은 위 PASS·표결이 모인 뒤에만 한다.
+1. Core 안 순수 app 헬퍼 추가 — GAP 표 먼저. `server_json`/`mariadb`/`fn`/`loop` 금지
+2. 코퍼스·밀도 측정 확대 (LLM 토큰은 별 안건)
+3. Core v1 준비는 PLAN 8 이후만
