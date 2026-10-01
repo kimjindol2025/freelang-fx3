@@ -214,7 +214,7 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 | 단계 | 결과 |
 |------|------|
 | L1 공백·줄바꿈 불변 | `WHITESPACE_SAME_FL=PASS` |
-| L2 fixture 읽기 | 패킷+표 **2/3** OPEN (`READ-VOTE.md`) · 지피티 대기 |
+| L2 fixture 읽기 | **PASS 3/3 READ_OK** (`READ-VOTE.md` CLOSED). 새 기능 승인 아님 |
 | L3 stdlib 헬퍼 | `req-param` · `req-query` |
 | L4 언어 게이트 | `bash tools/check_language_gate.sh` → `LANG_GATE=PASS` |
 | L5 | `LANG_CYCLE2=CLOSED` · `CORE_V1=NOT_YET` |
