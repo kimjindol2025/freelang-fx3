@@ -1,0 +1,2 @@
+(defn req-body [$req]
+  (get $req "body"))

@@ -99,9 +99,12 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=delimiter+semantic_min+FX_NATIVE PASS. 다음=코퍼스 또는 Core v0
-NEXT_AGENDA_ONLY=CORPUS_OR_CORE_V0
+HANDOFF=stdlib 코퍼스 조각 PASS. 다음=app 코퍼스 또는 Core v0 준비
+NEXT_AGENDA_ONLY=CORPUS_APP_OR_CORE_V0_PREP
 FX_EXECUTION=NATIVE_OPENED
+CORPUS_STDLIB=PASS
+CORPUS_APP=NOT_STARTED
+CORPUS_SELFHOST=NOT_STARTED
 MAIN_GOAL=FX3
 ```
 
@@ -132,4 +135,10 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 
 `freelang-v11-fx/fl-build.sh`가 `CGC_BIN`을 환경·로컬 후보에서 찾도록 고쳤다. 전용 FX3 런타임은 없다.
 
-다음 안건: 코퍼스 표현 실험, 또는 Core v0 확정 준비.
+## 코퍼스 조각 · 2026-10-01
+
+`corpus/stdlib`에 `identity` / `req-body` / `str-coerce` 표현.  
+`python3 tools/check_corpus.py` → `CORPUS_STDLIB=PASS`. app·self-host는 아직.  
+상세: [corpus/CORPUS-2026-10-01.md](corpus/CORPUS-2026-10-01.md)
+
+다음 안건: app 코퍼스(표면 밖 기능은 GAP로만), 또는 Core v0 준비 체크리스트(확정 선언 금지).

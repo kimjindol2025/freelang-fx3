@@ -1,0 +1,2 @@
+(defn str-coerce [$v]
+  (if (null? $v) "" (str $v)))
