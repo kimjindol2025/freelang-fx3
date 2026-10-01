@@ -146,14 +146,15 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 `python3 tools/check_corpus.py` → `CORPUS_STDLIB=PASS`. app·self-host는 아직.  
 상세: [corpus/CORPUS-2026-10-01.md](corpus/CORPUS-2026-10-01.md)
 
-## Core v0 준비 · 2026-10-01
+## Core v0 · 2026-10-01 CLOSED
 
-체크리스트: [CORE-V0-PREP.md](CORE-V0-PREP.md)  
-`CORE_V0_PREP=READY` · `CORE_V0_FINAL=NOT_YET` (확정 선언 금지)
+표결: [CORE-V0-VOTE.md](CORE-V0-VOTE.md) · **3/3 AGREE_CLOSE** · `CORE_V0_FINAL=PASS`  
+준비: [CORE-V0-PREP.md](CORE-V0-PREP.md) · app GAP: [corpus/APP-GAP.md](corpus/APP-GAP.md)
 
-app GAP 표: [corpus/APP-GAP.md](corpus/APP-GAP.md) · `CORPUS_APP=GAP_ONLY`
+잠금: fixture 01–04 · delimiter · semantic_min/native(좁은 폭) · stdlib 조각 · U1/U2/U3  
+밖: app GAP · self-host · fn/loop 확장 · fixture 05 · Hot Alias · v1 아님
 
-표결 안건: [CORE-V0-VOTE.md](CORE-V0-VOTE.md) · `OPEN` · tally **2/3** (사용자2·3=`AGREE_CLOSE`) · 대기: 사용자1 그록빌더 · `CORE_V0_FINAL=NOT_YET`
+사용자1=그록빌더(이 에이전트) · 사용자2=그록 · 사용자3=지피티
 
 ## app 순수 헬퍼 · 2026-10-01
 
