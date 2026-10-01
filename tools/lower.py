@@ -55,9 +55,10 @@ class Parser:
             if c.isalnum() or c == "_":
                 self.i += 1
                 continue
+            # 케밥은 글자/_ 만 (`handle-rate`). `$n-1`의 `-`는 뺄셈이다.
             if c == "-" and self.i + 1 < self.n:
                 nxt = self.s[self.i + 1]
-                if nxt.isalnum() or nxt == "_":
+                if nxt.isalpha() or nxt == "_":
                     self.i += 1
                     continue
             break

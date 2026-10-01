@@ -39,16 +39,20 @@ app·템플릿 `.fl`을 FX3로 **표현하지 않는다.** Core 밖 기능을 GA
 | `try` | fx-kv | v0 미확정 |
 | `future` | fx-kv | v0 미확정 |
 
-## Core에 들어올 수 있는 것 (이번엔 추가하지 않음)
+## Core 안 순수 헬퍼 (최소 폭으로만)
 
-순수 `get` / `if` / `null?` / 산술만 쓰는 **작은 헬퍼**가 앱 안에 섞여 있어도, app 코퍼스 PASS로 올리지 않는다. stdlib 조각(`CORPUS_STDLIB=PASS`)이 그 역할을 한다.
+GAP 표를 유지한 채, Core `get`/`if`/`null?`/산술·호출만 쓰는 헬퍼를 `corpus/app/`에 둔다.  
+`server_json` / `mariadb` / `fn` / `loop` 는 여전히 넣지 않는다.
+
+| 이름 | 출처 | 상태 |
+|------|------|------|
+| fib | `fx-queue/server.fl` | `corpus/app/fib.fx3` · lower/semantic 검사 |
 
 ## 판정 줄
 
 ```text
 CORPUS_APP=GAP_ONLY
-CORPUS_APP_EXPRESS=NO
+CORPUS_APP_PURE=fib
+CORPUS_APP_EXPRESS=PURE_ONLY
 CORPUS_SELFHOST=NOT_STARTED
 ```
-
-다음으로 표현을 열려면 Core 표면 안의 순수 함수만 최소 폭으로 고르고, 이 GAP 표를 먼저 갱신한다.

@@ -18,6 +18,8 @@ CASES = [
     ("product", "F multiply[$left,$right]{$left*$right;}", "(* $left $right)"),
     ("kebab-name", "F handle-rate-single[$req]{$req}", "$req"),
     ("nested-kebab-call", 'F f[$x]{http-get-body($x)}', "(http-get-body $x)"),
+    ("var-minus-number", "F f[$n]{$n-1}", "(- $n 1)"),
+    ("fib-rec", "F fib[$n]{?$n<2{$n}{fib($n-1)+fib($n-2)};}", "(- $n 1)"),
 ]
 
 

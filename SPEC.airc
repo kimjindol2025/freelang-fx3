@@ -188,6 +188,16 @@
       "check": [],
       "verified": false,
       "next": []
+    },
+    "task-fx3-app-pure-fib-n-1-hyphen-fix": {
+      "t": "task",
+      "v": "FX3 app-pure fib + $n-1 hyphen fix",
+      "entry": [],
+      "check": [],
+      "verified": true,
+      "next": [
+        "task-fx3-await-user1-and-user3-core-v0-votes"
+      ]
     }
   },
   "lock": [
@@ -211,11 +221,11 @@
   "handoff": {
     "step1": "print-hot만 실행한다. SPEC.airc 본문(10줄 이후)은 읽지 않는다.",
     "step2": "brief 2줄의 hot id만 실행한다. lock·graveyard 방향은 재도입 금지.",
-    "step3": "hot=task-fx3-await-user1-and-user3-core-v0-votes 실행. 완료 표식=FX3 record user2 AGREE_CLOSE vote",
-    "step4": "너는 'FX3 record user2 AGREE_CLOSE vote'까지 끝난 상태다. 'FX3 await user1 and user3 Core v0 votes'를 하면 된다.",
+    "step3": "hot=task-fx3-await-user1-and-user3-core-v0-votes 실행. 완료 표식=FX3 app-pure fib + $n-1 hyphen fix",
+    "step4": "너는 'FX3 app-pure fib + $n-1 hyphen fix'까지 끝난 상태다. 'FX3 await user1 and user3 Core v0 votes'를 하면 된다.",
     "step5": "identity 변경 필요 시 사용자에게 먼저 물어라",
-    "done": "FX3 record user2 AGREE_CLOSE vote",
+    "done": "FX3 app-pure fib + $n-1 hyphen fix",
     "next": "FX3 await user1 and user3 Core v0 votes",
-    "checkpoint_at": "2026-10-01T18:56:18.096005+09:00"
+    "checkpoint_at": "2026-10-01T20:21:20.187974+09:00"
   }
 }

@@ -13,12 +13,14 @@ ROOT = Path(__file__).resolve().parents[1]
 LOWER = ROOT / "tools/lower.py"
 EVAL = ROOT / "tools/eval_fl_min.py"
 NATIVE = ROOT / "tools/check_semantic_native.sh"
-CORPUS = ROOT / "corpus/stdlib"
+CORPUS_STDLIB = ROOT / "corpus/stdlib"
+CORPUS_APP = ROOT / "corpus/app"
 
 CASES = [
     {
         "name": "identity",
         "class": "stdlib",
+        "dir": CORPUS_STDLIB,
         "source": "freelang-v11-fx/fx-std.fl",
         "eval": {"args": [42], "expect": 42},
         "native_call": "(identity 42)",
@@ -27,6 +29,7 @@ CASES = [
     {
         "name": "req-body",
         "class": "stdlib",
+        "dir": CORPUS_STDLIB,
         "source": "freelang-v11-fx/fx-std.fl",
         "eval": {"args": [{"body": "hi"}], "expect": "hi"},
         "native_call": None,  # map literal 호출은 하네스 밖
@@ -35,10 +38,20 @@ CASES = [
     {
         "name": "str-coerce",
         "class": "stdlib",
+        "dir": CORPUS_STDLIB,
         "source": "freelang-v11-fx/fx-std.fl",
         "eval": None,  # eval_fl_min에 str 없음
         "native_call": '(str-coerce "ok")',
         "native_expect": "ok",
+    },
+    {
+        "name": "fib",
+        "class": "app-pure",
+        "dir": CORPUS_APP,
+        "source": "freelang-v11-fx/fx-queue/server.fl",
+        "eval": {"args": [10], "expect": 55},
+        "native_call": "(fib 10)",
+        "native_expect": "55",
     },
 ]
 
@@ -113,9 +126,10 @@ def main() -> int:
     failed = 0
     for case in CASES:
         name = case["name"]
-        fx3 = CORPUS / f"{name}.fx3"
-        ref = CORPUS / f"{name}.fl"
-        print(f"== {name} ==")
+        base = case["dir"]
+        fx3 = base / f"{name}.fx3"
+        ref = base / f"{name}.fl"
+        print(f"== {name} ({case['class']}) ==")
         if not fx3.is_file() or not ref.is_file():
             print(f"FAIL {name}: missing files")
             failed += 1
@@ -161,8 +175,9 @@ def main() -> int:
     print("== density ==")
     for case in CASES:
         name = case["name"]
-        fx3 = (CORPUS / f"{name}.fx3").read_text(encoding="utf-8").strip()
-        fl = (CORPUS / f"{name}.fl").read_text(encoding="utf-8").strip()
+        base = case["dir"]
+        fx3 = (base / f"{name}.fx3").read_text(encoding="utf-8").strip()
+        fl = (base / f"{name}.fl").read_text(encoding="utf-8").strip()
         ratio = (len(fx3) / len(fl)) if fl else 0
         print(f"DENSITY {name} fx3={len(fx3)} fl={len(fl)} ratio={ratio:.3f}")
 
@@ -171,6 +186,7 @@ def main() -> int:
         return 1
     print("CORPUS_STDLIB=PASS")
     print("CORPUS_APP=GAP_ONLY")
+    print("CORPUS_APP_PURE=PASS")
     print("CORPUS_SELFHOST=NOT_STARTED")
     print("CORPUS_GAP=server_json,mariadb,fn/closure,loop")
     return 0
