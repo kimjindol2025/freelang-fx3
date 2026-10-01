@@ -18,9 +18,13 @@ FIXTURE_05=NO
 | req-body | `fx-std.fl` | `stdlib/req-body.fx3` | `@$req.body` |
 | str-coerce | `fx-std.fl` | `stdlib/str-coerce.fx3` | `?~` + `str` |
 
+## app GAP (표현 없음)
+
+표: [APP-GAP.md](APP-GAP.md) · `CORPUS_APP=GAP_ONLY`
+
 ## 아직 아님
 
-- **app**: `server_json`, `mariadb_*`, 라우트 매크로 — Core 표면 밖
+- **app 표현**: `server_json`, `mariadb_*`, 라우트 등 — GAP만
 - **self-host**: `self/cgc-main.fl` — 가져오지 않음
 - fixture 05 추가 금지 (`NO_FIXTURE_05`)
 
@@ -30,4 +34,4 @@ FIXTURE_05=NO
 python3 tools/check_corpus.py
 ```
 
-PASS 줄: `CORPUS_STDLIB=PASS`. app/self-host는 `NOT_STARTED`로 남긴다.
+PASS 줄: `CORPUS_STDLIB=PASS`. app는 `GAP_ONLY`, self-host는 `NOT_STARTED`.

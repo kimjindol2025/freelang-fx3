@@ -2,17 +2,16 @@
 
 ## AIRC
 - spec: SPEC.airc
-- hot: task-fx3-corpus-app-gap-or-core-v0-prep
-- 완료: FX3 corpus stdlib slice
-- 다음: FX3 corpus app gap or Core v0 prep
+- hot: task-fx3-v0-vote-or-pure-app-helper
+- 완료: FX3 Core v0 prep + app GAP
+- 다음: FX3 v0 vote or pure app helper
 
 ## 다음 Grok에게
-너는 stdlib 코퍼스 조각까지 끝난 상태다. app GAP 정리 또는 Core v0 준비 체크리스트를 하면 된다.
-1) `python3 ~/.grok/skills/checkpoint/scripts/print-hot.py SPEC.airc` 만 실행
-2) `python3 tools/check_corpus.py` 재현
+너는 Core v0 준비 체크리스트와 app GAP 표까지 끝난 상태다. Core v0는 확정하지 않았다.
+1) `print-hot.py SPEC.airc` 만 실행
+2) `CORE-V0-PREP.md` · `corpus/APP-GAP.md` 참고
+3) 표결 안건을 열거나, Core 안 순수 헬퍼만 최소 추가
 
 ## 증거
-- `CORPUS_STDLIB=PASS` (identity / req-body / str-coerce)
-- `CORPUS_APP=NOT_STARTED` · `CORPUS_SELFHOST=NOT_STARTED`
-- GAP: server_json, mariadb, fn/closure, loop
-- 상세: corpus/CORPUS-2026-10-01.md
+- corpus stdlib: `22d713e` + 후속 prep/GAP 커밋
+- CORE_V0_FINAL=NOT_YET · CORPUS_APP=GAP_ONLY
