@@ -30,6 +30,9 @@ WALL_CLOCK_VS_PYTHON=OUT_OF_SCOPE_HERE
 # expected 12쌍의 바이트 절감
 python3 bench/metrics/score_metrics.py baseline
 
+# 로드맵 5: 코퍼스 질량 (바이트 + PROXY_UNITS; 모델 토큰 아님)
+python3 tools/corpus_token_mass.py
+
 # 한 trial 디렉터리 (first.* / final.* / ai-events.jsonl)
 python3 bench/metrics/score_metrics.py trial PATH
 
