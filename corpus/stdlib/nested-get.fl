@@ -1,0 +1,2 @@
+(defn nested-get [$m $k1 $k2]
+  (get (get $m $k1) $k2))

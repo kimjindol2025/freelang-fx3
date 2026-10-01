@@ -99,8 +99,14 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=LANG CYCLE3 CLOSED. V1 PREP only. Core 미삭·v1 미선언. 다음=새 안건만
+HANDOFF=A1-A4 FX3 closed. 다음=fl-git GitLab A5
 NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY
+CORE_V1_PASS_CONDITIONS=DOCUMENTED
+DEFERRED_CYCLE3_PLUS=YES
+STDLIB_NESTED_GET=PASS
+STDLIB_GET_IN_OR=PASS
+OUTPUT_TOKENS=MEASURED
+OUTPUT_TOKENS_REPORT=bench/results/output-tokens-20261001/
 FX_EXECUTION=NATIVE_OPENED
 CORPUS_STDLIB=PASS
 CORPUS_APP=GAP_ONLY
@@ -232,3 +238,14 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 | M3 stdlib | `get-or` (+1; first-or는 eval 한계로 SKIP) |
 | M4 LANG_GATE | 재실행 PASS |
 | M5 | `LANG_CYCLE3=CLOSED` |
+
+## 전부 안건 · A1–A2 · 2026-10-01
+
+| 안건 | 결과 |
+|------|------|
+| A1 Core v1 체크리스트 | [CORE-V1-PREP.md](CORE-V1-PREP.md) · PASS 조건·증거 형식 문서화 · `DECLARE=FORBIDDEN` · `CORE_V1_FINAL=NOT_YET` |
+| A2 deferred 관찰 보강 | `bench/results/deferred-surfaces-20261001/REPORT.md` · `?` 이름 · `get-in-2` 하이픈숫자 · first-or/last-item · `DEFERRED_AS_CORE_GATE=NO` |
+| A3 stdlib 헬퍼 | `nested-get` · `get-in-or` · `CORPUS_STDLIB=PASS` · `SEMI_DISPLAY=PASS` · `LANG_GATE=PASS` · `CORPUS_APP=GAP_ONLY` |
+| A4 OUTPUT_TOKENS | `MEASURED` · ai-events usage · FX3 mean **429.2** (9 trials) · `bench/results/output-tokens-20261001/` · 토크나이저 미설치 |
+
+FX3 전부 후보 A1–A4 닫힘. 다음은 fl-git `task-gitlab-provider-확장`.

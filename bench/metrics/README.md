@@ -24,6 +24,8 @@ WALL_CLOCK_VS_PYTHON=OUT_OF_SCOPE_HERE
 
 토크나이저 패키지는 설치하지 않는다. 모델이 남긴 usage만 `OUTPUT_TOKENS`로 인정한다.
 
+재측정(2026-10-01 A4): `fx3-vs-python-timing/experiment-20260929-01..03` → `bench/results/output-tokens-20261001/` · `OUTPUT_TOKENS=MEASURED` (FX3 mean 429.2 / 9 trials).
+
 ## 명령
 
 ```bash

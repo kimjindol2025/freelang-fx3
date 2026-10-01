@@ -1,0 +1,6 @@
+(defn get-in-or [$m $k1 $k2 $d]
+  (if (null? (get $m $k1))
+    $d
+    (if (null? (get (get $m $k1) $k2))
+      $d
+      (get (get $m $k1) $k2))))

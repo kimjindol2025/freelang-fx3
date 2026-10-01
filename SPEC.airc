@@ -1,6 +1,6 @@
 {
   "brief": [
-    "핫은 (task-fx3-new-agenda-only) 내용 (FX3 new agenda only) 다.",
+    "핫은 (task-fx3-new-agenda-only) 내용 (FX3 A1-A4 closed; switch to fl-git GitLab) 다.",
     "lock·graveyard에 있는 방향은 다시 꺼내지 않는다."
   ],
   "$": "airc-spec",
@@ -293,7 +293,7 @@
     },
     "task-fx3-new-agenda-only": {
       "t": "task",
-      "v": "FX3 new agenda only",
+      "v": "FX3 A1-A4 closed; switch to fl-git GitLab",
       "entry": [],
       "check": [],
       "verified": false,
@@ -338,6 +338,62 @@
       "next": [
         "task-fx3-new-agenda-only"
       ]
+    },
+    "task-fx3-core-v1-checklist": {
+      "t": "task",
+      "v": "A1 Core v1 checklist PASS conditions documented",
+      "entry": [
+        "CORE-V1-PREP.md"
+      ],
+      "check": [
+        "grep -q 'DECLARE=FORBIDDEN' CORE-V1-PREP.md && grep -q 'PASS_CONDITIONS=DOCUMENTED' CORE-V1-PREP.md"
+      ],
+      "verified": true,
+      "next": [
+        "task-fx3-deferred-observe"
+      ]
+    },
+    "task-fx3-deferred-observe": {
+      "t": "task",
+      "v": "A2 deferred surfaces observe reinforce",
+      "entry": [
+        "bench/results/deferred-surfaces-20261001/REPORT.md"
+      ],
+      "check": [
+        "grep -q 'DEFERRED_AS_CORE_GATE=NO' bench/results/deferred-surfaces-20261001/REPORT.md"
+      ],
+      "verified": true,
+      "next": [
+        "task-fx3-stdlib-helpers"
+      ]
+    },
+    "task-fx3-stdlib-helpers": {
+      "t": "task",
+      "v": "A3 stdlib nested-get and get-in-or",
+      "entry": [
+        "corpus/stdlib/nested-get.fx3 corpus/stdlib/get-in-or.fx3"
+      ],
+      "check": [
+        "python3 tools/check_corpus.py"
+      ],
+      "verified": true,
+      "next": [
+        "task-fx3-output-tokens"
+      ]
+    },
+    "task-fx3-output-tokens": {
+      "t": "task",
+      "v": "A4 OUTPUT_TOKENS remeasure from ai-events",
+      "entry": [
+        "bench/results/output-tokens-20261001/REPORT.md"
+      ],
+      "check": [
+        "grep -q 'OUTPUT_TOKENS=MEASURED' bench/results/output-tokens-20261001/SUMMARY.env"
+      ],
+      "verified": true,
+      "next": [
+        "task-fx3-new-agenda-only"
+      ]
     }
   },
   "lock": [
@@ -361,11 +417,11 @@
   "handoff": {
     "step1": "print-hot만 실행한다. SPEC.airc 본문(10줄 이후)은 읽지 않는다.",
     "step2": "brief 2줄의 hot id만 실행한다. lock·graveyard 방향은 재도입 금지.",
-    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=FX3 language cycle3 closed",
-    "step4": "너는 'FX3 language cycle3 closed'까지 끝난 상태다. 'FX3 new agenda only'를 하면 된다.",
+    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=A4 OUTPUT_TOKENS remeasure from ai-events",
+    "step4": "너는 'A4 OUTPUT_TOKENS remeasure from ai-events'까지 끝난 상태다. 'FX3 A1-A4 closed; switch to fl-git GitLab'를 하면 된다.",
     "step5": "identity 변경 필요 시 사용자에게 먼저 물어라",
-    "done": "FX3 language cycle3 closed",
-    "next": "FX3 new agenda only",
-    "checkpoint_at": "2026-10-01T23:04:44.282800+09:00"
+    "done": "A4 OUTPUT_TOKENS remeasure from ai-events",
+    "next": "FX3 A1-A4 closed; switch to fl-git GitLab",
+    "checkpoint_at": "2026-10-01T23:44:58.837325+09:00"
   }
 }
