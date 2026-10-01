@@ -6,11 +6,11 @@ STATUS=OPEN
 CORE_V0_FINAL=NOT_YET
 CLOSE=FORBIDDEN_UNTIL_THREE_VOTES
 DATE=2026-10-01
-TALLY=1_OF_3
-AGREE_CLOSE=1
+TALLY=2_OF_3
+AGREE_CLOSE=2
 HOLD=0
 REJECT=0
-AWAITING=USER_1_GROKBUILDER,USER_3_GPT
+AWAITING=USER_1_GROKBUILDER
 ```
 
 세 사용자만 표결한다. 중계자·에이전트가 임의로 닫지 않는다.  
@@ -42,7 +42,7 @@ AWAITING=USER_1_GROKBUILDER,USER_3_GPT
 |--------|------|----|------|------|
 | 1 | 그록빌더 | — | — | |
 | 2 | 그록 | AGREE_CLOSE | 2026-10-01 | 현재 표면만 잠금. 밖 GAP 유지. v1 아님 |
-| 3 | 지피티 | — | — | |
+| 3 | 지피티 | AGREE_CLOSE | 2026-10-01 | USER_3. 범위=fixture01-04+delimiter+semantic narrow+stdlib+U1/U2/U3. 밖=app GAP/self-host/fn·loop/fixture05/Hot Alias |
 
 허용 값: `AGREE_CLOSE` · `HOLD` · `REJECT`
 
