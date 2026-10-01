@@ -58,7 +58,7 @@ NO_NEW_RUNTIME=YES
 NO_PRETTIER=YES
 NO_SHORTER=YES
 FX3_CORE_01=KEEP
-NEXT_USER_TEST=READ_FIXTURE_04
+NEXT_USER_TEST=READ_FIXTURE_01_04_OPEN
 GROK_FIXTURE_04=KEEP
 GROK_NEXT=LOWER_FOUR
 INDEX_KEY=ANY_EXPR
@@ -99,7 +99,7 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=SEMI_DISPLAY PASS (fixture01-04+stdlib). Core 미삭. 다음=새 안건만
+HANDOFF=LANG CYCLE2 CLOSED. L1–L4 PASS. READ 표 1/3. Core 미삭. 다음=새 안건만
 NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY
 FX_EXECUTION=NATIVE_OPENED
 CORPUS_STDLIB=PASS
@@ -110,6 +110,10 @@ ROADMAP6_EXEC=PASS
 ROADMAP7_DENSITY=PASS
 ROADMAP8=STOP_NO_CUT
 SEMI_DISPLAY=PASS
+WHITESPACE_SAME_FL=PASS
+READ_FIXTURE_01_04=OPEN_1_OF_3
+LANG_GATE=PASS
+LANG_CYCLE2=CLOSED
 CORPUS_SELFHOST=NOT_STARTED
 CORE_V0_PREP=READY
 CORE_V0_VOTE=CLOSED
@@ -202,3 +206,15 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 - 폭: fixture 01–04 + stdlib. Core 삭감·fixture05·Hot Alias·app·v1 없음
 - `python3 tools/check_semi_display.py` → `SEMI_DISPLAY=PASS`
 - 표시기: `tools/show.py`
+
+## 언어 주기2 · 2026-10-01 · CLOSED
+
+플랜: FX3_LANG_CYCLE_2 (Core 미삭 · fixture05/Hot Alias/v1 없음)
+
+| 단계 | 결과 |
+|------|------|
+| L1 공백·줄바꿈 불변 | `WHITESPACE_SAME_FL=PASS` |
+| L2 fixture 읽기 | 패킷+표 1/3 OPEN (`READ-VOTE.md`) |
+| L3 stdlib 헬퍼 | `req-param` · `req-query` |
+| L4 언어 게이트 | `bash tools/check_language_gate.sh` → `LANG_GATE=PASS` |
+| L5 | `LANG_CYCLE2=CLOSED` · `CORE_V1=NOT_YET` |

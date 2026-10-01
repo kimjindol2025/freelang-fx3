@@ -1,0 +1,2 @@
+(defn req-param [$req $name]
+  (get (get $req "params") $name))

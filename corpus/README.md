@@ -17,6 +17,8 @@ FIXTURE_05=NO
 | identity | `fx-std.fl` | `stdlib/identity.fx3` | Core 최소 |
 | req-body | `fx-std.fl` | `stdlib/req-body.fx3` | `@$req.body` |
 | str-coerce | `fx-std.fl` | `stdlib/str-coerce.fx3` | `?~` + `str` |
+| req-param | `fx-std.fl` | `stdlib/req-param.fx3` | nested `get` |
+| req-query | `fx-std.fl` | `stdlib/req-query.fx3` | nested `get` |
 
 ## app GAP (표현 없음)
 

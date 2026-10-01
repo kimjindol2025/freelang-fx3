@@ -48,6 +48,15 @@ GAP 표를 유지한 채, Core `get`/`if`/`null?`/산술·호출만 쓰는 헬�
 |------|------|------|
 | fib | `fx-queue/server.fl` | `corpus/app/fib.fx3` · lower/semantic 검사 |
 
+## stdlib 추가 (Core 안 · GAP 아님)
+
+`fx-std.fl`에서 get만 쓰는 헬퍼를 `corpus/stdlib`에 더한다. app 표현이 아니다.
+
+| 이름 | 출처 | 상태 |
+|------|------|------|
+| req-param | `fx-std.fl` | `corpus/stdlib/req-param.fx3` |
+| req-query | `fx-std.fl` | `corpus/stdlib/req-query.fx3` |
+
 ## 판정 줄
 
 ```text

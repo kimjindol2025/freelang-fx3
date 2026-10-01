@@ -1,0 +1,2 @@
+(defn req-query [$req $name]
+  (get (get $req "query") $name))
