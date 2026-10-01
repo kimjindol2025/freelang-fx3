@@ -99,8 +99,8 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=로드맵7 밀도 PASS. Hot Alias·극단압축 Core 미채택. 다음=로드맵8 또는 정지
-NEXT_AGENDA_ONLY=ROADMAP_8_OR_STOP
+HANDOFF=로드맵1–8 주기 닫힘. 8=STOP_NO_CUT. Core 표면 유지. 다음=새 안건만
+NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY
 FX_EXECUTION=NATIVE_OPENED
 CORPUS_STDLIB=PASS
 CORPUS_APP=GAP_ONLY
@@ -108,6 +108,7 @@ CORPUS_APP_PURE=PASS
 CORPUS_TOKEN_MASS=PASS
 ROADMAP6_EXEC=PASS
 ROADMAP7_DENSITY=PASS
+ROADMAP8=STOP_NO_CUT
 CORPUS_SELFHOST=NOT_STARTED
 CORE_V0_PREP=READY
 CORE_V0_VOTE=CLOSED
@@ -186,3 +187,10 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 - FX3 바이트 승 **7/7**. Core 표면 변경 없음
 - 진 표기 Core 미채택: Hot Alias · 극단 압축 · fixture 05 · app/self-host
 - 결과: `bench/results/density-20261001/`
+
+## 로드맵 8 · 2026-10-01 · STOP_NO_CUT
+
+- 밀도 승자 = 잠긴 Core → 표면을 더 깎지 않음
+- Hot Alias·극단 압축·fixture 05 미채택 유지
+- `bench/results/roadmap8-20261001/` · `ROADMAP_CYCLE=1_TO_8_CLOSED`
+- Core v1 선언 아님. 다음은 새 안건만
