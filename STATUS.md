@@ -99,13 +99,14 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=로드맵5 코퍼스 질량 PASS. 모델 토큰은 NOT_MEASURED. 다음=로드맵6 또는 밀도
-NEXT_AGENDA_ONLY=ROADMAP_6_OR_DENSITY
+HANDOFF=로드맵6 EXEC PASS (stdlib+fixture01-04). app GAP. 다음=로드맵7 밀도
+NEXT_AGENDA_ONLY=ROADMAP_7_DENSITY
 FX_EXECUTION=NATIVE_OPENED
 CORPUS_STDLIB=PASS
 CORPUS_APP=GAP_ONLY
 CORPUS_APP_PURE=PASS
 CORPUS_TOKEN_MASS=PASS
+ROADMAP6_EXEC=PASS
 CORPUS_SELFHOST=NOT_STARTED
 CORE_V0_PREP=READY
 CORE_V0_VOTE=CLOSED
@@ -170,3 +171,9 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 - 쌍 8건: FX3/FX 바이트비 **0.6504**, 프록시 단위비 **0.8758**
 - `OUTPUT_TOKENS=NOT_MEASURED` (토크나이저 미설치·usage 없음)
 - FX 트리 수정 없음 · 결과: `bench/results/corpus-mass-20261001/`
+
+## 로드맵 6 · 실행 일치 · 2026-10-01
+
+- 폭: `corpus/stdlib` + fixture 01–04 만. app/self-host 표현 없음. 표면 변경 없음
+- `python3 tools/check_roadmap6_exec.py` → `ROADMAP6_EXEC=PASS`
+- 내린 `.fl` ≡ 원본 `.fl` (정규화) 후 동일 인자로 실행 결과 일치 (fixture는 동일 스텁)
