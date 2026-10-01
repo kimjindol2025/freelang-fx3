@@ -6,6 +6,11 @@ STATUS=OPEN
 CORE_V0_FINAL=NOT_YET
 CLOSE=FORBIDDEN_UNTIL_THREE_VOTES
 DATE=2026-10-01
+TALLY=1_OF_3
+AGREE_CLOSE=1
+HOLD=0
+REJECT=0
+AWAITING=USER_1_GROKBUILDER,USER_3_GPT
 ```
 
 세 사용자만 표결한다. 중계자·에이전트가 임의로 닫지 않는다.  
@@ -36,7 +41,7 @@ DATE=2026-10-01
 | 사용자 | 역할 | 표 | 날짜 | 메모 |
 |--------|------|----|------|------|
 | 1 | 그록빌더 | — | — | |
-| 2 | 그록 | — | — | |
+| 2 | 그록 | AGREE_CLOSE | 2026-10-01 | 현재 표면만 잠금. 밖 GAP 유지. v1 아님 |
 | 3 | 지피티 | — | — | |
 
 허용 값: `AGREE_CLOSE` · `HOLD` · `REJECT`

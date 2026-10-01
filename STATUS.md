@@ -99,14 +99,15 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=Core v0 표결 OPEN. 닫지 않음. 순수 헬퍼 후보만
-NEXT_AGENDA_ONLY=CORE_V0_VOTE_OPEN
+HANDOFF=Core v0 표결 1/3 (그록 AGREE_CLOSE). 닫지 않음. 헬퍼 미개시
+NEXT_AGENDA_ONLY=AWAIT_USER1_USER3_VOTES
 FX_EXECUTION=NATIVE_OPENED
 CORPUS_STDLIB=PASS
 CORPUS_APP=GAP_ONLY
 CORPUS_SELFHOST=NOT_STARTED
 CORE_V0_PREP=READY
 CORE_V0_VOTE=OPEN
+CORE_V0_VOTE_TALLY=1_OF_3
 CORE_V0_FINAL=NOT_YET
 MAIN_GOAL=FX3
 ```
@@ -151,5 +152,6 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 
 app GAP 표: [corpus/APP-GAP.md](corpus/APP-GAP.md) · `CORPUS_APP=GAP_ONLY`
 
-표결 안건: [CORE-V0-VOTE.md](CORE-V0-VOTE.md) · `CORE_V0_VOTE=OPEN` · `CORE_V0_FINAL=NOT_YET`  
+표결 안건: [CORE-V0-VOTE.md](CORE-V0-VOTE.md) · `OPEN` · tally **1/3** (사용자2 그록=`AGREE_CLOSE`)  
+대기: 사용자1 그록빌더, 사용자3 지피티. `CORE_V0_FINAL=NOT_YET`  
 순수 app 헬퍼는 후보만 (자동 개시 금지).
