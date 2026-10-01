@@ -99,7 +99,7 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=LANG CYCLE2 CLOSED. L1–L4 PASS. READ 표 1/3. Core 미삭. 다음=새 안건만
+HANDOFF=LANG CYCLE2 CLOSED. READ 표 2/3 (그록빌더·그록 READ_OK). 지피티 대기. 새 기능 미개시
 NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY
 FX_EXECUTION=NATIVE_OPENED
 CORPUS_STDLIB=PASS
@@ -111,7 +111,7 @@ ROADMAP7_DENSITY=PASS
 ROADMAP8=STOP_NO_CUT
 SEMI_DISPLAY=PASS
 WHITESPACE_SAME_FL=PASS
-READ_FIXTURE_01_04=OPEN_1_OF_3
+READ_FIXTURE_01_04=OPEN_2_OF_3
 LANG_GATE=PASS
 LANG_CYCLE2=CLOSED
 CORPUS_SELFHOST=NOT_STARTED
@@ -214,7 +214,7 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 | 단계 | 결과 |
 |------|------|
 | L1 공백·줄바꿈 불변 | `WHITESPACE_SAME_FL=PASS` |
-| L2 fixture 읽기 | 패킷+표 1/3 OPEN (`READ-VOTE.md`) |
+| L2 fixture 읽기 | 패킷+표 **2/3** OPEN (`READ-VOTE.md`) · 지피티 대기 |
 | L3 stdlib 헬퍼 | `req-param` · `req-query` |
 | L4 언어 게이트 | `bash tools/check_language_gate.sh` → `LANG_GATE=PASS` |
 | L5 | `LANG_CYCLE2=CLOSED` · `CORE_V1=NOT_YET` |
