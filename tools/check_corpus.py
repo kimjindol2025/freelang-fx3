@@ -170,7 +170,7 @@ def main() -> int:
         print("CORPUS_STDLIB=FAIL")
         return 1
     print("CORPUS_STDLIB=PASS")
-    print("CORPUS_APP=NOT_STARTED")
+    print("CORPUS_APP=GAP_ONLY")
     print("CORPUS_SELFHOST=NOT_STARTED")
     print("CORPUS_GAP=server_json,mariadb,fn/closure,loop")
     return 0
