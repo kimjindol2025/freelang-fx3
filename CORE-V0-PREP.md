@@ -53,7 +53,7 @@ PLAN 8 / 로드맵 8에 도달하기 전에는 `CORE_V0_FINAL=PASS`를 쓰지 �
 | 표면 전용 런타임 | 금지 |
 | FX2 import | 금지 |
 
-app 코퍼스: `CORPUS_APP=NOT_STARTED` — 표현 시도 전에 GAP 표만 유지해도 된다.
+app 코퍼스: `CORPUS_APP=GAP_ONLY` — 표현 없이 GAP 표만. 순수 헬퍼 추가는 후보이며 자동으로 열지 않는다.
 
 ## 열지 않는 것 (이 문서가 열려 있는 동안)
 
@@ -85,10 +85,9 @@ CORPUS_STDLIB=PASS
 CORE_V0_FINAL=NOT_YET
 ```
 
-## 다음 안건 후보 (하나만 연다)
+## 다음 안건 후보 (하나만 연다 · 자동 개시 금지)
 
-1. app 코퍼스 GAP 표 고정 (표현 없이)
-2. 세 사용자 Core v0 닫기 표결 안건
-3. 코퍼스 app 중 Core에 들어오는 순수 함수만 추가 (폭 최소)
+1. 세 사용자 Core v0 닫기 표결 안건
+2. Core 안 순수 app 헬퍼 (`get`/`if`/`null?`/산술만) — **후보**. 열 때 GAP 표 먼저 갱신. `server_json`/`mariadb`/`fn`/`loop` 금지
 
 확정 커밋은 위 PASS·표결이 모인 뒤에만 한다.
