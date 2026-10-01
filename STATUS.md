@@ -99,12 +99,13 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=Core v0 CLOSED PASS (3/3 AGREE_CLOSE). 밖 GAP 유지. 다음=후보 안건만
-NEXT_AGENDA_ONLY=POST_V0_CANDIDATE
+HANDOFF=로드맵5 코퍼스 질량 PASS. 모델 토큰은 NOT_MEASURED. 다음=로드맵6 또는 밀도
+NEXT_AGENDA_ONLY=ROADMAP_6_OR_DENSITY
 FX_EXECUTION=NATIVE_OPENED
 CORPUS_STDLIB=PASS
 CORPUS_APP=GAP_ONLY
 CORPUS_APP_PURE=PASS
+CORPUS_TOKEN_MASS=PASS
 CORPUS_SELFHOST=NOT_STARTED
 CORE_V0_PREP=READY
 CORE_V0_VOTE=CLOSED
@@ -162,3 +163,10 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 - `corpus/app/fib` ← `fx-queue/server.fl` (if·산술·재귀만)
 - `python3 tools/check_corpus.py` → `CORPUS_APP_PURE=PASS`
 - GAP(`server_json`/`mariadb`/`fn`/`loop`)는 여전히 밖
+
+## 코퍼스 질량 · 로드맵 5 · 2026-10-01
+
+- `python3 tools/corpus_token_mass.py` → `CORPUS_TOKEN_MASS=PASS`
+- 쌍 8건: FX3/FX 바이트비 **0.6504**, 프록시 단위비 **0.8758**
+- `OUTPUT_TOKENS=NOT_MEASURED` (토크나이저 미설치·usage 없음)
+- FX 트리 수정 없음 · 결과: `bench/results/corpus-mass-20261001/`

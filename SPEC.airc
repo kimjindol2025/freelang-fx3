@@ -1,6 +1,6 @@
 {
   "brief": [
-    "핫은 (task-fx3-post-v0-candidate-only) 내용 (FX3 post-v0 candidate only) 다.",
+    "핫은 (task-fx3-roadmap6-exec-match-or-density) 내용 (FX3 roadmap6 exec match or density) 다.",
     "lock·graveyard에 있는 방향은 다시 꺼내지 않는다."
   ],
   "$": "airc-spec",
@@ -14,7 +14,7 @@
     "for": "Grok/Codex 등 AI 작성·수정 루프와 FX3 Core 계약",
     "not": "파이썬 대체 자랑·FX 계보 설명·표면 전용 런타임·delimiter 전에 FX 실행 열기"
   },
-  "hot": "task-fx3-post-v0-candidate-only",
+  "hot": "task-fx3-roadmap6-exec-match-or-density",
   "constitution": {
     "1": "AI 전용. 인간 가독성을 위한 구조 타협 금지",
     "2": "identity는 잠긴다. 변경은 사용자 협의 필수. Claude 단독 변경 금지",
@@ -234,6 +234,24 @@
       "check": [],
       "verified": false,
       "next": []
+    },
+    "task-fx3-roadmap5-corpus-token-mass": {
+      "t": "task",
+      "v": "FX3 roadmap5 corpus token mass",
+      "entry": [],
+      "check": [],
+      "verified": true,
+      "next": [
+        "task-fx3-roadmap6-exec-match-or-density"
+      ]
+    },
+    "task-fx3-roadmap6-exec-match-or-density": {
+      "t": "task",
+      "v": "FX3 roadmap6 exec match or density",
+      "entry": [],
+      "check": [],
+      "verified": false,
+      "next": []
     }
   },
   "lock": [
@@ -257,11 +275,11 @@
   "handoff": {
     "step1": "print-hot만 실행한다. SPEC.airc 본문(10줄 이후)은 읽지 않는다.",
     "step2": "brief 2줄의 hot id만 실행한다. lock·graveyard 방향은 재도입 금지.",
-    "step3": "hot=task-fx3-post-v0-candidate-only 실행. 완료 표식=FX3 Core v0 CLOSED PASS 3/3",
-    "step4": "너는 'FX3 Core v0 CLOSED PASS 3/3'까지 끝난 상태다. 'FX3 post-v0 candidate only'를 하면 된다.",
+    "step3": "hot=task-fx3-roadmap6-exec-match-or-density 실행. 완료 표식=FX3 roadmap5 corpus token mass",
+    "step4": "너는 'FX3 roadmap5 corpus token mass'까지 끝난 상태다. 'FX3 roadmap6 exec match or density'를 하면 된다.",
     "step5": "identity 변경 필요 시 사용자에게 먼저 물어라",
-    "done": "FX3 Core v0 CLOSED PASS 3/3",
-    "next": "FX3 post-v0 candidate only",
-    "checkpoint_at": "2026-10-01T20:38:48.006663+09:00"
+    "done": "FX3 roadmap5 corpus token mass",
+    "next": "FX3 roadmap6 exec match or density",
+    "checkpoint_at": "2026-10-01T20:53:54.643337+09:00"
   }
 }
