@@ -1,0 +1,4 @@
+(defn get-or [$m $k $default]
+  (if (null? (get $m $k))
+    $default
+    (get $m $k)))

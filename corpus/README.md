@@ -19,6 +19,7 @@ FIXTURE_05=NO
 | str-coerce | `fx-std.fl` | `stdlib/str-coerce.fx3` | `?~` + `str` |
 | req-param | `fx-std.fl` | `stdlib/req-param.fx3` | nested `get` |
 | req-query | `fx-std.fl` | `stdlib/req-query.fx3` | nested `get` |
+| get-or | `fx-std.fl` | `stdlib/get-or.fx3` | `?~` + `get` |
 
 ## app GAP (표현 없음)
 

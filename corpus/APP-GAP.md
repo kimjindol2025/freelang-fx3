@@ -56,6 +56,7 @@ GAP 표를 유지한 채, Core `get`/`if`/`null?`/산술·호출만 쓰는 헬�
 |------|------|------|
 | req-param | `fx-std.fl` | `corpus/stdlib/req-param.fx3` |
 | req-query | `fx-std.fl` | `corpus/stdlib/req-query.fx3` |
+| get-or | `fx-std.fl` | `corpus/stdlib/get-or.fx3` (null?-get 동등형; let 없음) |
 
 ## 판정 줄
 

@@ -1,0 +1,1 @@
+F get-or[$m,$k,$default]{?~(get($m,$k)){$default}{get($m,$k)}}

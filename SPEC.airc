@@ -328,6 +328,16 @@
       "next": [
         "task-fx3-new-agenda-only"
       ]
+    },
+    "task-fx3-language-cycle3-closed": {
+      "t": "task",
+      "v": "FX3 language cycle3 closed",
+      "entry": [],
+      "check": [],
+      "verified": true,
+      "next": [
+        "task-fx3-new-agenda-only"
+      ]
     }
   },
   "lock": [
@@ -351,11 +361,11 @@
   "handoff": {
     "step1": "print-hot만 실행한다. SPEC.airc 본문(10줄 이후)은 읽지 않는다.",
     "step2": "brief 2줄의 hot id만 실행한다. lock·graveyard 방향은 재도입 금지.",
-    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=FX3 READ_FIXTURE_01_04 PASS 3/3",
-    "step4": "너는 'FX3 READ_FIXTURE_01_04 PASS 3/3'까지 끝난 상태다. 'FX3 new agenda only'를 하면 된다.",
+    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=FX3 language cycle3 closed",
+    "step4": "너는 'FX3 language cycle3 closed'까지 끝난 상태다. 'FX3 new agenda only'를 하면 된다.",
     "step5": "identity 변경 필요 시 사용자에게 먼저 물어라",
-    "done": "FX3 READ_FIXTURE_01_04 PASS 3/3",
+    "done": "FX3 language cycle3 closed",
     "next": "FX3 new agenda only",
-    "checkpoint_at": "2026-10-01T22:53:49.621164+09:00"
+    "checkpoint_at": "2026-10-01T23:04:44.282800+09:00"
   }
 }

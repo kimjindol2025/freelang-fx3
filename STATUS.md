@@ -99,7 +99,7 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=READ_FIXTURE_01_04 PASS 3/3. 새 기능 아님. 다음=새 안건만
+HANDOFF=LANG CYCLE3 CLOSED. V1 PREP only. Core 미삭·v1 미선언. 다음=새 안건만
 NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY
 FX_EXECUTION=NATIVE_OPENED
 CORPUS_STDLIB=PASS
@@ -114,6 +114,10 @@ WHITESPACE_SAME_FL=PASS
 READ_FIXTURE_01_04=PASS
 LANG_GATE=PASS
 LANG_CYCLE2=CLOSED
+LANG_CYCLE3=CLOSED
+CORE_V1_PREP=READY
+CORE_V1_FINAL=NOT_YET
+DEFERRED_SURFACES=DOCUMENTED_NOT_GATE
 CORPUS_SELFHOST=NOT_STARTED
 CORE_V0_PREP=READY
 CORE_V0_VOTE=CLOSED
@@ -218,3 +222,13 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 | L3 stdlib 헬퍼 | `req-param` · `req-query` |
 | L4 언어 게이트 | `bash tools/check_language_gate.sh` → `LANG_GATE=PASS` |
 | L5 | `LANG_CYCLE2=CLOSED` · `CORE_V1=NOT_YET` |
+
+## 언어 주기3 · 2026-10-01 · CLOSED
+
+| 단계 | 결과 |
+|------|------|
+| M1 Core v1 PREP | [CORE-V1-PREP.md](CORE-V1-PREP.md) · `CORE_V1_FINAL=NOT_YET` |
+| M2 보류 표면 | `bench/results/deferred-surfaces-20261001/` · 관문 아님 |
+| M3 stdlib | `get-or` (+1; first-or는 eval 한계로 SKIP) |
+| M4 LANG_GATE | 재실행 PASS |
+| M5 | `LANG_CYCLE3=CLOSED` |

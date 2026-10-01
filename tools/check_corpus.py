@@ -63,6 +63,15 @@ CASES = [
         "native_expect": None,
     },
     {
+        "name": "get-or",
+        "class": "stdlib",
+        "dir": CORPUS_STDLIB,
+        "source": "freelang-v11-fx/fx-std.fl",
+        "eval": {"args": [{"a": 1}, "b", 9], "expect": 9},
+        "native_call": None,
+        "native_expect": None,
+    },
+    {
         "name": "fib",
         "class": "app-pure",
         "dir": CORPUS_APP,
