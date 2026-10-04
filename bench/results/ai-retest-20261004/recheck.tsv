@@ -1,0 +1,16 @@
+pack	case	kind	status	path
+U1	case-01	first	PASS	bench/results/u1-smoke-20260929/first/case-01.fx3
+U1	case-02	first	PASS	bench/results/u1-smoke-20260929/first/case-02.fx3
+U1	case-03	first	PASS	bench/results/u1-smoke-20260929/first/case-03.fx3
+U1	case-04	first	PASS	bench/results/u1-smoke-20260929/first/case-04.fx3
+U1	case-05	first	PASS	bench/results/u1-smoke-20260929/first/case-05.fx3
+U1	case-06	first	PASS	bench/results/u1-smoke-20260929/first/case-06.fx3
+U2	case-01	repaired	PASS	bench/results/u2-smoke-20260929/repaired/case-01.fx3
+U2	case-02	repaired	PASS	bench/results/u2-smoke-20260929/repaired/case-02.fx3
+U2	case-03	repaired	PASS	bench/results/u2-smoke-20260929/repaired/case-03.fx3
+U3	case-01	regen	PASS	bench/results/u3-smoke-20260929/regen/case-01.fx3
+U3	case-02	regen	PASS	bench/results/u3-smoke-20260929/regen/case-02.fx3
+U3	case-03	regen	PASS	bench/results/u3-smoke-20260929/regen/case-03.fx3
+U3	case-04	regen	PASS	bench/results/u3-smoke-20260929/regen/case-04.fx3
+U3	case-05	regen	PASS	bench/results/u3-smoke-20260929/regen/case-05.fx3
+U3	case-06	regen	PASS	bench/results/u3-smoke-20260929/regen/case-06.fx3

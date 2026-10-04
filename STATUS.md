@@ -99,12 +99,15 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=FX3 LANGUAGE_WRAP Core v0 closed. NEXT=NEW_AGENDA_ONLY
+HANDOFF=FX3 AI_RETEST READY. NEXT=CORE_V1 vote only when opened
 NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY
 LANGUAGE_WRAP=CLOSED
 LANGUAGE_WRAP_REPORT=bench/results/language-wrap-20261004/
+AI_RETEST=PASS
+AI_RETEST_REPORT=bench/results/ai-retest-20261004/
 CORE_V0_SCOPE_COMPLETE=YES
 CORE_V1_PASS_CONDITIONS=DOCUMENTED
+CORE_V1_PREP_CONDITION_2=READY
 DEFERRED_CYCLE3_PLUS=YES
 STDLIB_NESTED_GET=PASS
 STDLIB_GET_IN_OR=PASS
@@ -257,7 +260,15 @@ FX3 전부 후보 A1–A4 닫힘.
 
 - 안건: 잠긴 Core v0 범위의 언어 설계·검증 마무리 (v1 선언 아님)
 - 재검증: `LANG_GATE=PASS` · `FX_NATIVE=PASS`
-- 문서: [CORE-V1-PREP.md](CORE-V1-PREP.md) 조건1·3 READY 동기화 · 조건2(AI 재시험)·표결은 미개설
+- 문서: [CORE-V1-PREP.md](CORE-V1-PREP.md) 조건1·3 READY · 표결 미개설
 - 증거: [bench/results/language-wrap-20261004/](bench/results/language-wrap-20261004/)
-- stale handoff(`fl-git GitLab`) 정리 · `LANGUAGE_WRAP=CLOSED` · `NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY`
+- stale handoff(`fl-git GitLab`) 정리 · `LANGUAGE_WRAP=CLOSED`
 - 금지 유지: fixture 05 · Hot Alias · Core 삭감 · 전용 런타임 · app GAP 전면 · self-host · `CORE_V1_FINAL=NOT_YET`
+
+## AI 사용자 재시험 · CORE_V1_PREP #2 · 2026-10-04
+
+- 경로: U1 `u1-smoke-20260929` · U2 `u2-smoke-20260929` · U3 `u3-smoke-20260929` (+ U1 ops)
+- ENTRY: 재시험 구간 before=after (sha256 고정) · U3 당시 3204B 대비 현재 3373B는 누적 문서 증가(이번 안건 미팽창)
+- 산출물 재검증: first/repaired/regen 15/15 lower≡expected PASS
+- 증거: [bench/results/ai-retest-20261004/](bench/results/ai-retest-20261004/) · `AI_RETEST=PASS` · 조건2 READY
+- `CORE_V1_FINAL=NOT_YET` · 표결 파일 미작성 · 선언 금지

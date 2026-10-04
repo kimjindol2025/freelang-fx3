@@ -1,6 +1,6 @@
 {
   "brief": [
-    "핫은 (task-fx3-new-agenda-only) 내용 (NEW_AGENDA_ONLY after language wrap) 다.",
+    "핫은 (task-fx3-new-agenda-only) 내용 (NEW_AGENDA_ONLY after AI retest; CORE_V1 vote not opened) 다.",
     "lock·graveyard에 있는 방향은 다시 꺼내지 않는다."
   ],
   "$": "airc-spec",
@@ -293,14 +293,12 @@
     },
     "task-fx3-new-agenda-only": {
       "t": "task",
-      "v": "NEW_AGENDA_ONLY after language wrap",
+      "v": "NEW_AGENDA_ONLY after AI retest; CORE_V1 vote not opened",
       "entry": [
-        "STATUS.md",
-        "CORE-V1-PREP.md",
-        "bench/results/language-wrap-20261004/"
+        "AI-ENTRY.md AI-USE-SUCCESS.md CORE-V1-PREP.md"
       ],
       "check": [
-        "grep -n LANGUAGE_WRAP STATUS.md"
+        "ls bench/results/u1-smoke-20260929 bench/results/u2-smoke-20260929 bench/results/u3-smoke-20260929"
       ],
       "verified": false,
       "next": []
@@ -426,6 +424,20 @@
       "next": [
         "task-fx3-new-agenda-only"
       ]
+    },
+    "task-fx3-ai-retest": {
+      "t": "task",
+      "v": "CORE_V1_PREP AI user retest U1-U3",
+      "entry": [
+        "bench/results/ai-retest-20261004/ CORE-V1-PREP.md STATUS.md"
+      ],
+      "check": [
+        "grep -n AI_RETEST=PASS STATUS.md"
+      ],
+      "verified": true,
+      "next": [
+        "task-fx3-new-agenda-only"
+      ]
     }
   },
   "lock": [
@@ -449,11 +461,11 @@
   "handoff": {
     "step1": "print-hot만 실행한다. SPEC.airc 본문(10줄 이후)은 읽지 않는다.",
     "step2": "brief 2줄의 hot id만 실행한다. lock·graveyard 방향은 재도입 금지.",
-    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=FX3 LANGUAGE_WRAP Core v0",
-    "step4": "너는 'FX3 LANGUAGE_WRAP Core v0'까지 끝난 상태다. 'NEW_AGENDA_ONLY after language wrap'를 하면 된다.",
+    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=CORE_V1_PREP AI user retest U1-U3",
+    "step4": "너는 'CORE_V1_PREP AI user retest U1-U3'까지 끝난 상태다. 'NEW_AGENDA_ONLY after AI retest; CORE_V1 vote not opened'를 하면 된다.",
     "step5": "identity 변경 필요 시 사용자에게 먼저 물어라",
-    "done": "FX3 LANGUAGE_WRAP Core v0",
-    "next": "NEW_AGENDA_ONLY after language wrap",
-    "checkpoint_at": "2026-10-04T18:57:59.607868+09:00"
+    "done": "CORE_V1_PREP AI user retest U1-U3",
+    "next": "NEW_AGENDA_ONLY after AI retest; CORE_V1 vote not opened",
+    "checkpoint_at": "2026-10-04T19:03:09.819145+09:00"
   }
 }
