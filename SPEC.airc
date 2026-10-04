@@ -1,6 +1,6 @@
 {
   "brief": [
-    "핫은 (task-fx3-core-v1-vote) 내용 (CORE_V1_VOTE OPEN 2/3; await user2) 다.",
+    "핫은 (task-fx3-new-agenda-only) 내용 (NEW_AGENDA_ONLY after CORE_V1_FINAL=PASS) 다.",
     "lock·graveyard에 있는 방향은 다시 꺼내지 않는다."
   ],
   "$": "airc-spec",
@@ -14,7 +14,7 @@
     "for": "Grok/Codex 등 AI 작성·수정 루프와 FX3 Core 계약",
     "not": "파이썬 대체 자랑·FX 계보 설명·표면 전용 런타임·delimiter 전에 FX 실행 열기"
   },
-  "hot": "task-fx3-core-v1-vote",
+  "hot": "task-fx3-new-agenda-only",
   "constitution": {
     "1": "AI 전용. 인간 가독성을 위한 구조 타협 금지",
     "2": "identity는 잠긴다. 변경은 사용자 협의 필수. Claude 단독 변경 금지",
@@ -293,12 +293,13 @@
     },
     "task-fx3-new-agenda-only": {
       "t": "task",
-      "v": "NEW_AGENDA_ONLY after AI retest; CORE_V1 vote not opened",
+      "v": "NEW_AGENDA_ONLY after CORE_V1_FINAL=PASS",
       "entry": [
-        "AI-ENTRY.md AI-USE-SUCCESS.md CORE-V1-PREP.md"
+        "CORE-V1-VOTE.md",
+        "STATUS.md"
       ],
       "check": [
-        "ls bench/results/u1-smoke-20260929 bench/results/u2-smoke-20260929 bench/results/u3-smoke-20260929"
+        "grep -n CORE_V1_FINAL=PASS STATUS.md"
       ],
       "verified": false,
       "next": []
@@ -441,7 +442,7 @@
     },
     "task-fx3-core-v1-vote": {
       "t": "task",
-      "v": "CORE_V1_VOTE OPEN 2/3; await user2",
+      "v": "CORE_V1_VOTE CLOSED 3/3; CORE_V1_FINAL=PASS",
       "entry": [
         "CORE-V1-VOTE.md",
         "STATUS.md"
@@ -449,8 +450,10 @@
       "check": [
         "grep -n TALLY=2_OF_3 CORE-V1-VOTE.md"
       ],
-      "verified": false,
-      "next": []
+      "verified": true,
+      "next": [
+        "task-fx3-new-agenda-only"
+      ]
     }
   },
   "lock": [
@@ -474,11 +477,11 @@
   "handoff": {
     "step1": "print-hot만 실행한다. SPEC.airc 본문(10줄 이후)은 읽지 않는다.",
     "step2": "brief 2줄의 hot id만 실행한다. lock·graveyard 방향은 재도입 금지.",
-    "step3": "hot=task-fx3-core-v1-vote 실행. 완료 표식=user2 ballot recorded",
-    "step4": "너는 'user3 AGREE_CLOSE · tally 2/3'까지 끝난 상태다. 'user2 표 기록 후 CLOSE_IF'를 하면 된다.",
+    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=CORE_V1_VOTE CLOSED 3/3 AGREE_CLOSE; CORE_V1_FINAL=PASS",
+    "step4": "너는 'CORE_V1_FINAL=PASS'까지 끝난 상태다. 'NEW_AGENDA_ONLY'를 하면 된다.",
     "step5": "identity 변경 필요 시 사용자에게 먼저 물어라",
-    "done": "user3 GPT AGREE_CLOSE recorded; tally 2/3",
-    "next": "await user2 Grok ballot; CORE_V1_FINAL still NOT_YET",
+    "done": "CORE_V1_VOTE CLOSED 3/3 AGREE_CLOSE; CORE_V1_FINAL=PASS",
+    "next": "NEW_AGENDA_ONLY after CORE_V1_FINAL=PASS",
     "checkpoint_at": "2026-10-04T19:03:09.819145+09:00"
   }
 }

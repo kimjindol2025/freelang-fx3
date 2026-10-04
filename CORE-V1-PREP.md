@@ -2,13 +2,14 @@
 
 ```text
 DOC=CORE_V1_PREP
-CORE_V1_FINAL=NOT_YET
-DECLARE=FORBIDDEN
+CORE_V1_FINAL=PASS
+DECLARE=APPLIED_VIA_VOTE
 AGENDA=A1_CHECKLIST_ONLY
 DATE=2026-10-01
+VOTE_CLOSED=2026-10-04
 ```
 
-이 문서는 **확정 선언이 아니다.** v1 표결·`CORE_V1_FINAL=PASS`는 여기 조건이 모인 뒤 **별 안건**이다.
+이 문서는 준비 체크리스트다. v1 확정은 [CORE-V1-VOTE.md](CORE-V1-VOTE.md) 표결로만 한다. 2026-10-04 `CLOSE_IF` 충족 → `CORE_V1_FINAL=PASS`.
 
 ## v0에서 이미 PASS (다시 열지 않음)
 
@@ -33,23 +34,22 @@ DATE=2026-10-01
 | 1 | **코퍼스 EXEC 폭** | `check_corpus.py` → `CORPUS_STDLIB=PASS` · `CORPUS_APP_PURE=PASS`; roadmap6 재실행 PASS; 케이스 목록이 STATUS/APP-GAP과 동기. GAP(`server_json` 등)은 밖 | READY (A3 헬퍼·2026-10-04 LANG_GATE 재검증) |
 | 2 | **AI 사용자 재시험** | U1·U2·U3 결과 디렉터리 경로 + `ENTRY` 바이트 불변 기록. AI-ENTRY.md 바이트 해시 또는 크기 비교 | READY (`bench/results/ai-retest-20261004/` · ENTRY 재시험 구간 불변 · 산출물 15/15 re-lower) |
 | 3 | **보류 표면 방침** | `bench/results/deferred-surfaces-*/REPORT.md`에 `DEFERRED_AS_CORE_GATE=NO`; Core.md 밀도 문장 미변경 | READY |
-| 4 | **세 사용자 표결** | `CORE-V1-VOTE.md`(신설 안건) · 허용표 `AGREE_CLOSE`/`HOLD`/`REJECT` · 사용자1=그록빌더·2=그록·3=지피티 · 전원 기록 + AGREE_CLOSE 과반 + REJECT=0 | OPEN · 2/3 (1·3 AGREE_CLOSE · 사용자2 대기) |
+| 4 | **세 사용자 표결** | `CORE-V1-VOTE.md`(신설 안건) · 허용표 `AGREE_CLOSE`/`HOLD`/`REJECT` · 사용자1=그록빌더·2=그록·3=지피티 · 전원 기록 + AGREE_CLOSE 과반 + REJECT=0 | CLOSED · 3/3 AGREE_CLOSE · [CORE-V1-VOTE.md](CORE-V1-VOTE.md) |
 | 5 | **금지 준수** | fixture 05 · Hot Alias · Core 밀도 삭감 · 전용 런타임 · app GAP 전면 표현 · self-host 없음이 STATUS에 명시 | 유지 |
 
-## 표결 (OPEN · 2026-10-04)
+## 표결 (CLOSED · 2026-10-04)
 
 1. 위 1–3·5 READY 확인됨
 2. 안건: [CORE-V1-VOTE.md](CORE-V1-VOTE.md) · 범위 문장 고정
-3. 세 표 기록 후 닫기 규칙 충족 시에만 `CORE_V1_FINAL=PASS` · 현재 `TALLY=2_OF_3` (user2 대기)
+3. 세 표 기록 · `CLOSE_IF` 충족 → `CORE_V1_FINAL=PASS`
 
 ## 한 줄
 
 ```text
 CORE_V1_PREP=READY
-CORE_V1_VOTE=OPEN
-CORE_V1_FINAL=NOT_YET
-DECLARE=FORBIDDEN
-PASS_CONDITIONS=DOCUMENTED
-TALLY=2_OF_3
-AWAITING=user2
+CORE_V1_VOTE=CLOSED
+CORE_V1_FINAL=PASS
+TALLY=3_OF_3
+AGREE_CLOSE=3
+REJECT=0
 ```
