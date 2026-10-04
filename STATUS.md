@@ -297,3 +297,10 @@ FX3 전부 후보 A1–A4 닫힘.
 - 보강: `server_html`/`redirect`/`ws_*`/`form_parse`/`math_*`/`sqlite_*`/`catch` 등
 - 증거: [bench/results/app-gap-observe-20261004/](bench/results/app-gap-observe-20261004/)
 - `CORPUS_APP=GAP_ONLY` · `OUTSIDE_CORE_V1=YES` 유지
+
+## APP_GAP_NARROW_01 · json 최소 표현 · 2026-10-04
+
+- 선택: **json** (`server_*`/`sqlite` 비선택)
+- 예제: `corpus/app-gap/json-ok-obj` · `json_stringify({ok:true})` lower≡ref PASS
+- `server_json` 등 HTTP/DB는 계속 GAP · 전면 앱 이식 없음
+- 증거: [bench/results/app-gap-narrow-01-20261004/](bench/results/app-gap-narrow-01-20261004/) · `CORPUS_APP_GAP_NARROW=PASS`
