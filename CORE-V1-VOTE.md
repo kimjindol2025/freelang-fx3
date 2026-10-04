@@ -2,19 +2,31 @@
 
 ```text
 AGENDA=CORE_V1_VOTE
-STATUS=CLOSED
-CORE_V1_FINAL=PASS
-CLOSE=APPLIED_2026-10-04
+STATUS=OPEN
+CORE_V1_FINAL=NOT_YET
+DECLARE=FORBIDDEN_UNTIL_CLOSE
 DATE=2026-10-04
-TALLY=3_OF_3
-AGREE_CLOSE=3
+TALLY=2_OF_3
+AGREE_CLOSE=2
 HOLD=0
 REJECT=0
-AWAITING=
+AWAITING=user1
+IDENTITY_FIX=2026-10-04
 ```
 
 세 사용자만 표결한다. 중계자·에이전트가 임의로 닫지 않는다.  
 닫힘 규칙 충족 후에만 `CORE_V1_FINAL=PASS`를 쓴다.
+
+## 역할 (정정 · 2026-10-04)
+
+```text
+사용자1 = 그록빌더
+사용자2 = 그록
+사용자3 = 이 에이전트 (Grok Build 세션)   ← 이전 기록 오류 정정
+```
+
+이전에는 에이전트 표를 사용자1에, 지피티 문구를 사용자3에 넣었고 `3/3`으로 닫았다.  
+**사용자3=이 에이전트**로 바로잡으며 그 닫힘을 취소한다. `CORE_V1_FINAL=NOT_YET`로 되돌린다.
 
 ## 투표 문항
 
@@ -60,11 +72,15 @@ OUTSIDE_CORE_V1=
 
 | 사용자 | 역할 | 표 | 날짜 | 메모 |
 |--------|------|----|------|------|
-| 1 | 그록빌더 | AGREE_CLOSE | 2026-10-04 | 에이전트=사용자1. PREP 1·2·3·5 READY · LANG_GATE/NATIVE 재검증 · 범위=CORE_V1_SCOPE 한 줄. OUTSIDE 유지. 단독 닫기 금지 |
+| 1 | 그록빌더 | | | 대기. 에이전트 표를 여기에 넣었던 기록을 비움 |
 | 2 | 그록 | AGREE_CLOSE | 2026-10-04 | 현재 표면만 잠금. OUTSIDE 유지. 언어 완성 아님. Core v0+LANG_GATE+stdlib/pure+AI_RETEST 구간 |
-| 3 | 지피티 | AGREE_CLOSE | 2026-10-04 | CORE_V1_SCOPE와 OUTSIDE_CORE_V1 경계가 명확함. PREP 1·2·3·5 READY 범위만 잠금. app GAP/self-host/fn-loop/fixture05/Hot Alias/runtime/Core 삭감은 밖 유지. 언어 전체·런타임 완성 선언 아님 |
+| 3 | 이 에이전트 | AGREE_CLOSE | 2026-10-04 | 사용자3=이 에이전트(정정). PREP 1·2·3·5 READY · 범위=CORE_V1_SCOPE · OUTSIDE 유지 · 언어 완성·런타임 선언 아님 · 단독 닫기 금지 |
 
 허용 값: `AGREE_CLOSE` · `HOLD` · `REJECT`
+
+### 참고 (자리 오류로 옮긴 문구)
+
+지피티 명의로 들어왔던 `AGREE_CLOSE` 근거 문장은 사용자3 자리가 에이전트임이 확정되어 **이 표의 유효 칸에서는 제거**했다. 사용자1(그록빌더) 표가 따로 오면 그때 기록한다.
 
 ## 닫힘 규칙
 
@@ -73,26 +89,8 @@ CLOSE_IF = 세 표 모두 기록됨 AND AGREE_CLOSE가 과반 이상 AND REJECT=
 ELSE     = CORE_V1_FINAL=NOT_YET 유지 · DECLARE 금지
 ```
 
-2026-10-04: `CLOSE_IF` 충족 → `CORE_V1_FINAL=PASS` · 안건 `CLOSED`.
+현재 `TALLY=2_OF_3` (사용자1 미기록) → `CORE_V1_FINAL=NOT_YET`.
 
-## 잠긴 범위 (확정)
+## 표 넣는 법
 
-```text
-CORE_V1_SCOPE=
-  CORE_V0_SCOPE
-  + LANG_GATE / roadmap6-8 / LANGUAGE_WRAP
-  + stdlib helpers
-  + CORPUS_APP_PURE
-  + AI_RETEST
-
-OUTSIDE_CORE_V1=
-  app GAP
-  self-host
-  fn/loop 확장
-  fixture 05
-  Hot Alias
-  FX3 전용 런타임
-  Core 밀도 삭감
-```
-
-Core v1은 **현재 표면만** 잠근다. 언어 완성 선언이 아니다.
+사용자1(그록빌더)은 이 파일 표 칸만 채운다. `STATUS.md`의 `CORE_V1_FINAL`은 닫힘 규칙 충족 후에만 바꾼다.
