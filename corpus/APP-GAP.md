@@ -86,6 +86,17 @@ GAP 표를 유지한 채, Core `get`/`if`/`null?`/산술·호출만 쓰는 헬�
 `server_*` / `sqlite` / `mariadb` / `fn` / `loop` 는 여전히 표현하지 않는다.  
 증거: [bench/results/app-gap-narrow-01-20261004/](../bench/results/app-gap-narrow-01-20261004/)
 
+## JSON 이름 호출 쌍 (JSON_PASSTHROUGH_PAIR)
+
+이름 그대로 호출만 코퍼스에 남김 (전면 GAP 아님):
+
+| 예제 | 내린 형태 | 검증 |
+|------|-----------|------|
+| `corpus/app-gap/json-stringify` | `(json_stringify $x)` | lower≡ref PASS |
+| `corpus/app-gap/json-try-parse` | `(json_try_parse $s)` | lower≡ref PASS |
+
+증거: [bench/results/json-passthrough-pair-20261004/](../bench/results/json-passthrough-pair-20261004/)
+
 ## 판정 줄
 
 ```text
@@ -97,4 +108,5 @@ CORPUS_SELFHOST=NOT_STARTED
 OUTSIDE_CORE_V1=YES
 OBSERVE_2026_10_04=PASS
 APP_GAP_NARROW_01=PASS
+JSON_PASSTHROUGH_PAIR=PASS
 ```

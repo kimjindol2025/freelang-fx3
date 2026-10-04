@@ -99,7 +99,7 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=STDLIB_HELPER_PLUS1 PASS (result-val-or). NEXT=NEW_AGENDA_ONLY
+HANDOFF=JSON_PASSTHROUGH_PAIR PASS. NEXT=NEW_AGENDA_ONLY
 NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY
 LANGUAGE_WRAP=CLOSED
 LANGUAGE_WRAP_REPORT=bench/results/language-wrap-20261004/
@@ -113,6 +113,8 @@ CORPUS_APP_GAP_NARROW=PASS
 STDLIB_HELPER_PLUS1=PASS
 STDLIB_HELPER_PLUS1_REPORT=bench/results/stdlib-helper-plus1-20261004/
 STDLIB_RESULT_VAL_OR=PASS
+JSON_PASSTHROUGH_PAIR=PASS
+JSON_PASSTHROUGH_PAIR_REPORT=bench/results/json-passthrough-pair-20261004/
 CORE_V0_SCOPE_COMPLETE=YES
 CORE_V1_PASS_CONDITIONS=DOCUMENTED
 CORE_V1_PREP_CONDITION_2=READY
@@ -313,3 +315,9 @@ FX3 전부 후보 A1–A4 닫힘.
 - Core v1 표면만: `get` / `null?` / `if` · `fn`/`loop`·app GAP·fixture05·Hot Alias·런타임 미개방
 - 코퍼스: `corpus/stdlib/result-val-or.{fx3,fl}` · lower·semantic_min·native PASS
 - 증거: [bench/results/stdlib-helper-plus1-20261004/](bench/results/stdlib-helper-plus1-20261004/)
+
+## JSON 이름 호출 쌍 · 2026-10-04
+
+- `json-stringify` / `json-try-parse` 이름 그대로 호출만 · `server_*`/`mariadb`/`fn`/`loop` 없음
+- lower≡ref PASS · host EXEC SKIP
+- 증거: [bench/results/json-passthrough-pair-20261004/](bench/results/json-passthrough-pair-20261004/)

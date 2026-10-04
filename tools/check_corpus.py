@@ -117,6 +117,24 @@ CASES = [
         "native_call": None,  # 런타임 동등성은 이 안건 범위 밖 (lower 동등만)
         "native_expect": None,
     },
+    {
+        "name": "json-stringify",
+        "class": "app-gap-narrow",
+        "dir": CORPUS_APP_GAP,
+        "source": "FX json_stringify name passthrough (no server_*/mariadb/fn/loop)",
+        "eval": None,
+        "native_call": None,
+        "native_expect": None,
+    },
+    {
+        "name": "json-try-parse",
+        "class": "app-gap-narrow",
+        "dir": CORPUS_APP_GAP,
+        "source": "FX json_try_parse name passthrough (fx-std json-parse-safe body)",
+        "eval": None,
+        "native_call": None,
+        "native_expect": None,
+    },
 ]
 
 

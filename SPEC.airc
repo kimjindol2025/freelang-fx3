@@ -1,6 +1,6 @@
 {
   "brief": [
-    "핫은 (task-fx3-new-agenda-only) 내용 (NEW_AGENDA_ONLY after stdlib helper +1) 다.",
+    "핫은 (task-fx3-new-agenda-only) 내용 (NEW_AGENDA_ONLY after JSON_PASSTHROUGH_PAIR) 다.",
     "lock·graveyard에 있는 방향은 다시 꺼내지 않는다."
   ],
   "$": "airc-spec",
@@ -293,12 +293,12 @@
     },
     "task-fx3-new-agenda-only": {
       "t": "task",
-      "v": "NEW_AGENDA_ONLY after stdlib helper +1",
+      "v": "NEW_AGENDA_ONLY after JSON_PASSTHROUGH_PAIR",
       "entry": [
         "STATUS.md"
       ],
       "check": [
-        "grep -n STDLIB_HELPER_PLUS1=PASS STATUS.md"
+        "grep -n JSON_PASSTHROUGH_PAIR=PASS STATUS.md"
       ],
       "verified": false,
       "next": []
@@ -500,6 +500,22 @@
       "next": [
         "task-fx3-new-agenda-only"
       ]
+    },
+    "task-fx3-json-passthrough-pair": {
+      "t": "task",
+      "v": "json_stringify + json_try_parse passthrough corpus pair PASS",
+      "entry": [
+        "corpus/app-gap/json-stringify.fx3",
+        "corpus/app-gap/json-try-parse.fx3",
+        "bench/results/json-passthrough-pair-20261004/"
+      ],
+      "check": [
+        "python3 tools/check_corpus.py"
+      ],
+      "verified": true,
+      "next": [
+        "task-fx3-new-agenda-only"
+      ]
     }
   },
   "lock": [
@@ -523,11 +539,11 @@
   "handoff": {
     "step1": "print-hot만 실행한다. SPEC.airc 본문(10줄 이후)은 읽지 않는다.",
     "step2": "brief 2줄의 hot id만 실행한다. lock·graveyard 방향은 재도입 금지.",
-    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=stdlib helper +1 result-val-or PASS",
-    "step4": "너는 'stdlib helper +1'까지 끝난 상태다. 'NEW_AGENDA_ONLY'를 하면 된다.",
+    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=JSON_PASSTHROUGH_PAIR PASS",
+    "step4": "너는 'JSON_PASSTHROUGH_PAIR'까지 끝난 상태다. 'NEW_AGENDA_ONLY'를 하면 된다.",
     "step5": "identity 변경 필요 시 사용자에게 먼저 물어라",
-    "done": "stdlib helper +1 result-val-or PASS",
-    "next": "NEW_AGENDA_ONLY after stdlib helper +1",
-    "checkpoint_at": "2026-10-04T19:39:59.683032+09:00"
+    "done": "JSON_PASSTHROUGH_PAIR PASS",
+    "next": "NEW_AGENDA_ONLY after JSON_PASSTHROUGH_PAIR",
+    "checkpoint_at": "2026-10-04T19:48:01.495947+09:00"
   }
 }

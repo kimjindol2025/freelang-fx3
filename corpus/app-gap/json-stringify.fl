@@ -1,0 +1,2 @@
+(defn json-stringify [$x]
+  (json_stringify $x))
