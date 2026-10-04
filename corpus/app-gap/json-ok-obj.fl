@@ -1,0 +1,2 @@
+(defn json-ok-obj []
+  (json_stringify {"ok" true}))

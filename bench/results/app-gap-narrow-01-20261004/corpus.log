@@ -1,0 +1,57 @@
+== identity (stdlib) ==
+PASS identity lower~ref
+PASS identity semantic_min
+PASS identity native
+== req-body (stdlib) ==
+PASS req-body lower~ref
+PASS req-body semantic_min
+SKIP req-body native
+== str-coerce (stdlib) ==
+PASS str-coerce lower~ref
+SKIP str-coerce semantic_min
+PASS str-coerce native
+== req-param (stdlib) ==
+PASS req-param lower~ref
+PASS req-param semantic_min
+SKIP req-param native
+== req-query (stdlib) ==
+PASS req-query lower~ref
+PASS req-query semantic_min
+SKIP req-query native
+== get-or (stdlib) ==
+PASS get-or lower~ref
+PASS get-or semantic_min
+SKIP get-or native
+== nested-get (stdlib) ==
+PASS nested-get lower~ref
+PASS nested-get semantic_min
+SKIP nested-get native
+== get-in-or (stdlib) ==
+PASS get-in-or lower~ref
+PASS get-in-or semantic_min
+SKIP get-in-or native
+== fib (app-pure) ==
+PASS fib lower~ref
+PASS fib semantic_min
+PASS fib native
+== json-ok-obj (app-gap-narrow) ==
+PASS json-ok-obj lower~ref
+SKIP json-ok-obj semantic_min
+SKIP json-ok-obj native
+== density ==
+DENSITY identity fx3=18 fl=23 ratio=0.783
+DENSITY req-body fx3=28 fl=42 ratio=0.667
+DENSITY str-coerce fx3=35 fl=52 ratio=0.673
+DENSITY req-param fx3=48 fl=63 ratio=0.762
+DENSITY req-query fx3=47 fl=62 ratio=0.758
+DENSITY get-or fx3=62 fl=86 ratio=0.721
+DENSITY nested-get fx3=46 fl=55 ratio=0.836
+DENSITY get-in-or fx3=99 fl=145 ratio=0.683
+DENSITY fib fx3=42 fl=76 ratio=0.553
+DENSITY json-ok-obj fx3=42 fl=52 ratio=0.808
+CORPUS_STDLIB=PASS
+CORPUS_APP=GAP_ONLY
+CORPUS_APP_PURE=PASS
+CORPUS_APP_GAP_NARROW=PASS
+CORPUS_SELFHOST=NOT_STARTED
+CORPUS_GAP=server_json,mariadb,fn/closure,loop,sqlite

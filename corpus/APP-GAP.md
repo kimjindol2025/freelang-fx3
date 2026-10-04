@@ -74,13 +74,26 @@ GAP 표를 유지한 채, Core `get`/`if`/`null?`/산술·호출만 쓰는 헬�
 
 스킵(관찰만): `first-or`(빈 get IndexError), `last-item`(length), `result-ok?`(`?` 이름), `blank?`(trim), `safe-int`(let), 원본 `get-in-2`(`json_safe_get`).
 
+## 좁은 표현 (APP_GAP_NARROW_01)
+
+전면 이식 없이 **json** 가족만 최소 표현:
+
+| 예제 | 내용 | 검증 |
+|------|------|------|
+| `corpus/app-gap/json-ok-obj` | `json_stringify({ok:true})` → FX `json_stringify` 형태 | lower≡ref PASS |
+
+`server_*` / `sqlite` / `mariadb` / `fn` / `loop` 는 여전히 표현하지 않는다.  
+증거: [bench/results/app-gap-narrow-01-20261004/](../bench/results/app-gap-narrow-01-20261004/)
+
 ## 판정 줄
 
 ```text
 CORPUS_APP=GAP_ONLY
 CORPUS_APP_PURE=fib
-CORPUS_APP_EXPRESS=NO
+CORPUS_APP_EXPRESS=NARROW_JSON_ONLY
+CORPUS_APP_GAP_NARROW=PASS
 CORPUS_SELFHOST=NOT_STARTED
 OUTSIDE_CORE_V1=YES
 OBSERVE_2026_10_04=PASS
+APP_GAP_NARROW_01=PASS
 ```

@@ -15,6 +15,7 @@ EVAL = ROOT / "tools/eval_fl_min.py"
 NATIVE = ROOT / "tools/check_semantic_native.sh"
 CORPUS_STDLIB = ROOT / "corpus/stdlib"
 CORPUS_APP = ROOT / "corpus/app"
+CORPUS_APP_GAP = ROOT / "corpus/app-gap"
 
 CASES = [
     {
@@ -97,6 +98,15 @@ CASES = [
         "eval": {"args": [10], "expect": 55},
         "native_call": "(fib 10)",
         "native_expect": "55",
+    },
+    {
+        "name": "json-ok-obj",
+        "class": "app-gap-narrow",
+        "dir": CORPUS_APP_GAP,
+        "source": "APP_GAP_NARROW_01 · fx-kv json_stringify {ok:true…} form",
+        "eval": None,  # json_stringify는 host builtin · min eval 밖
+        "native_call": None,  # 런타임 동등성은 이 안건 범위 밖 (lower 동등만)
+        "native_expect": None,
     },
 ]
 
@@ -232,8 +242,9 @@ def main() -> int:
     print("CORPUS_STDLIB=PASS")
     print("CORPUS_APP=GAP_ONLY")
     print("CORPUS_APP_PURE=PASS")
+    print("CORPUS_APP_GAP_NARROW=PASS")
     print("CORPUS_SELFHOST=NOT_STARTED")
-    print("CORPUS_GAP=server_json,mariadb,fn/closure,loop")
+    print("CORPUS_GAP=server_json,mariadb,fn/closure,loop,sqlite")
     return 0
 
 
