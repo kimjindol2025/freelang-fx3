@@ -274,4 +274,11 @@ FX3 전부 후보 A1–A4 닫힘.
 - ENTRY: 재시험 구간 before=after (sha256 고정) · U3 당시 3204B 대비 현재 3373B는 누적 문서 증가(이번 안건 미팽창)
 - 산출물 재검증: first/repaired/regen 15/15 lower≡expected PASS
 - 증거: [bench/results/ai-retest-20261004/](bench/results/ai-retest-20261004/) · `AI_RETEST=PASS` · 조건2 READY
-- `CORE_V1_FINAL=NOT_YET` · 표결 파일 미작성 · 선언 금지
+- `CORE_V1_FINAL=NOT_YET` · 선언 금지
+
+## Core v1 표결 · OPEN · 2026-10-04
+
+- 안건: [CORE-V1-VOTE.md](CORE-V1-VOTE.md)
+- 범위: `CORE_V0_SCOPE` + LANGUAGE_WRAP + AI_RETEST + stdlib/pure 증거 · OUTSIDE=app GAP/self-host/fn·loop/fixture05/Hot Alias/runtime
+- 집계: **1/3** · 사용자1(그록빌더)=`AGREE_CLOSE` · 사용자2(그록)·사용자3(지피티) **대기**
+- 닫힘 전 `CORE_V1_FINAL=NOT_YET` 유지 · 에이전트 단독 닫기 금지
