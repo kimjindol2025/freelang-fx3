@@ -1,6 +1,6 @@
 {
   "brief": [
-    "핫은 (task-fx3-new-agenda-only) 내용 (NEW_AGENDA_ONLY after CORE_V1_FINAL=PASS; seats gpt/grok-web/grok-build) 다.",
+    "핫은 (task-fx3-new-agenda-only) 내용 (NEW_AGENDA_ONLY after app GAP observe) 다.",
     "lock·graveyard에 있는 방향은 다시 꺼내지 않는다."
   ],
   "$": "airc-spec",
@@ -293,13 +293,13 @@
     },
     "task-fx3-new-agenda-only": {
       "t": "task",
-      "v": "NEW_AGENDA_ONLY after CORE_V1_FINAL=PASS; seats gpt/grok-web/grok-build",
+      "v": "NEW_AGENDA_ONLY after app GAP observe",
       "entry": [
-        "CORE-V1-VOTE.md",
-        "STATUS.md"
+        "STATUS.md",
+        "corpus/APP-GAP.md"
       ],
       "check": [
-        "grep -n CORE_V1_FINAL=PASS STATUS.md"
+        "grep -n APP_GAP_OBSERVE=PASS STATUS.md"
       ],
       "verified": false,
       "next": []
@@ -454,6 +454,22 @@
       "next": [
         "task-fx3-new-agenda-only"
       ]
+    },
+    "task-fx3-app-gap-observe": {
+      "t": "task",
+      "v": "app GAP observation only (no express)",
+      "entry": [
+        "corpus/APP-GAP.md",
+        "bench/results/app-gap-observe-20261004/",
+        "STATUS.md"
+      ],
+      "check": [
+        "grep -n OBSERVE_2026_10_04=PASS corpus/APP-GAP.md"
+      ],
+      "verified": true,
+      "next": [
+        "task-fx3-new-agenda-only"
+      ]
     }
   },
   "lock": [
@@ -477,11 +493,11 @@
   "handoff": {
     "step1": "print-hot만 실행한다. SPEC.airc 본문(10줄 이후)은 읽지 않는다.",
     "step2": "brief 2줄의 hot id만 실행한다. lock·graveyard 방향은 재도입 금지.",
-    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=CORE_V1_FINAL=PASS",
-    "step4": "너는 'CORE_V1_FINAL=PASS'까지 끝난 상태다. 'NEW_AGENDA_ONLY'를 하면 된다.",
+    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=app GAP observation only (no express)",
+    "step4": "너는 'app GAP observation'까지 끝난 상태다. 'NEW_AGENDA_ONLY'를 하면 된다.",
     "step5": "identity 변경 필요 시 사용자에게 먼저 물어라",
-    "done": "CORE_V1_FINAL=PASS; seats 1=gpt 2=grok-web 3=grok-build",
-    "next": "NEW_AGENDA_ONLY after CORE_V1_FINAL=PASS",
-    "checkpoint_at": "2026-10-04T19:03:09.819145+09:00"
+    "done": "app GAP observation only (no express)",
+    "next": "NEW_AGENDA_ONLY after app GAP observe",
+    "checkpoint_at": "2026-10-04T19:33:02.839737+09:00"
   }
 }

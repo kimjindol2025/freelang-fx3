@@ -4,13 +4,17 @@
 AGENDA=CORPUS_APP_GAP
 EXPRESS=NO
 CORE_V0_GATE=NO
+CORE_V1_GATE=NO
+OUTSIDE_CORE_V1=YES
 FX_TREE=/home/kim/kim/platform/freelang-v11-fx
-FX_PIN=202c998
-DATE=2026-10-01
+FX_PIN=1d217f5
+DATE=2026-10-04
+OBSERVE=bench/results/app-gap-observe-20261004/
 ```
 
 app·템플릿 `.fl`을 FX3로 **표현하지 않는다.** Core 밖 기능을 GAP으로만 고정한다.  
-이 표를 읽었다고 Core v0를 닫지 않는다 ([CORE-V0-PREP.md](../CORE-V0-PREP.md)).
+Core v1(`CORE_V1_FINAL=PASS`)이 잠근 것은 **현재 표면**뿐이다. 이 표의 GAP은 계속 **OUTSIDE**다.  
+FX 트리는 수정하지 않는다.
 
 ## 조사 범위
 
@@ -18,26 +22,34 @@ app·템플릿 `.fl`을 FX3로 **표현하지 않는다.** Core 밖 기능을 GA
 |------|------|
 | `fx-demo/server.fl` | 데모 앱 |
 | `fx-kv/server.fl` | KV 서비스 |
-| `templates/api-server/` | API 템플릿 |
+| `fx-queue/server.fl` | 큐 서비스 (이번 관측 포함) |
+| `templates/api-server/` | API 템플릿 (+ `test-db.fl`) |
 | `templates/kim-notes/` | 노트 템플릿 |
 | `templates/kim-short/` | 단축 URL |
-| `templates/hello/` | 헬로 |
+| `templates/hello/` | 헬로 (+ `test-sqlite.fl`) |
 
-(스캔일 기준 `.fl` 8개. FX 트리는 수정하지 않음.)
+스캔 @ `1d217f5`: **`.fl` 9개**. 증거: [bench/results/app-gap-observe-20261004/](../bench/results/app-gap-observe-20261004/).
 
 ## GAP (Core 표면 밖)
 
 | GAP | 출현 예 | Core 조치 |
 |-----|---------|-----------|
-| `server_json` / `fx_server_json` | fx-demo, fx-kv, api-server, kim-notes, hello | 표현 금지. 별칭·builtin 경쟁 전 |
-| `server_get` / `server_post` / `server_start` / `server_req_param` | 위 앱·템플릿 라우트 | 표현 금지 |
+| `server_json` / `fx_server_json` | fx-demo, fx-kv, fx-queue, api-server, kim-notes, kim-short, hello | 표현 금지 |
+| `server_get` / `server_post` / `server_start` / `server_req_param` | 위 + demo/kv/queue | 표현 금지 |
+| `server_html` / `server_redirect` / `server_status` / `server_req_body` / `server_delete` | notes/short/api/hello/queue | 표현 금지 (2026-10-04 보강) |
+| `server_ws` / `ws_send` / `ws_recv` | fx-queue | 표현 금지 (신규 관측) |
 | `mariadb_*` | api-server, kim-notes | 표현 금지 |
-| `fxb_sqlite_*` / sqlite 헬퍼 | fx-demo, fx-kv, hello, kim-short | 표현 금지 |
-| `json_stringify` / `json_try_parse` | 다수 | 이름 그대로 호출은 이론상 가능하나 앱 묶음 미착수 |
-| `(fn …)` 클로저 | fx-kv, kim-notes, kim-short | v0 미확정 |
-| `loop` / `recur` | fx-kv | v0 미확정 |
-| `try` | fx-kv | v0 미확정 |
-| `future` | fx-kv | v0 미확정 |
+| `fxb_sqlite_*` / `sqlite_*` | demo/kv/queue · hello/short 테스트 | 표현 금지 |
+| `json_stringify` / `json_parse` | 다수 | 앱 묶음 표현 금지 (관측만) |
+| `form_parse` | kim-notes, kim-short | 표현 금지 |
+| `math_floor` / `math_random` | kim-short | 표현 금지 |
+| `(fn …)` 클로저 | fx-kv, fx-queue, kim-notes, kim-short | Core v1 밖 |
+| `try` / `catch` | fx-kv, fx-queue | Core v1 밖 |
+| `future` | fx-kv, fx-queue | Core v1 밖 |
+
+`loop`/`recur` **특수형**은 이번 스캔에서 호출 헤드로 재현되지 않았다 (`expire-loop` 등 이름만 존재).
+
+원시 심볼 표: `bench/results/app-gap-observe-20261004/scan.tsv` (GAP 심볼 43).
 
 ## Core 안 순수 헬퍼 (최소 폭으로만)
 
@@ -67,6 +79,8 @@ GAP 표를 유지한 채, Core `get`/`if`/`null?`/산술·호출만 쓰는 헬�
 ```text
 CORPUS_APP=GAP_ONLY
 CORPUS_APP_PURE=fib
-CORPUS_APP_EXPRESS=PURE_ONLY
+CORPUS_APP_EXPRESS=NO
 CORPUS_SELFHOST=NOT_STARTED
+OUTSIDE_CORE_V1=YES
+OBSERVE_2026_10_04=PASS
 ```

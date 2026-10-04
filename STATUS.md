@@ -99,12 +99,14 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=CORE_V1_FINAL=PASS. seats=gpt/grok-web/grok-build. NEXT=NEW_AGENDA_ONLY
+HANDOFF=APP_GAP_OBSERVE done. NEXT=NEW_AGENDA_ONLY
 NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY
 LANGUAGE_WRAP=CLOSED
 LANGUAGE_WRAP_REPORT=bench/results/language-wrap-20261004/
 AI_RETEST=PASS
 AI_RETEST_REPORT=bench/results/ai-retest-20261004/
+APP_GAP_OBSERVE=PASS
+APP_GAP_OBSERVE_REPORT=bench/results/app-gap-observe-20261004/
 CORE_V0_SCOPE_COMPLETE=YES
 CORE_V1_PASS_CONDITIONS=DOCUMENTED
 CORE_V1_PREP_CONDITION_2=READY
@@ -284,3 +286,11 @@ FX3 전부 후보 A1–A4 닫힘.
 - 자리: **1=지피티 · 2=그록웹 · 3=그록빌드**
 - 집계: **3/3 AGREE_CLOSE** · REJECT=0 · `CLOSE_IF` 충족 → `CORE_V1_FINAL=PASS`
 - 범위: 현재 표면만 잠금 · 언어 완성 아님 · OUTSIDE 유지
+
+## App GAP 관측 보강 · 2026-10-04
+
+- 안건: 표현 없이 관측만 (`EXPRESS=NO`) · Core 삭감·전용 런타임·fixture05·Hot Alias 없음
+- FX pin `1d217f5` · `.fl` 9개 · GAP 심볼 43 · [corpus/APP-GAP.md](corpus/APP-GAP.md) 갱신
+- 보강: `server_html`/`redirect`/`ws_*`/`form_parse`/`math_*`/`sqlite_*`/`catch` 등
+- 증거: [bench/results/app-gap-observe-20261004/](bench/results/app-gap-observe-20261004/)
+- `CORPUS_APP=GAP_ONLY` · `OUTSIDE_CORE_V1=YES` 유지
