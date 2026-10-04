@@ -52,7 +52,7 @@ MAP_BLOCK_DISTINCTION=CLEAR
 SEMICOLON_FORMATTING=GOOD
 SEMICOLON=STRONG_KEEP
 QUESTION_MARK=KEEP
-FX3_AS_LANGUAGE=CORE_V0_WRAPPED
+FX3_AS_LANGUAGE=CORE_V1_LOCKED
 GROK_USER=FIVE_RULES
 NO_NEW_RUNTIME=YES
 NO_PRETTIER=YES
@@ -99,8 +99,8 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=CORE_V1_VOTE OPEN after identity fix. AWAITING user1. FINAL=NOT_YET
-NEXT_AGENDA_ONLY=CORE_V1_VOTE_OPEN
+HANDOFF=CORE_V1_FINAL=PASS. seats=gpt/grok-web/grok-build. NEXT=NEW_AGENDA_ONLY
+NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY
 LANGUAGE_WRAP=CLOSED
 LANGUAGE_WRAP_REPORT=bench/results/language-wrap-20261004/
 AI_RETEST=PASS
@@ -108,10 +108,10 @@ AI_RETEST_REPORT=bench/results/ai-retest-20261004/
 CORE_V0_SCOPE_COMPLETE=YES
 CORE_V1_PASS_CONDITIONS=DOCUMENTED
 CORE_V1_PREP_CONDITION_2=READY
-CORE_V1_VOTE=OPEN
+CORE_V1_VOTE=CLOSED
 CORE_V1_VOTE_FILE=CORE-V1-VOTE.md
-CORE_V1_VOTE_TALLY=2_OF_3
-CORE_V1_VOTE_USER3=THIS_AGENT
+CORE_V1_VOTE_TALLY=3_OF_3
+CORE_V1_VOTE_SEATS=1:gpt 2:grok-web 3:grok-build
 DEFERRED_CYCLE3_PLUS=YES
 STDLIB_NESTED_GET=PASS
 STDLIB_GET_IN_OR=PASS
@@ -132,7 +132,7 @@ LANG_GATE=PASS
 LANG_CYCLE2=CLOSED
 LANG_CYCLE3=CLOSED
 CORE_V1_PREP=READY
-CORE_V1_FINAL=NOT_YET
+CORE_V1_FINAL=PASS
 DEFERRED_SURFACES=DOCUMENTED_NOT_GATE
 CORPUS_SELFHOST=NOT_STARTED
 CORE_V0_PREP=READY
@@ -142,7 +142,7 @@ CORE_V0_FINAL=PASS
 MAIN_GOAL=FX3
 ```
 
-사용자는 셋이다. **v1 표결 기준(정정):** 사용자1=그록빌더, 2=그록, 3=**이 에이전트**. 중계자는 사용자가 아니다. (v0 표결 당시 기록은 사용자1=이 에이전트·3=지피티였으나, v1부터 사용자3=이 에이전트로 고정한다.) 최소 구현 단계는 닫혔다. 전체 플랜은 [PLAN.md](PLAN.md) 제안이다.
+사용자는 셋이다. **v1 표결 자리(확정):** 1=지피티 · 2=그록웹 · 3=그록빌드(이 세션). 중계자는 사용자가 아니다. 최소 구현 단계는 닫혔다. 전체 플랜은 [PLAN.md](PLAN.md) 제안이다.
 
 앞방향 성공 판정은 [AI-USE-SUCCESS.md](AI-USE-SUCCESS.md)에 고정했다. 리서치·사용자 리뷰는 참고다. 파이썬 대비 속도·계보 자랑은 지금 성공 조건이 아니다. U1·U2·U3가 이긴다.
 
@@ -183,8 +183,8 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 잠금: fixture 01–04 · delimiter · semantic_min/native(좁은 폭) · stdlib 조각 · U1/U2/U3  
 밖: app GAP · self-host · fn/loop 확장 · fixture 05 · Hot Alias · v1 아님
 
-v0 당시 기록: 사용자1=그록빌더(이 에이전트) · 사용자2=그록 · 사용자3=지피티  
-v1 정정: 사용자3=이 에이전트 · 사용자1=그록빌더(별도)
+v0 당시 기록: 사용자1=그록빌더(에이전트) · 사용자2=그록 · 사용자3=지피티  
+v1 확정 자리: 1=지피티 · 2=그록웹 · 3=그록빌드
 
 ## app 순수 헬퍼 · 2026-10-01
 
@@ -278,9 +278,9 @@ FX3 전부 후보 A1–A4 닫힘.
 - 증거: [bench/results/ai-retest-20261004/](bench/results/ai-retest-20261004/) · `AI_RETEST=PASS` · 조건2 READY
 - `CORE_V1_FINAL=NOT_YET` · 선언 금지
 
-## Core v1 표결 · OPEN (신분 정정) · 2026-10-04
+## Core v1 표결 · CLOSED · 2026-10-04
 
 - 안건: [CORE-V1-VOTE.md](CORE-V1-VOTE.md)
-- **정정:** 사용자3=이 에이전트. 잘못된 3/3 닫힘(`e81a797`) 취소 · `CORE_V1_FINAL=NOT_YET`
-- 집계: **2/3** · 사용자2(그록)=`AGREE_CLOSE` · 사용자3(이 에이전트)=`AGREE_CLOSE` · 사용자1(그록빌더) **대기**
-- 범위/OUTSIDE 문장은 동일 · 세 표 전 선언 금지
+- 자리: **1=지피티 · 2=그록웹 · 3=그록빌드**
+- 집계: **3/3 AGREE_CLOSE** · REJECT=0 · `CLOSE_IF` 충족 → `CORE_V1_FINAL=PASS`
+- 범위: 현재 표면만 잠금 · 언어 완성 아님 · OUTSIDE 유지
