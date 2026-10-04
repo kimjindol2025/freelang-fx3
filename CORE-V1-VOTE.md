@@ -6,11 +6,11 @@ STATUS=OPEN
 CORE_V1_FINAL=NOT_YET
 DECLARE=FORBIDDEN_UNTIL_CLOSE
 DATE=2026-10-04
-TALLY=1_OF_3
-AGREE_CLOSE=1
+TALLY=2_OF_3
+AGREE_CLOSE=2
 HOLD=0
 REJECT=0
-AWAITING=user2,user3
+AWAITING=user2
 ```
 
 세 사용자만 표결한다. 중계자·에이전트가 임의로 닫지 않는다.  
@@ -62,7 +62,7 @@ OUTSIDE_CORE_V1=
 |--------|------|----|------|------|
 | 1 | 그록빌더 | AGREE_CLOSE | 2026-10-04 | 에이전트=사용자1. PREP 1·2·3·5 READY · LANG_GATE/NATIVE 재검증 · 범위=CORE_V1_SCOPE 한 줄. OUTSIDE 유지. 단독 닫기 금지 |
 | 2 | 그록 | | | |
-| 3 | 지피티 | | | |
+| 3 | 지피티 | AGREE_CLOSE | 2026-10-04 | CORE_V1_SCOPE와 OUTSIDE_CORE_V1 경계가 명확함. PREP 1·2·3·5 READY 범위만 잠금. app GAP/self-host/fn-loop/fixture05/Hot Alias/runtime/Core 삭감은 밖 유지. 언어 전체·런타임 완성 선언 아님 |
 
 허용 값: `AGREE_CLOSE` · `HOLD` · `REJECT`
 
@@ -73,8 +73,8 @@ CLOSE_IF = 세 표 모두 기록됨 AND AGREE_CLOSE가 과반 이상 AND REJECT=
 ELSE     = CORE_V1_FINAL=NOT_YET 유지 · DECLARE 금지
 ```
 
-아직 `CLOSE_IF` 미충족 → `CORE_V1_FINAL=NOT_YET`.
+아직 `CLOSE_IF` 미충족(사용자2 미기록) → `CORE_V1_FINAL=NOT_YET`.
 
 ## 표 넣는 법
 
-사용자2·3은 이 파일 표 칸만 채운다. `STATUS.md`의 `CORE_V1_FINAL`은 닫힘 규칙 충족 후에만 바꾼다.
+사용자2는 이 파일 표 칸만 채운다. `STATUS.md`의 `CORE_V1_FINAL`은 닫힘 규칙 충족 후에만 바꾼다.

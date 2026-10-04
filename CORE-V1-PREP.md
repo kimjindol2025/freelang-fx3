@@ -33,14 +33,14 @@ DATE=2026-10-01
 | 1 | **코퍼스 EXEC 폭** | `check_corpus.py` → `CORPUS_STDLIB=PASS` · `CORPUS_APP_PURE=PASS`; roadmap6 재실행 PASS; 케이스 목록이 STATUS/APP-GAP과 동기. GAP(`server_json` 등)은 밖 | READY (A3 헬퍼·2026-10-04 LANG_GATE 재검증) |
 | 2 | **AI 사용자 재시험** | U1·U2·U3 결과 디렉터리 경로 + `ENTRY` 바이트 불변 기록. AI-ENTRY.md 바이트 해시 또는 크기 비교 | READY (`bench/results/ai-retest-20261004/` · ENTRY 재시험 구간 불변 · 산출물 15/15 re-lower) |
 | 3 | **보류 표면 방침** | `bench/results/deferred-surfaces-*/REPORT.md`에 `DEFERRED_AS_CORE_GATE=NO`; Core.md 밀도 문장 미변경 | READY |
-| 4 | **세 사용자 표결** | `CORE-V1-VOTE.md`(신설 안건) · 허용표 `AGREE_CLOSE`/`HOLD`/`REJECT` · 사용자1=그록빌더·2=그록·3=지피티 · 전원 기록 + AGREE_CLOSE 과반 + REJECT=0 | OPEN · 1/3 (사용자1 AGREE_CLOSE · 2·3 대기) |
+| 4 | **세 사용자 표결** | `CORE-V1-VOTE.md`(신설 안건) · 허용표 `AGREE_CLOSE`/`HOLD`/`REJECT` · 사용자1=그록빌더·2=그록·3=지피티 · 전원 기록 + AGREE_CLOSE 과반 + REJECT=0 | OPEN · 2/3 (1·3 AGREE_CLOSE · 사용자2 대기) |
 | 5 | **금지 준수** | fixture 05 · Hot Alias · Core 밀도 삭감 · 전용 런타임 · app GAP 전면 표현 · self-host 없음이 STATUS에 명시 | 유지 |
 
 ## 표결 (OPEN · 2026-10-04)
 
 1. 위 1–3·5 READY 확인됨
 2. 안건: [CORE-V1-VOTE.md](CORE-V1-VOTE.md) · 범위 문장 고정
-3. 세 표 기록 후 닫기 규칙 충족 시에만 `CORE_V1_FINAL=PASS` · 현재 `TALLY=1_OF_3`
+3. 세 표 기록 후 닫기 규칙 충족 시에만 `CORE_V1_FINAL=PASS` · 현재 `TALLY=2_OF_3` (user2 대기)
 
 ## 한 줄
 
@@ -50,5 +50,6 @@ CORE_V1_VOTE=OPEN
 CORE_V1_FINAL=NOT_YET
 DECLARE=FORBIDDEN
 PASS_CONDITIONS=DOCUMENTED
-TALLY=1_OF_3
+TALLY=2_OF_3
+AWAITING=user2
 ```
