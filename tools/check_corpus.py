@@ -91,6 +91,15 @@ CASES = [
         "native_expect": None,
     },
     {
+        "name": "result-val-or",
+        "class": "stdlib",
+        "dir": CORPUS_STDLIB,
+        "source": "freelang-v11-fx/fx-std.fl result-val-or (Core: get/null? only; no result-ok? name)",
+        "eval": {"args": [[42, None], 9], "expect": 42},
+        "native_call": "(result-val-or [42 nil] 9)",
+        "native_expect": "42",
+    },
+    {
         "name": "fib",
         "class": "app-pure",
         "dir": CORPUS_APP,

@@ -99,7 +99,7 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=APP_GAP_NARROW_01 PASS (json only). NEXT=NEW_AGENDA_ONLY
+HANDOFF=STDLIB_HELPER_PLUS1 PASS (result-val-or). NEXT=NEW_AGENDA_ONLY
 NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY
 LANGUAGE_WRAP=CLOSED
 LANGUAGE_WRAP_REPORT=bench/results/language-wrap-20261004/
@@ -110,6 +110,9 @@ APP_GAP_OBSERVE_REPORT=bench/results/app-gap-observe-20261004/
 APP_GAP_NARROW_01=PASS
 APP_GAP_NARROW_01_REPORT=bench/results/app-gap-narrow-01-20261004/
 CORPUS_APP_GAP_NARROW=PASS
+STDLIB_HELPER_PLUS1=PASS
+STDLIB_HELPER_PLUS1_REPORT=bench/results/stdlib-helper-plus1-20261004/
+STDLIB_RESULT_VAL_OR=PASS
 CORE_V0_SCOPE_COMPLETE=YES
 CORE_V1_PASS_CONDITIONS=DOCUMENTED
 CORE_V1_PREP_CONDITION_2=READY
@@ -304,3 +307,9 @@ FX3 전부 후보 A1–A4 닫힘.
 - 예제: `corpus/app-gap/json-ok-obj` · `json_stringify({ok:true})` lower≡ref PASS
 - `server_json` 등 HTTP/DB는 계속 GAP · 전면 앱 이식 없음
 - 증거: [bench/results/app-gap-narrow-01-20261004/](bench/results/app-gap-narrow-01-20261004/) · `CORPUS_APP_GAP_NARROW=PASS`
+
+## stdlib helper +1 · result-val-or · 2026-10-04
+
+- Core v1 표면만: `get` / `null?` / `if` · `fn`/`loop`·app GAP·fixture05·Hot Alias·런타임 미개방
+- 코퍼스: `corpus/stdlib/result-val-or.{fx3,fl}` · lower·semantic_min·native PASS
+- 증거: [bench/results/stdlib-helper-plus1-20261004/](bench/results/stdlib-helper-plus1-20261004/)

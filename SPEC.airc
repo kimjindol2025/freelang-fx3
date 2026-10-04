@@ -1,6 +1,6 @@
 {
   "brief": [
-    "핫은 (task-fx3-new-agenda-only) 내용 (NEW_AGENDA_ONLY after APP_GAP_NARROW_01) 다.",
+    "핫은 (task-fx3-new-agenda-only) 내용 (NEW_AGENDA_ONLY after stdlib helper +1) 다.",
     "lock·graveyard에 있는 방향은 다시 꺼내지 않는다."
   ],
   "$": "airc-spec",
@@ -293,12 +293,12 @@
     },
     "task-fx3-new-agenda-only": {
       "t": "task",
-      "v": "NEW_AGENDA_ONLY after APP_GAP_NARROW_01",
+      "v": "NEW_AGENDA_ONLY after stdlib helper +1",
       "entry": [
         "STATUS.md"
       ],
       "check": [
-        "grep -n APP_GAP_NARROW_01=PASS STATUS.md"
+        "grep -n STDLIB_HELPER_PLUS1=PASS STATUS.md"
       ],
       "verified": false,
       "next": []
@@ -485,6 +485,21 @@
       "next": [
         "task-fx3-new-agenda-only"
       ]
+    },
+    "task-fx3-stdlib-helper-plus1": {
+      "t": "task",
+      "v": "stdlib helper +1 result-val-or PASS",
+      "entry": [
+        "corpus/stdlib/result-val-or.fx3",
+        "bench/results/stdlib-helper-plus1-20261004/"
+      ],
+      "check": [
+        "python3 tools/check_corpus.py"
+      ],
+      "verified": true,
+      "next": [
+        "task-fx3-new-agenda-only"
+      ]
     }
   },
   "lock": [
@@ -508,11 +523,11 @@
   "handoff": {
     "step1": "print-hot만 실행한다. SPEC.airc 본문(10줄 이후)은 읽지 않는다.",
     "step2": "brief 2줄의 hot id만 실행한다. lock·graveyard 방향은 재도입 금지.",
-    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=APP_GAP_NARROW_01 json-ok-obj PASS",
-    "step4": "너는 'APP_GAP_NARROW_01'까지 끝난 상태다. 'NEW_AGENDA_ONLY'를 하면 된다.",
+    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=stdlib helper +1 result-val-or PASS",
+    "step4": "너는 'stdlib helper +1'까지 끝난 상태다. 'NEW_AGENDA_ONLY'를 하면 된다.",
     "step5": "identity 변경 필요 시 사용자에게 먼저 물어라",
-    "done": "APP_GAP_NARROW_01 json-ok-obj PASS",
-    "next": "NEW_AGENDA_ONLY after APP_GAP_NARROW_01",
-    "checkpoint_at": "2026-10-04T19:37:45.222898+09:00"
+    "done": "stdlib helper +1 result-val-or PASS",
+    "next": "NEW_AGENDA_ONLY after stdlib helper +1",
+    "checkpoint_at": "2026-10-04T19:39:59.683032+09:00"
   }
 }

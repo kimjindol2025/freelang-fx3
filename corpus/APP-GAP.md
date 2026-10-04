@@ -71,6 +71,7 @@ GAP 표를 유지한 채, Core `get`/`if`/`null?`/산술·호출만 쓰는 헬�
 | get-or | `fx-std.fl` | `corpus/stdlib/get-or.fx3` (null?-get 동등형; let 없음) |
 | nested-get | `fx-std.fl` get-in-2 Core 동등 | `corpus/stdlib/nested-get.fx3` (이름 `get-in-2`는 하이픈+숫자로 lower 불가) |
 | get-in-or | Core 확장 (null-safe 2단) | `corpus/stdlib/get-in-or.fx3` (`?~` + nested get + default) |
+| result-val-or | `fx-std.fl` Result 추출 | `corpus/stdlib/result-val-or.fx3` (`get`/`null?`만 · `result-ok?` 이름 없음) |
 
 스킵(관찰만): `first-or`(빈 get IndexError), `last-item`(length), `result-ok?`(`?` 이름), `blank?`(trim), `safe-int`(let), 원본 `get-in-2`(`json_safe_get`).
 
