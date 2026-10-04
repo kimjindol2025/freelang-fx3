@@ -1,12 +1,12 @@
 {
   "brief": [
-    "핫은 (task-fx3-new-agenda-only) 내용 (FX3 A1-A4 closed; switch to fl-git GitLab) 다.",
+    "핫은 (task-fx3-new-agenda-only) 내용 (NEW_AGENDA_ONLY after language wrap) 다.",
     "lock·graveyard에 있는 방향은 다시 꺼내지 않는다."
   ],
   "$": "airc-spec",
   "version": "1.0.0",
   "project": "freelang-fx3",
-  "date": "2026-10-01",
+  "date": "2026-10-04",
   "cmd": "python3 ~/.grok/skills/checkpoint/scripts/print-hot.py SPEC.airc",
   "identity": {
     "what": "FreeLang FX3 — AI-primary Compact FX surface lowering to FX .fl",
@@ -293,9 +293,15 @@
     },
     "task-fx3-new-agenda-only": {
       "t": "task",
-      "v": "FX3 A1-A4 closed; switch to fl-git GitLab",
-      "entry": [],
-      "check": [],
+      "v": "NEW_AGENDA_ONLY after language wrap",
+      "entry": [
+        "STATUS.md",
+        "CORE-V1-PREP.md",
+        "bench/results/language-wrap-20261004/"
+      ],
+      "check": [
+        "grep -n LANGUAGE_WRAP STATUS.md"
+      ],
       "verified": false,
       "next": []
     },
@@ -394,6 +400,32 @@
       "next": [
         "task-fx3-new-agenda-only"
       ]
+    },
+    "task-fx3-new-agenda-only-next": {
+      "t": "task",
+      "v": "NEW_AGENDA_ONLY after language wrap",
+      "entry": [],
+      "check": [],
+      "verified": true,
+      "next": [
+        "task-fx3-new-agenda-only"
+      ]
+    },
+    "task-fx3-language-wrap": {
+      "t": "task",
+      "v": "FX3 LANGUAGE_WRAP Core v0",
+      "entry": [
+        "STATUS.md",
+        "CORE-V1-PREP.md",
+        "bench/results/language-wrap-20261004/"
+      ],
+      "check": [
+        "bash tools/check_language_gate.sh"
+      ],
+      "verified": true,
+      "next": [
+        "task-fx3-new-agenda-only"
+      ]
     }
   },
   "lock": [
@@ -417,11 +449,11 @@
   "handoff": {
     "step1": "print-hot만 실행한다. SPEC.airc 본문(10줄 이후)은 읽지 않는다.",
     "step2": "brief 2줄의 hot id만 실행한다. lock·graveyard 방향은 재도입 금지.",
-    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=A4 OUTPUT_TOKENS remeasure from ai-events",
-    "step4": "너는 'A4 OUTPUT_TOKENS remeasure from ai-events'까지 끝난 상태다. 'FX3 A1-A4 closed; switch to fl-git GitLab'를 하면 된다.",
+    "step3": "hot=task-fx3-new-agenda-only 실행. 완료 표식=FX3 LANGUAGE_WRAP Core v0",
+    "step4": "너는 'FX3 LANGUAGE_WRAP Core v0'까지 끝난 상태다. 'NEW_AGENDA_ONLY after language wrap'를 하면 된다.",
     "step5": "identity 변경 필요 시 사용자에게 먼저 물어라",
-    "done": "A4 OUTPUT_TOKENS remeasure from ai-events",
-    "next": "FX3 A1-A4 closed; switch to fl-git GitLab",
-    "checkpoint_at": "2026-10-01T23:44:58.837325+09:00"
+    "done": "FX3 LANGUAGE_WRAP Core v0",
+    "next": "NEW_AGENDA_ONLY after language wrap",
+    "checkpoint_at": "2026-10-04T18:57:59.607868+09:00"
   }
 }

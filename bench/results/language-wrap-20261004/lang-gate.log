@@ -1,0 +1,149 @@
+[lang-gate] python3 tools/lower.py --check
+PASS handle-rate-single
+PASS check-and-log
+PASS make-result
+PASS first-id
+[lang-gate] python3 tools/check_delimiter.py
+PASS sub-trailing-semi
+PASS sub-no-semi
+PASS sum-trailing-semi
+PASS product
+PASS kebab-name
+PASS nested-kebab-call
+PASS var-minus-number
+PASS fib-rec
+PASS ops-case-01
+PASS ops-case-02
+PASS ops-case-03
+PASS ops-case-04
+PASS ops-case-05
+PASS ops-case-06
+[lang-gate] python3 tools/check_semi_display.py
+PASS fixture/case-01
+  show_lines=3
+PASS fixture/case-02
+  show_lines=3
+PASS fixture/case-03
+  show_lines=3
+PASS fixture/case-04
+  show_lines=3
+PASS stdlib/get-in-or
+PASS stdlib/get-or
+PASS stdlib/identity
+PASS stdlib/nested-get
+PASS stdlib/req-body
+PASS stdlib/req-param
+PASS stdlib/req-query
+PASS stdlib/str-coerce
+SEMI_DISPLAY_SCOPE=fixture_01_04+stdlib
+SEMI_DISPLAY_STORAGE=ONE_LINE
+SEMI_DISPLAY_NEWLINE_GRAMMAR=NO
+SEMI_DISPLAY_CORE_CUT=NO
+SEMI_DISPLAY_FIXTURE_05=NO
+SEMI_DISPLAY_HOT_ALIAS=NO
+SEMI_DISPLAY_APP=NO
+SEMI_DISPLAY=PASS
+[lang-gate] python3 tools/check_whitespace_same_fl.py
+PASS bench/expected/case-01.fx3
+PASS bench/expected/case-02.fx3
+PASS bench/expected/case-03.fx3
+PASS bench/expected/case-04.fx3
+PASS corpus/stdlib/get-in-or.fx3
+PASS corpus/stdlib/get-or.fx3
+PASS corpus/stdlib/identity.fx3
+PASS corpus/stdlib/nested-get.fx3
+PASS corpus/stdlib/req-body.fx3
+PASS corpus/stdlib/req-param.fx3
+PASS corpus/stdlib/req-query.fx3
+PASS corpus/stdlib/str-coerce.fx3
+WHITESPACE_SAME_FL_SCOPE=fixture_01_04+stdlib
+WHITESPACE_SAME_FL_STORAGE_MUTATION=NO
+WHITESPACE_SAME_FL=PASS
+[lang-gate] python3 tools/check_semantic_min.py
+PASS case-01
+PASS case-02
+PASS case-03
+PASS case-04
+PASS case-05
+PASS case-06
+PASS case-07
+PASS case-08
+SEMANTIC_MIN=PASS
+[lang-gate] python3 tools/check_roadmap6_exec.py
+PASS stdlib/identity lower=ref
+PASS stdlib/identity exec_eval match → 7
+PASS stdlib/req-body lower=ref
+PASS stdlib/req-body exec_eval match → 'x'
+PASS stdlib/str-coerce lower=ref
+PASS stdlib/str-coerce exec_native match → 'z'
+PASS fixture/case-01 lower=ref
+PASS fixture/case-01 exec_stub match → {'ok': 'BODY'}
+PASS fixture/case-02 lower=ref
+PASS fixture/case-02 exec_stub match → {'hi': 'Ada'}
+PASS fixture/case-03 lower=ref
+PASS fixture/case-03 exec_stub match → {'accept': 'A'}
+PASS fixture/case-04 lower=ref
+PASS fixture/case-04 exec_stub match → 90
+PASS fixture/case-04b lower=ref
+PASS fixture/case-04b exec_stub match → 50
+ROADMAP6_SCOPE=stdlib+fixture_01_04
+ROADMAP6_APP=SKIP_GAP_ONLY
+ROADMAP6_SELFHOST=SKIP
+ROADMAP6_SURFACE_CHANGE=NO
+ROADMAP6_EXEC=PASS
+[lang-gate] python3 tools/check_corpus.py
+== identity (stdlib) ==
+PASS identity lower~ref
+PASS identity semantic_min
+PASS identity native
+== req-body (stdlib) ==
+PASS req-body lower~ref
+PASS req-body semantic_min
+SKIP req-body native
+== str-coerce (stdlib) ==
+PASS str-coerce lower~ref
+SKIP str-coerce semantic_min
+PASS str-coerce native
+== req-param (stdlib) ==
+PASS req-param lower~ref
+PASS req-param semantic_min
+SKIP req-param native
+== req-query (stdlib) ==
+PASS req-query lower~ref
+PASS req-query semantic_min
+SKIP req-query native
+== get-or (stdlib) ==
+PASS get-or lower~ref
+PASS get-or semantic_min
+SKIP get-or native
+== nested-get (stdlib) ==
+PASS nested-get lower~ref
+PASS nested-get semantic_min
+SKIP nested-get native
+== get-in-or (stdlib) ==
+PASS get-in-or lower~ref
+PASS get-in-or semantic_min
+SKIP get-in-or native
+== fib (app-pure) ==
+PASS fib lower~ref
+PASS fib semantic_min
+PASS fib native
+== density ==
+DENSITY identity fx3=18 fl=23 ratio=0.783
+DENSITY req-body fx3=28 fl=42 ratio=0.667
+DENSITY str-coerce fx3=35 fl=52 ratio=0.673
+DENSITY req-param fx3=48 fl=63 ratio=0.762
+DENSITY req-query fx3=47 fl=62 ratio=0.758
+DENSITY get-or fx3=62 fl=86 ratio=0.721
+DENSITY nested-get fx3=46 fl=55 ratio=0.836
+DENSITY get-in-or fx3=99 fl=145 ratio=0.683
+DENSITY fib fx3=42 fl=76 ratio=0.553
+CORPUS_STDLIB=PASS
+CORPUS_APP=GAP_ONLY
+CORPUS_APP_PURE=PASS
+CORPUS_SELFHOST=NOT_STARTED
+CORPUS_GAP=server_json,mariadb,fn/closure,loop
+LANG_GATE_SCOPE=fixture_01_04+stdlib(+corpus checks)
+LANG_GATE_CORE_CUT=NO
+LANG_GATE_NATIVE=SKIPPED_USE_check_semantic_native
+LANG_GATE=PASS

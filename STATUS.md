@@ -52,7 +52,7 @@ MAP_BLOCK_DISTINCTION=CLEAR
 SEMICOLON_FORMATTING=GOOD
 SEMICOLON=STRONG_KEEP
 QUESTION_MARK=KEEP
-FX3_AS_LANGUAGE=TOO_EARLY
+FX3_AS_LANGUAGE=CORE_V0_WRAPPED
 GROK_USER=FIVE_RULES
 NO_NEW_RUNTIME=YES
 NO_PRETTIER=YES
@@ -99,8 +99,11 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=A1-A4 FX3 closed. 다음=fl-git GitLab A5
+HANDOFF=FX3 LANGUAGE_WRAP Core v0 closed. NEXT=NEW_AGENDA_ONLY
 NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY
+LANGUAGE_WRAP=CLOSED
+LANGUAGE_WRAP_REPORT=bench/results/language-wrap-20261004/
+CORE_V0_SCOPE_COMPLETE=YES
 CORE_V1_PASS_CONDITIONS=DOCUMENTED
 DEFERRED_CYCLE3_PLUS=YES
 STDLIB_NESTED_GET=PASS
@@ -248,4 +251,13 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 | A3 stdlib 헬퍼 | `nested-get` · `get-in-or` · `CORPUS_STDLIB=PASS` · `SEMI_DISPLAY=PASS` · `LANG_GATE=PASS` · `CORPUS_APP=GAP_ONLY` |
 | A4 OUTPUT_TOKENS | `MEASURED` · ai-events usage · FX3 mean **429.2** (9 trials) · `bench/results/output-tokens-20261001/` · 토크나이저 미설치 |
 
-FX3 전부 후보 A1–A4 닫힘. 다음은 fl-git `task-gitlab-provider-확장`.
+FX3 전부 후보 A1–A4 닫힘.
+
+## 언어 마무리 · Core v0 · 2026-10-04
+
+- 안건: 잠긴 Core v0 범위의 언어 설계·검증 마무리 (v1 선언 아님)
+- 재검증: `LANG_GATE=PASS` · `FX_NATIVE=PASS`
+- 문서: [CORE-V1-PREP.md](CORE-V1-PREP.md) 조건1·3 READY 동기화 · 조건2(AI 재시험)·표결은 미개설
+- 증거: [bench/results/language-wrap-20261004/](bench/results/language-wrap-20261004/)
+- stale handoff(`fl-git GitLab`) 정리 · `LANGUAGE_WRAP=CLOSED` · `NEXT_AGENDA_ONLY=NEW_AGENDA_ONLY`
+- 금지 유지: fixture 05 · Hot Alias · Core 삭감 · 전용 런타임 · app GAP 전면 · self-host · `CORE_V1_FINAL=NOT_YET`

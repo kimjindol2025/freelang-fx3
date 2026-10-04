@@ -30,9 +30,9 @@ DATE=2026-10-01
 
 | # | 조건 | PASS 증거 형식 | 현재 |
 |---|------|----------------|------|
-| 1 | **코퍼스 EXEC 폭** | `check_corpus.py` → `CORPUS_STDLIB=PASS` · `CORPUS_APP_PURE=PASS`; roadmap6 재실행 PASS; 케이스 목록이 STATUS/APP-GAP과 동기. GAP(`server_json` 등)은 밖 | 진행 중(헬퍼 추가 안건) |
-| 2 | **AI 사용자 재시험** | U1·U2·U3 결과 디렉터리 경로 + `ENTRY` 바이트 불변 기록. AI-ENTRY.md 바이트 해시 또는 크기 비교 | 미착수 |
-| 3 | **보류 표면 방침** | `bench/results/deferred-surfaces-*/REPORT.md`에 `DEFERRED_AS_CORE_GATE=NO`; Core.md 밀도 문장 미변경 | 문서화됨 |
+| 1 | **코퍼스 EXEC 폭** | `check_corpus.py` → `CORPUS_STDLIB=PASS` · `CORPUS_APP_PURE=PASS`; roadmap6 재실행 PASS; 케이스 목록이 STATUS/APP-GAP과 동기. GAP(`server_json` 등)은 밖 | READY (A3 헬퍼·2026-10-04 LANG_GATE 재검증) |
+| 2 | **AI 사용자 재시험** | U1·U2·U3 결과 디렉터리 경로 + `ENTRY` 바이트 불변 기록. AI-ENTRY.md 바이트 해시 또는 크기 비교 | 미착수 (v1 표결 전 별 안건) |
+| 3 | **보류 표면 방침** | `bench/results/deferred-surfaces-*/REPORT.md`에 `DEFERRED_AS_CORE_GATE=NO`; Core.md 밀도 문장 미변경 | READY |
 | 4 | **세 사용자 표결** | `CORE-V1-VOTE.md`(신설 안건) · 허용표 `AGREE_CLOSE`/`HOLD`/`REJECT` · 사용자1=그록빌더·2=그록·3=지피티 · 전원 기록 + AGREE_CLOSE 과반 + REJECT=0 | 표 없음 · 열지 않음 |
 | 5 | **금지 준수** | fixture 05 · Hot Alias · Core 밀도 삭감 · 전용 런타임 · app GAP 전면 표현 · self-host 없음이 STATUS에 명시 | 유지 |
 
