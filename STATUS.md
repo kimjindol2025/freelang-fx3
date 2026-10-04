@@ -254,7 +254,7 @@ v1 확정 자리: 1=지피티 · 2=그록웹 · 3=그록빌드
 
 | 안건 | 결과 |
 |------|------|
-| A1 Core v1 체크리스트 | [CORE-V1-PREP.md](CORE-V1-PREP.md) · PASS 조건·증거 형식 문서화 · `DECLARE=FORBIDDEN` · `CORE_V1_FINAL=NOT_YET` |
+| A1 Core v1 체크리스트 | [CORE-V1-PREP.md](CORE-V1-PREP.md) · PASS 조건 문서화 · 표결로 `CORE_V1_FINAL=PASS` |
 | A2 deferred 관찰 보강 | `bench/results/deferred-surfaces-20261001/REPORT.md` · `?` 이름 · `get-in-2` 하이픈숫자 · first-or/last-item · `DEFERRED_AS_CORE_GATE=NO` |
 | A3 stdlib 헬퍼 | `nested-get` · `get-in-or` · `CORPUS_STDLIB=PASS` · `SEMI_DISPLAY=PASS` · `LANG_GATE=PASS` · `CORPUS_APP=GAP_ONLY` |
 | A4 OUTPUT_TOKENS | `MEASURED` · ai-events usage · FX3 mean **429.2** (9 trials) · `bench/results/output-tokens-20261001/` · 토크나이저 미설치 |
@@ -268,7 +268,7 @@ FX3 전부 후보 A1–A4 닫힘.
 - 문서: [CORE-V1-PREP.md](CORE-V1-PREP.md) 조건1·3 READY · 표결 미개설
 - 증거: [bench/results/language-wrap-20261004/](bench/results/language-wrap-20261004/)
 - stale handoff(`fl-git GitLab`) 정리 · `LANGUAGE_WRAP=CLOSED`
-- 금지 유지: fixture 05 · Hot Alias · Core 삭감 · 전용 런타임 · app GAP 전면 · self-host · `CORE_V1_FINAL=NOT_YET`
+- OUTSIDE 유지: fixture 05 · Hot Alias · Core 삭감 · 전용 런타임 · app GAP 전면 · self-host (`CORE_V1_FINAL=PASS`여도 밖)
 
 ## AI 사용자 재시험 · CORE_V1_PREP #2 · 2026-10-04
 
@@ -276,7 +276,7 @@ FX3 전부 후보 A1–A4 닫힘.
 - ENTRY: 재시험 구간 before=after (sha256 고정) · U3 당시 3204B 대비 현재 3373B는 누적 문서 증가(이번 안건 미팽창)
 - 산출물 재검증: first/repaired/regen 15/15 lower≡expected PASS
 - 증거: [bench/results/ai-retest-20261004/](bench/results/ai-retest-20261004/) · `AI_RETEST=PASS` · 조건2 READY
-- `CORE_V1_FINAL=NOT_YET` · 선언 금지
+- 이후 표결 CLOSED → `CORE_V1_FINAL=PASS` (현재 표면 잠금 · 언어 전체 완성 아님)
 
 ## Core v1 표결 · CLOSED · 2026-10-04
 
