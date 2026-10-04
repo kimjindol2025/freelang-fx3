@@ -183,7 +183,8 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 잠금: fixture 01–04 · delimiter · semantic_min/native(좁은 폭) · stdlib 조각 · U1/U2/U3  
 밖: app GAP · self-host · fn/loop 확장 · fixture 05 · Hot Alias · v1 아님
 
-사용자1=그록빌더(이 에이전트) · 사용자2=그록 · 사용자3=지피티
+v0 당시 기록: 사용자1=그록빌더(이 에이전트) · 사용자2=그록 · 사용자3=지피티  
+v1 정정: 사용자3=이 에이전트 · 사용자1=그록빌더(별도)
 
 ## app 순수 헬퍼 · 2026-10-01
 
