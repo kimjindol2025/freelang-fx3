@@ -244,7 +244,7 @@ v1 확정 자리: 1=지피티 · 2=그록웹 · 3=그록빌드
 
 | 단계 | 결과 |
 |------|------|
-| M1 Core v1 PREP | [CORE-V1-PREP.md](CORE-V1-PREP.md) · `CORE_V1_FINAL=NOT_YET` |
+| M1 Core v1 PREP | [CORE-V1-PREP.md](CORE-V1-PREP.md) · `CORE_V1_FINAL=PASS` · 표결 CLOSED |
 | M2 보류 표면 | `bench/results/deferred-surfaces-20261001/` · 관문 아님 |
 | M3 stdlib | `get-or` (+1; first-or는 eval 한계로 SKIP) |
 | M4 LANG_GATE | 재실행 PASS |
