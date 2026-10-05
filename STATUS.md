@@ -11,10 +11,12 @@ CANONICAL_LOWERING=.fl
 RUNTIME=NONE
 PARSER=AST_SKELETON
 PARSER_AST=PASS
+LOWER_AST=PASS
 TRACK1=OPEN
 TRACK1_P0=CORE_LOCKED
 TRACK1_P1=PARSER_AST_PASS
-TRACK1_P2=NOT_STARTED
+TRACK1_P2=LOWER_AST_PASS
+TRACK1_P3=NOT_STARTED
 REMOTE=https://github.com/kimjindol2025/freelang-fx3
 LOWERING_CONTRACT=LOCKED
 CORE=LOCKED
@@ -104,12 +106,15 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=Track1 P1 parser AST PASS. NEXT=P2 lowering from AST
-NEXT_AGENDA_ONLY=TRACK1_P2_LOWERING_AST
+HANDOFF=Track1 P2 AST lowering PASS. NEXT=P3 IR/ABI or capability (not opened)
+NEXT_AGENDA_ONLY=TRACK1_P3_IR_OR_CAPABILITY
 LEX_GATE=PASS
 LEX_GATE_CMD=python3 tools/check_lex.py
 PARSE_GATE=PASS
 PARSE_GATE_CMD=python3 tools/check_parse.py
+LOWER_GATE=PASS
+LOWER_GATE_CMD=python3 tools/check_lower.py
+DETERMINISM=PASS
 LANGUAGE_WRAP=CLOSED
 LANGUAGE_WRAP_REPORT=bench/results/language-wrap-20261004/
 AI_RETEST=PASS
@@ -351,5 +356,15 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 - invalid 5: binding-after-expr · unclosed-paren · expected-F · toplevel-missing-semi · empty-body
 - `python3 tools/check_parse.py` → `PARSE_GATE=PASS`
 - `python3 tools/check_lex.py` · `python3 tools/lower.py --check` 회귀 PASS · `lower.py` 미변경
-- 아직 없음: AST→`.fl` 정식 lowering · IR/ABI · capability · `fx3` CLI · self-hosting · 전용 runtime
 - 다음: P2 lowering compiler (AST → 결정적 `.fl`, fixture 회귀)
+
+## Track 1 · P2 AST lowering · 2026-10-05
+
+- 입력: located AST · 출력: 결정적 `.fl` UTF-8 바이트
+- 파일: `tools/fx3_lower.py` · `tools/check_lower.py` · `fixtures/lower/{valid,invalid}/`
+- golden 01–04 byte-match · binding/nested-call/conditional/map-order · repeated lower 동일
+- unsupported/invalid AST → `E_UNSUPPORTED_NODE` + line/column
+- `python3 tools/check_lower.py` → `LOWER_GATE=PASS` · `DETERMINISM=PASS`
+- `check_parse` / `check_lex` / `lower.py --check` / `check_corpus` 회귀 PASS · `tools/lower.py` 미변경
+- 아직 없음: IR/ABI · capability runtime · `fx3` CLI · self-hosting · 전용 runtime (`RUNTIME=NONE`)
+- 다음: P3 공통 IR/ABI (새 안건으로만)

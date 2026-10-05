@@ -1,0 +1,3 @@
+(defn wrap [$x]
+  (let [$a (get $x "k")]
+    (g (h $a))))
