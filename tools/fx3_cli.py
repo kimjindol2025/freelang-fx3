@@ -1,23 +1,29 @@
 #!/usr/bin/env python3
-"""FX3 CLI — check / lower / ir / cap / test / package verify.
+"""FX3 CLI — check / lower / ir / cap / run / test / package verify.
 
-P5 usable gate. No dedicated runtime. No capability target-file I/O.
-Facades existing tools only. See docs/FX3-CLI.md.
+P5 usable gate + delegated run (eval default, optional native).
+No owned FX3 VM. No capability target-file I/O.
+Facades existing tools only. See docs/FX3-CLI.md and docs/FX3-RUN.md.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
+import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "tools"
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
+from eval_fl_min import EvalError, call, load_program, parse, tokenize  # noqa: E402
 from fx3_capability import (  # noqa: E402
     SCHEMA as CAP_SCHEMA,
     decide,
@@ -32,6 +38,9 @@ EXIT_OK = 0
 EXIT_FAIL = 1
 EXIT_USAGE = 2
 
+DEFAULT_FX_ROOT = "/home/kim/kim/platform/freelang-v11-fx"
+ENGINES = ("eval", "native")
+
 
 def _eprint(msg: str) -> None:
     print(msg, file=sys.stderr)
@@ -39,6 +48,35 @@ def _eprint(msg: str) -> None:
 
 def _read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
+
+
+def _parse_call_sexpr(text: str) -> tuple[str, list[Any]]:
+    """Parse '(name args…)' into name + Python literal args for eval_fl_min.call."""
+    forms = parse(tokenize(text.strip()))
+    if len(forms) != 1 or not isinstance(forms[0], list) or not forms[0]:
+        raise ValueError("call must be one form: (name args…)")
+    form = forms[0]
+    head = form[0]
+    if not (isinstance(head, tuple) and head[0] == "sym"):
+        raise ValueError("call head must be a symbol")
+    name = head[1]
+    args: list[Any] = []
+    for a in form[1:]:
+        if not isinstance(a, tuple) or len(a) < 2:
+            raise ValueError("call args must be literals")
+        kind, val = a[0], a[1]
+        if kind in ("num", "str", "lit"):
+            args.append(val)
+        else:
+            raise ValueError(f"unsupported call arg kind: {kind}")
+    return name, args
+
+
+def _format_eval_result(value: Any) -> str:
+    try:
+        return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+    except TypeError:
+        return repr(value)
 
 
 def cmd_check(args: argparse.Namespace) -> int:
@@ -113,6 +151,99 @@ def cmd_cap(args: argparse.Namespace) -> int:
     return EXIT_FAIL
 
 
+def _run_eval(fl_text: str, call_text: str) -> int:
+    try:
+        name, args = _parse_call_sexpr(call_text)
+    except (ValueError, EvalError) as e:
+        _eprint(f"fx3 run: bad --call: {e}")
+        return EXIT_USAGE
+    try:
+        fns = load_program(fl_text)
+        got = call(fns, name, args)
+    except EvalError as e:
+        _eprint(f"fx3 run: eval error: {e}")
+        return EXIT_FAIL
+    print(_format_eval_result(got))
+    return EXIT_OK
+
+
+def _fx_build_sh() -> Path | None:
+    fx_root = Path(os.environ.get("FX_ROOT", DEFAULT_FX_ROOT))
+    build = fx_root / "fl-build.sh"
+    if build.is_file():
+        return build
+    return None
+
+
+def _run_native(fl_text: str, call_text: str) -> int:
+    build = _fx_build_sh()
+    if build is None:
+        _eprint("FX_NATIVE=BLOCKED")
+        _eprint(f"CAUSE=missing fl-build.sh under FX_ROOT={os.environ.get('FX_ROOT', DEFAULT_FX_ROOT)}")
+        return EXIT_USAGE
+    call_text = call_text.strip()
+    work = Path(tempfile.mkdtemp(prefix="fx3-run-"))
+    try:
+        fl_path = work / "prog.fl"
+        bin_path = work / "prog"
+        fl_path.write_text(fl_text + f"(println {call_text})\n", encoding="utf-8")
+        proc = subprocess.run(
+            ["bash", str(build), str(fl_path), str(bin_path), "--no-net"],
+            cwd=str(work),
+            capture_output=True,
+            text=True,
+        )
+        if proc.returncode != 0:
+            _eprint("fx3 run: native build failed")
+            if proc.stderr:
+                _eprint(proc.stderr.rstrip())
+            elif proc.stdout:
+                _eprint(proc.stdout.rstrip())
+            return EXIT_FAIL
+        if not bin_path.is_file():
+            _eprint("fx3 run: native binary missing after build")
+            return EXIT_FAIL
+        run = subprocess.run(
+            [str(bin_path)],
+            cwd=str(work),
+            capture_output=True,
+            text=True,
+        )
+        if run.returncode != 0:
+            _eprint("fx3 run: native exec failed")
+            if run.stderr:
+                _eprint(run.stderr.rstrip())
+            return EXIT_FAIL
+        lines = run.stdout.replace("\r", "").splitlines()
+        last = lines[-1] if lines else ""
+        print(last)
+        return EXIT_OK
+    finally:
+        shutil.rmtree(work, ignore_errors=True)
+
+
+def cmd_run(args: argparse.Namespace) -> int:
+    path = Path(args.file)
+    if not path.is_file():
+        _eprint(f"fx3 run: not a file: {path}")
+        return EXIT_USAGE
+    if not args.call:
+        _eprint("fx3 run: --call '(name args…)' is required")
+        return EXIT_USAGE
+    engine = (args.engine or "eval").strip().lower()
+    if engine not in ENGINES:
+        _eprint(f"fx3 run: bad --engine={args.engine!r} (want eval|native)")
+        return EXIT_USAGE
+    try:
+        fl_text = lower_text(_read_text(path))
+    except (LexError, ParseError, LowerAstError) as e:
+        _eprint(str(e))
+        return EXIT_FAIL
+    if engine == "eval":
+        return _run_eval(fl_text, args.call)
+    return _run_native(fl_text, args.call)
+
+
 def _run_gate(name: str, script: str) -> int:
     proc = subprocess.run(
         [sys.executable, str(TOOLS / script)],
@@ -177,6 +308,7 @@ def cmd_package_verify(args: argparse.Namespace) -> int:
         ROOT / "docs" / "IR-ABI-CONTRACT.md",
         ROOT / "docs" / "CAPABILITY-CONTRACT.md",
         ROOT / "docs" / "FX3-CLI.md",
+        ROOT / "docs" / "FX3-RUN.md",
         ROOT / "examples" / "handle-rate-single.fx3",
         ROOT / "examples" / "handle-rate-single.fl",
         ROOT / "examples" / "check-and-log.fx3",
@@ -188,6 +320,7 @@ def cmd_package_verify(args: argparse.Namespace) -> int:
         TOOLS / "fx3_ir.py",
         TOOLS / "fx3_capability.py",
         TOOLS / "fx3_cli.py",
+        TOOLS / "eval_fl_min.py",
     ]
     missing = [str(p.relative_to(ROOT)) for p in required if not p.is_file()]
     if missing:
@@ -212,7 +345,10 @@ def cmd_package_verify(args: argparse.Namespace) -> int:
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="fx3",
-        description="FX3 Core CLI (check/lower/ir/cap/test). No dedicated runtime.",
+        description=(
+            "FX3 Core CLI (check/lower/ir/cap/run/test). "
+            "Run is delegated (eval|native). No owned FX3 VM."
+        ),
     )
     sub = p.add_subparsers(dest="cmd", required=True)
 
@@ -238,6 +374,23 @@ def build_parser() -> argparse.ArgumentParser:
         help="server-fixed workspace root (never from request)",
     )
     cap.set_defaults(func=cmd_cap)
+
+    rn = sub.add_parser(
+        "run",
+        help="lower .fx3 and execute via delegated engine (eval default)",
+    )
+    rn.add_argument("file")
+    rn.add_argument(
+        "--call",
+        required=True,
+        help="FX S-expr call, e.g. '(sum 2 3)'",
+    )
+    rn.add_argument(
+        "--engine",
+        default="eval",
+        help="eval (default) or native (fl-build.sh --no-net)",
+    )
+    rn.set_defaults(func=cmd_run)
 
     t = sub.add_parser("test", help="run FX3 gate suite")
     t.add_argument("--quick", action="store_true", help="lex+parse+lower only")

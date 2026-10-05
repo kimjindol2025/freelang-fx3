@@ -25,7 +25,7 @@ TRACK1_P2=LOWER_AST_PASS
 TRACK1_P3=IR_ABI_PASS
 TRACK1_P4=CAPABILITY_PASS
 TRACK1_P5=CLI_PASS
-TRACK1_RUN=DELEGATED_IN_PROGRESS
+TRACK1_RUN=DELEGATED_PASS
 
 REMOTE=https://github.com/kimjindol2025/freelang-fx3
 LOWERING_CONTRACT=LOCKED
@@ -116,16 +116,20 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=Delegated fx3 run road open (R0 contract). RUNTIME_OWNED still NONE
-NEXT_AGENDA_ONLY=FINISH_DELEGATED_RUN_R1_R4
+HANDOFF=RUN_DELEGATED=PASS (eval default + optional native). RUNTIME_OWNED=NONE. NEXT=NEW_ROAD_ONLY
+NEXT_AGENDA_ONLY=NEW_ROAD_ONLY
 ROAD_USABLE_CLI=PASS
-ROAD_DELEGATED_RUN=IN_PROGRESS
+ROAD_DELEGATED_RUN=PASS
 ROAD_STEP=S7_PASS
-ROAD_SUCCESS=fx3_check_lower_ir_cap_test
+ROAD_SUCCESS=fx3_check_lower_ir_cap_run_test
 CLI=PASS
 CLI_CMD=./bin/fx3
 CLI_GATE_CMD=python3 tools/check_cli.py
 RUN_DOC=docs/FX3-RUN.md
+RUN=DELEGATED
+RUN_ENGINE_DEFAULT=eval
+RUN_ENGINE_NATIVE=OPTIONAL
+RUNTIME_OWNED=NONE
 MAX_OUTPUT_BYTES=262144
 CAPABILITY_COMBO_ESCALATION=LOCKED_DENY
 RUNTIME=NONE
@@ -457,3 +461,14 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 - `python3 tools/check_cli.py` → CLI_GATE=PASS
 - RUNTIME=NONE · IR executor 없음 · capability 대상 파일 I/O 없음
 - 다음 길은 새 안건만 (읽기 I/O 스모크 또는 IR exec — 자동 진행 없음)
+
+## Track 1 · delegated fx3 run · 2026-10-06
+
+- 계약: [docs/FX3-RUN.md](docs/FX3-RUN.md) · `RUN=DELEGATED` · `RUNTIME_OWNED=NONE`
+- CLI: `fx3 run FILE --call '(fn args…)' [--engine=eval|native]`
+- 기본 eval → `tools/eval_fl_min.py` · native → `fl-build.sh --no-net` (없으면 BLOCKED exit 2)
+- Lower 정본: `fx3_lower` · `tools/lower.py` 미사용
+- 스모크 fixture: `fixtures/run/sum.fx3`
+- `python3 tools/check_cli.py` → CLI_GATE=PASS (run 포함)
+- 비범위: owned VM · IR exec · capability 실 I/O · self-host · push
+- 다음: NEW_ROAD_ONLY (자동 진행 없음)

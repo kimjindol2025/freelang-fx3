@@ -78,23 +78,28 @@ F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-
 
 ## CLI 검증 (P5)
 
-전용 runtime 없이 Core를 검증·내린다.
+전용(owned) FX3 VM 없이 Core를 검증·내린다. 실행은 위임한다.
 
 ```bash
 ./bin/fx3 check file.fx3
 ./bin/fx3 lower file.fx3
 ./bin/fx3 ir file.fx3
 ./bin/fx3 cap request.json --canonical-root /server/root
+./bin/fx3 run file.fx3 --call '(fn args…)'
+./bin/fx3 run file.fx3 --call '(fn args…)' --engine=native
 ./bin/fx3 test
 ./bin/fx3 package verify
 ```
 
-상세: [docs/FX3-CLI.md](docs/FX3-CLI.md). 실행은 내린 `.fl`을 기존 FX에 맡긴다.
+- `run` 기본 엔진: `eval` (`tools/eval_fl_min.py`).
+- `native`: 기존 `freelang-v11-fx/fl-build.sh --no-net`. 없으면 `FX_NATIVE=BLOCKED`.
+- 상세: [docs/FX3-CLI.md](docs/FX3-CLI.md), [docs/FX3-RUN.md](docs/FX3-RUN.md).
+- 플래그: `RUN=DELEGATED` · `RUNTIME_OWNED=NONE`.
 
 ## 쓰지 않는 것
 
 - AFJ / Front / FreeLangScript 문법
 - FX2 import
 - `U` `J` `L` `R` 등 Core 밖 한 글자 opcode를 필수로 쓰기
-- FX3 전용 런타임
+- FX3 전용(owned) 런타임 / IR executor
 - 정답 예제를 작업마다 새로 창작하기. 위 fixture 01을 쓴다

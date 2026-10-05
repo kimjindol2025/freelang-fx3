@@ -231,22 +231,22 @@ P5 runtime/executor와 혼동하지 말 것. 위는 **capability I/O 허용 폭�
 
 ### OPEN → 다음 안건 후보
 
-1. **P5 CLI 게이트** (쓸 만한 1차 길 — 진행 중)
+1. ~~P5 CLI 게이트~~ → PASS (`check/lower/ir/cap/test` + 위임 `run`)
 2. reason v2 후보만 (`symlink_blocked` / `sensitive_path`)
 3. (나중) 실 I/O 읽기 스모크 — executor 없이 capability 계층만
 
 ### 명시적 비목표
 
 ```text
-P5 전용 runtime/executor (CLI 게이트와 다름)
+전용(owned) FX3 runtime/VM / IR executor
 IR capability_request 삽입
 실 파일 읽기/쓰기 (요청 JSON 제외)
 process/network
 self-hosting
 ```
 
-CLI 게이트(`fx3 check|lower|ir|cap|test`)는 쓸 만한 1차 길에 **포함**된다 → [FX3-CLI.md](FX3-CLI.md).
-
+CLI 게이트(`fx3 check|lower|ir|cap|run|test`)와 위임 `run`은 쓸 만한 길에 **포함**된다 → [FX3-CLI.md](FX3-CLI.md), [FX3-RUN.md](FX3-RUN.md).
+`run`은 capability 판정을 자동으로 켜지 않는다.
 ---
 
 ## 6. 적대적 검수 · 2026-10-05

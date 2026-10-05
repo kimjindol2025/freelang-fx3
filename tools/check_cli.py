@@ -1,24 +1,31 @@
 #!/usr/bin/env python3
-"""P5 CLI smoke gate for fx3 check/lower/ir/cap/test/package verify."""
+"""CLI smoke gate for fx3 check/lower/ir/cap/run/test/package verify."""
 
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CLI = [sys.executable, str(ROOT / "tools" / "fx3_cli.py")]
+DEFAULT_FX_ROOT = "/home/kim/kim/platform/freelang-v11-fx"
 
 
-def run(args: list[str], input_text: str | None = None) -> subprocess.CompletedProcess:
+def run(args: list[str], input_text: str | None = None, env: dict | None = None) -> subprocess.CompletedProcess:
+    merged = None
+    if env is not None:
+        merged = os.environ.copy()
+        merged.update(env)
     return subprocess.run(
         CLI + args,
         cwd=str(ROOT),
         input=input_text,
         capture_output=True,
         text=True,
+        env=merged,
     )
 
 
@@ -29,7 +36,10 @@ def main() -> int:
     if p.returncode != 0:
         fails.append(f"help exit {p.returncode}")
     else:
-        print("PASS help")
+        if "run" not in p.stdout:
+            fails.append("help missing run")
+        else:
+            print("PASS help")
 
     p = run(["nosuch"])
     if p.returncode != 2:
@@ -96,6 +106,71 @@ def main() -> int:
             fails.append(f"cap deny body {d}")
         else:
             print("PASS cap deny")
+
+    # --- run (delegated) ---
+    p = run(["run", "fixtures/run/sum.fx3", "--call", "(sum 2 3)"])
+    if p.returncode != 0 or p.stdout.strip() != "5":
+        fails.append(f"run eval: {p.returncode} {p.stdout!r} {p.stderr!r}")
+    else:
+        print("PASS run eval")
+
+    p = run(
+        ["run", "fixtures/run/sum.fx3", "--call", "(sum 2 3)", "--engine", "eval"]
+    )
+    if p.returncode != 0 or p.stdout.strip() != "5":
+        fails.append(f"run engine=eval: {p.returncode} {p.stdout!r}")
+    else:
+        print("PASS run --engine=eval")
+
+    p = run(
+        ["run", "fixtures/parse/invalid/03-expected-f.fx3", "--call", "(sum 2 3)"]
+    )
+    if p.returncode != 1 or "E_EXPECTED_F" not in p.stderr:
+        fails.append(f"run parse fail: {p.returncode} {p.stderr!r}")
+    else:
+        print("PASS run parse fail exit 1")
+
+    p = run(["run", "fixtures/run/sum.fx3"])
+    if p.returncode != 2:
+        fails.append(f"run missing --call want 2 got {p.returncode}")
+    else:
+        print("PASS run missing --call exit 2")
+
+    p = run(
+        ["run", "fixtures/run/sum.fx3", "--call", "(sum 2 3)", "--engine", "bogus"]
+    )
+    if p.returncode != 2:
+        fails.append(f"run bad engine want 2 got {p.returncode}")
+    else:
+        print("PASS run bad --engine exit 2")
+
+    build = Path(os.environ.get("FX_ROOT", DEFAULT_FX_ROOT)) / "fl-build.sh"
+    if build.is_file():
+        p = run(
+            [
+                "run",
+                "fixtures/run/sum.fx3",
+                "--call",
+                "(sum 2 3)",
+                "--engine",
+                "native",
+            ]
+        )
+        if p.returncode != 0 or p.stdout.strip() != "5":
+            fails.append(f"run native: {p.returncode} {p.stdout!r} {p.stderr!r}")
+        else:
+            print("PASS run --engine=native")
+    else:
+        print("SKIP run native (fl-build.sh missing)")
+
+    p = run(
+        ["run", "fixtures/run/sum.fx3", "--call", "(sum 2 3)", "--engine", "native"],
+        env={"FX_ROOT": "/nonexistent-fx-root"},
+    )
+    if p.returncode != 2 or "FX_NATIVE=BLOCKED" not in p.stderr:
+        fails.append(f"run native blocked: {p.returncode} {p.stderr!r}")
+    else:
+        print("PASS run native BLOCKED exit 2")
 
     p = run(["test", "--quick"])
     if p.returncode != 0 or "FX3_TEST=PASS" not in p.stdout:
