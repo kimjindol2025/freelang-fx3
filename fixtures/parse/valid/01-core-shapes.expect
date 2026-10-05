@@ -1,0 +1,13 @@
+ok=1
+defn=demo
+params=1
+bindings=2
+has_if=1
+has_map=1
+has_call=1
+has_op=1
+defn_line=1
+defn_column=1
+binding0_name=$a
+binding0_line=1
+binding0_column=12

@@ -9,11 +9,11 @@ SOURCE_COPY=NO
 FX3_SURFACE=.fx3
 CANONICAL_LOWERING=.fl
 RUNTIME=NONE
-PARSER=LEXER_SKELETON
-PARSER_AST=NONE
+PARSER=AST_SKELETON
+PARSER_AST=PASS
 TRACK1=OPEN
 TRACK1_P0=CORE_LOCKED
-TRACK1_P1=LEXER_SKELETON_PASS
+TRACK1_P1=PARSER_AST_PASS
 TRACK1_P2=NOT_STARTED
 REMOTE=https://github.com/kimjindol2025/freelang-fx3
 LOWERING_CONTRACT=LOCKED
@@ -104,10 +104,12 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=Track1 P1 lexer skeleton PASS. NEXT=P1 parser AST
-NEXT_AGENDA_ONLY=TRACK1_P1_PARSER_AST
+HANDOFF=Track1 P1 parser AST PASS. NEXT=P2 lowering from AST
+NEXT_AGENDA_ONLY=TRACK1_P2_LOWERING_AST
 LEX_GATE=PASS
 LEX_GATE_CMD=python3 tools/check_lex.py
+PARSE_GATE=PASS
+PARSE_GATE_CMD=python3 tools/check_parse.py
 LANGUAGE_WRAP=CLOSED
 LANGUAGE_WRAP_REPORT=bench/results/language-wrap-20261004/
 AI_RETEST=PASS
@@ -340,3 +342,14 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 - `python3 tools/lower.py --check` → 회귀 PASS (lower.py 미변경)
 - 아직 없음: parser AST · 전용 IR · capability runtime · `fx3` CLI · self-hosting
 - 다음: P1 parser AST (binding/괄호/delimiter 거부 + 위치 진단)
+
+## Track 1 · P1 parser AST · 2026-10-05
+
+- 입력: `fx3_lex` token stream · 출력: 위치 보존 AST
+- 범위: F / params / leading binding / call / op / map / `?`·`~` / `@` get / 괄호·delimiter
+- 파일: `tools/fx3_parse.py` · `tools/check_parse.py` · `fixtures/parse/{valid,invalid}/`
+- invalid 5: binding-after-expr · unclosed-paren · expected-F · toplevel-missing-semi · empty-body
+- `python3 tools/check_parse.py` → `PARSE_GATE=PASS`
+- `python3 tools/check_lex.py` · `python3 tools/lower.py --check` 회귀 PASS · `lower.py` 미변경
+- 아직 없음: AST→`.fl` 정식 lowering · IR/ABI · capability · `fx3` CLI · self-hosting · 전용 runtime
+- 다음: P2 lowering compiler (AST → 결정적 `.fl`, fixture 회귀)

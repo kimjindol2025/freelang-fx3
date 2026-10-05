@@ -1,0 +1,1 @@
+F demo[$n]{$a=1;$b=$a+2;?$b>0{foo($b)}{bar($n)};m({ok:true,v:$b})}
