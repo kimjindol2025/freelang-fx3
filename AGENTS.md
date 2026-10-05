@@ -17,4 +17,5 @@
 - 새 AST lowering 본체는 `tools/fx3_lower.py`다. 동일 AST는 동일 `.fl` 바이트여야 한다.
 - IR/ABI 계약은 [docs/IR-ABI-CONTRACT.md](docs/IR-ABI-CONTRACT.md)와 `tools/fx3_ir.py`다. P3는 계약 잠금이며 실행기가 아니다.
 - Capability는 [docs/CAPABILITY-CONTRACT.md](docs/CAPABILITY-CONTRACT.md)와 `tools/fx3_capability.py`다. 기본 deny. P4는 판정만이며 I/O·실행이 아니다.
+- P4 계약 리뷰: [docs/CAPABILITY-REVIEW.md](docs/CAPABILITY-REVIEW.md). IR `capability_request`·runtime은 보류. OPEN 항목은 별도 안건으로만 확정한다.
 - 비밀값, 토큰, 개인 키를 문서에 남기지 않는다.

@@ -110,8 +110,11 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=Track1 P4 capability deny-first LOCKED. NEXT=capability contract review (not P5 runtime)
-NEXT_AGENDA_ONLY=TRACK1_P4_CAPABILITY_REVIEW
+HANDOFF=P4 capability review written. OPEN items only; not P5 runtime
+NEXT_AGENDA_ONLY=TRACK1_P4_CAPABILITY_OPEN_ITEMS
+CAPABILITY_REVIEW=docs/CAPABILITY-REVIEW.md
+CAPABILITY_REVIEW_STATUS=RECORDED
+IR_CAPABILITY_LINK=DEFERRED
 LEX_GATE=PASS
 LEX_GATE_CMD=python3 tools/check_lex.py
 PARSE_GATE=PASS
@@ -405,3 +408,11 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 - `python3 tools/check_capability.py` → `CAPABILITY_GATE=PASS` · `DENY_FIRST=PASS`
 - `fx3_ir.py` / lexer / parser / lower* 미변경
 - 다음: **P4 계약 검토 안건** (P5 runtime/executor로 자동 진행하지 않음)
+
+## Track 1 · P4 capability 계약 리뷰 · 2026-10-05
+
+- 산출: [docs/CAPABILITY-REVIEW.md](docs/CAPABILITY-REVIEW.md) (**문서만**, 코드 미변경)
+- LOCKED 유지: deny-first · 상대경로/`..`/절대 차단 · 未知 인자 거부 · write/exec/network/runtime.execute/delete 항상 deny · IR 분리
+- PROPOSED/OPEN: extension·max_bytes·encoding · reason v2 · rename/wildcard/recursive · sensitive_path · symlink 실검
+- DEFERRED: IR `capability_request` · 실 I/O · runtime/executor
+- 다음: OPEN 항목을 **별도 안건**으로 확정 (P5로 점프하지 않음)
