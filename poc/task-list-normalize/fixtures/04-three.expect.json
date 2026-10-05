@@ -1,0 +1,19 @@
+{
+  "count": 3,
+  "ok": true,
+  "t0": {
+    "enabled": true,
+    "id": "a",
+    "name": "A"
+  },
+  "t1": {
+    "enabled": false,
+    "id": "b",
+    "name": "B"
+  },
+  "t2": {
+    "enabled": true,
+    "id": "c",
+    "name": "C"
+  }
+}

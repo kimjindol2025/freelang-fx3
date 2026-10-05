@@ -46,7 +46,9 @@ bash poc/<tool>/scripts/verify.sh
 | eval 부분집합 | `eval_fl_min`에 `keys`/`length`/`type-of` 없음 | `eval_fl_ext` 심 (min 파일 미수정) |
 | `--call` 맵 키 | bare `name`은 eval에선 심볼→문자열, native 원문은 깨짐 | CLI가 native용 문자열 키로 재방출 |
 | 버전 문자열 비교 | `>=`/`<`는 사전식 | 단일 자릿수 세그먼트 또는 문서화된 구간 |
-| 임의 길이 루프 없음 | 배열·키 순회를 일반 for로 못 씀 | 고정 상한 언롤 / 작은 스키마 |
+| 임의 길이 루프 없음 | 배열·키 순회를 일반 for로 못 씀 | 고정 상한 언롤 / 작은 스키마 (`poc/task-list-normalize`로 증명) |
+| 벡터 리터럴 불가 | Core parse/lower가 `[]`/`[a,b]` 식을 받지 않음 | 정규화 결과는 `count`+`t0..tN` 슬롯 맵으로 방출 |
+| native `get` on nil | `get(nil,…)` / `@$nil.id` 가 네이티브 예외 (eval은 null) | 배열이 확정된 뒤에만 `get`; 필드는 `len` 분기 안에서만 접근 |
 | I/O 금지 | 파일·네트워크·process 없음 | 순수 검증/변환만 |
 
 ## 의도적으로 열지 않는 것

@@ -1,0 +1,372 @@
+(defn normalize-tasks [$m]
+  (let [$ks    (keys $m)
+        $n     (length $ks)
+        $tasks (get $m "tasks")
+        $len   (if (null? $tasks)
+                 0
+                 (if (== (type-of $tasks) "array")
+                   (length $tasks)
+                   99))
+        $t0    (if (null? $tasks)
+                 nil
+                 (if (== (type-of $tasks) "array")
+                   (get $tasks 0)
+                   nil))
+        $t1    (if (null? $tasks)
+                 nil
+                 (if (== (type-of $tasks) "array")
+                   (get $tasks 1)
+                   nil))
+        $t2    (if (null? $tasks)
+                 nil
+                 (if (== (type-of $tasks) "array")
+                   (get $tasks 2)
+                   nil))]
+    (if (> $n 1)
+      {"ok" false
+       "code" "E_UNKNOWN_KEY"
+       "field" (get $ks 1)
+       "message" "unknown key"}
+      (if (if (>= 0 $n)
+            1
+            (if (== (get $ks 0) "tasks")
+              1
+              0))
+        (if (null? $tasks)
+          {"ok" false
+           "code" "E_REQUIRED"
+           "field" "tasks"
+           "message" "tasks is required"}
+          (if (== (type-of $tasks) "array")
+            (if (== $len 0)
+              {"ok" true
+               "count" 0}
+              (if (== $len 1)
+                (if (== (type-of $t0) "map")
+                  (if (null? (get $t0 "id"))
+                    {"ok" false
+                     "code" "E_REQUIRED"
+                     "field" "id"
+                     "message" "id is required"}
+                    (if (== (type-of (get $t0 "id")) "string")
+                      (if (> (str_length (get $t0 "id")) 0)
+                        (if (null? (get $t0 "name"))
+                          {"ok" false
+                           "code" "E_REQUIRED"
+                           "field" "name"
+                           "message" "name is required"}
+                          (if (== (type-of (get $t0 "name")) "string")
+                            (if (> (str_length (get $t0 "name")) 0)
+                              (if (null? (get $t0 "enabled"))
+                                {"ok" false
+                                 "code" "E_REQUIRED"
+                                 "field" "enabled"
+                                 "message" "enabled is required"}
+                                (if (== (type-of (get $t0 "enabled")) "boolean")
+                                  {"ok" true
+                                   "count" 1
+                                   "t0" {"id" (get $t0 "id")
+                                         "name" (get $t0 "name")
+                                         "enabled" (get $t0 "enabled")}}
+                                  {"ok" false
+                                   "code" "E_BAD_TYPE"
+                                   "field" "enabled"
+                                   "message" "enabled must be a boolean"}))
+                              {"ok" false
+                               "code" "E_BAD_VALUE"
+                               "field" "name"
+                               "message" "name must not be empty"})
+                            {"ok" false
+                             "code" "E_BAD_TYPE"
+                             "field" "name"
+                             "message" "name must be a string"}))
+                        {"ok" false
+                         "code" "E_BAD_VALUE"
+                         "field" "id"
+                         "message" "id must not be empty"})
+                      {"ok" false
+                       "code" "E_BAD_TYPE"
+                       "field" "id"
+                       "message" "id must be a string"}))
+                  {"ok" false
+                   "code" "E_BAD_TYPE"
+                   "field" "tasks"
+                   "message" "task must be a map"})
+                (if (== $len 2)
+                  (if (== (type-of $t0) "map")
+                    (if (null? (get $t0 "id"))
+                      {"ok" false
+                       "code" "E_REQUIRED"
+                       "field" "id"
+                       "message" "id is required"}
+                      (if (== (type-of (get $t0 "id")) "string")
+                        (if (> (str_length (get $t0 "id")) 0)
+                          (if (null? (get $t0 "name"))
+                            {"ok" false
+                             "code" "E_REQUIRED"
+                             "field" "name"
+                             "message" "name is required"}
+                            (if (== (type-of (get $t0 "name")) "string")
+                              (if (> (str_length (get $t0 "name")) 0)
+                                (if (null? (get $t0 "enabled"))
+                                  {"ok" false
+                                   "code" "E_REQUIRED"
+                                   "field" "enabled"
+                                   "message" "enabled is required"}
+                                  (if (== (type-of (get $t0 "enabled")) "boolean")
+                                    (if (== (type-of $t1) "map")
+                                      (if (null? (get $t1 "id"))
+                                        {"ok" false
+                                         "code" "E_REQUIRED"
+                                         "field" "id"
+                                         "message" "id is required"}
+                                        (if (== (type-of (get $t1 "id")) "string")
+                                          (if (> (str_length (get $t1 "id")) 0)
+                                            (if (null? (get $t1 "name"))
+                                              {"ok" false
+                                               "code" "E_REQUIRED"
+                                               "field" "name"
+                                               "message" "name is required"}
+                                              (if (== (type-of (get $t1 "name")) "string")
+                                                (if (> (str_length (get $t1 "name")) 0)
+                                                  (if (null? (get $t1 "enabled"))
+                                                    {"ok" false
+                                                     "code" "E_REQUIRED"
+                                                     "field" "enabled"
+                                                     "message" "enabled is required"}
+                                                    (if (== (type-of (get $t1 "enabled")) "boolean")
+                                                      (if (== (get $t0 "id") (get $t1 "id"))
+                                                        {"ok" false
+                                                         "code" "E_DUP_ID"
+                                                         "field" "id"
+                                                         "message" "duplicate task id"}
+                                                        {"ok" true
+                                                         "count" 2
+                                                         "t0" {"id" (get $t0 "id")
+                                                               "name" (get $t0 "name")
+                                                               "enabled" (get $t0 "enabled")}
+                                                         "t1" {"id" (get $t1 "id")
+                                                               "name" (get $t1 "name")
+                                                               "enabled" (get $t1 "enabled")}})
+                                                      {"ok" false
+                                                       "code" "E_BAD_TYPE"
+                                                       "field" "enabled"
+                                                       "message" "enabled must be a boolean"}))
+                                                  {"ok" false
+                                                   "code" "E_BAD_VALUE"
+                                                   "field" "name"
+                                                   "message" "name must not be empty"})
+                                                {"ok" false
+                                                 "code" "E_BAD_TYPE"
+                                                 "field" "name"
+                                                 "message" "name must be a string"}))
+                                            {"ok" false
+                                             "code" "E_BAD_VALUE"
+                                             "field" "id"
+                                             "message" "id must not be empty"})
+                                          {"ok" false
+                                           "code" "E_BAD_TYPE"
+                                           "field" "id"
+                                           "message" "id must be a string"}))
+                                      {"ok" false
+                                       "code" "E_BAD_TYPE"
+                                       "field" "tasks"
+                                       "message" "task must be a map"})
+                                    {"ok" false
+                                     "code" "E_BAD_TYPE"
+                                     "field" "enabled"
+                                     "message" "enabled must be a boolean"}))
+                                {"ok" false
+                                 "code" "E_BAD_VALUE"
+                                 "field" "name"
+                                 "message" "name must not be empty"})
+                              {"ok" false
+                               "code" "E_BAD_TYPE"
+                               "field" "name"
+                               "message" "name must be a string"}))
+                          {"ok" false
+                           "code" "E_BAD_VALUE"
+                           "field" "id"
+                           "message" "id must not be empty"})
+                        {"ok" false
+                         "code" "E_BAD_TYPE"
+                         "field" "id"
+                         "message" "id must be a string"}))
+                    {"ok" false
+                     "code" "E_BAD_TYPE"
+                     "field" "tasks"
+                     "message" "task must be a map"})
+                  (if (== $len 3)
+                    (if (== (type-of $t0) "map")
+                      (if (null? (get $t0 "id"))
+                        {"ok" false
+                         "code" "E_REQUIRED"
+                         "field" "id"
+                         "message" "id is required"}
+                        (if (== (type-of (get $t0 "id")) "string")
+                          (if (> (str_length (get $t0 "id")) 0)
+                            (if (null? (get $t0 "name"))
+                              {"ok" false
+                               "code" "E_REQUIRED"
+                               "field" "name"
+                               "message" "name is required"}
+                              (if (== (type-of (get $t0 "name")) "string")
+                                (if (> (str_length (get $t0 "name")) 0)
+                                  (if (null? (get $t0 "enabled"))
+                                    {"ok" false
+                                     "code" "E_REQUIRED"
+                                     "field" "enabled"
+                                     "message" "enabled is required"}
+                                    (if (== (type-of (get $t0 "enabled")) "boolean")
+                                      (if (== (type-of $t1) "map")
+                                        (if (null? (get $t1 "id"))
+                                          {"ok" false
+                                           "code" "E_REQUIRED"
+                                           "field" "id"
+                                           "message" "id is required"}
+                                          (if (== (type-of (get $t1 "id")) "string")
+                                            (if (> (str_length (get $t1 "id")) 0)
+                                              (if (null? (get $t1 "name"))
+                                                {"ok" false
+                                                 "code" "E_REQUIRED"
+                                                 "field" "name"
+                                                 "message" "name is required"}
+                                                (if (== (type-of (get $t1 "name")) "string")
+                                                  (if (> (str_length (get $t1 "name")) 0)
+                                                    (if (null? (get $t1 "enabled"))
+                                                      {"ok" false
+                                                       "code" "E_REQUIRED"
+                                                       "field" "enabled"
+                                                       "message" "enabled is required"}
+                                                      (if (== (type-of (get $t1 "enabled")) "boolean")
+                                                        (if (== (type-of $t2) "map")
+                                                          (if (null? (get $t2 "id"))
+                                                            {"ok" false
+                                                             "code" "E_REQUIRED"
+                                                             "field" "id"
+                                                             "message" "id is required"}
+                                                            (if (== (type-of (get $t2 "id")) "string")
+                                                              (if (> (str_length (get $t2 "id")) 0)
+                                                                (if (null? (get $t2 "name"))
+                                                                  {"ok" false
+                                                                   "code" "E_REQUIRED"
+                                                                   "field" "name"
+                                                                   "message" "name is required"}
+                                                                  (if (== (type-of (get $t2 "name")) "string")
+                                                                    (if (> (str_length (get $t2 "name")) 0)
+                                                                      (if (null? (get $t2 "enabled"))
+                                                                        {"ok" false
+                                                                         "code" "E_REQUIRED"
+                                                                         "field" "enabled"
+                                                                         "message" "enabled is required"}
+                                                                        (if (== (type-of (get $t2 "enabled")) "boolean")
+                                                                          (if (== (get $t0 "id") (get $t1 "id"))
+                                                                            {"ok" false
+                                                                             "code" "E_DUP_ID"
+                                                                             "field" "id"
+                                                                             "message" "duplicate task id"}
+                                                                            (if (== (get $t0 "id") (get $t2 "id"))
+                                                                              {"ok" false
+                                                                               "code" "E_DUP_ID"
+                                                                               "field" "id"
+                                                                               "message" "duplicate task id"}
+                                                                              (if (== (get $t1 "id") (get $t2 "id"))
+                                                                                {"ok" false
+                                                                                 "code" "E_DUP_ID"
+                                                                                 "field" "id"
+                                                                                 "message" "duplicate task id"}
+                                                                                {"ok" true
+                                                                                 "count" 3
+                                                                                 "t0" {"id" (get $t0 "id")
+                                                                                       "name" (get $t0 "name")
+                                                                                       "enabled" (get $t0 "enabled")}
+                                                                                 "t1" {"id" (get $t1 "id")
+                                                                                       "name" (get $t1 "name")
+                                                                                       "enabled" (get $t1 "enabled")}
+                                                                                 "t2" {"id" (get $t2 "id")
+                                                                                       "name" (get $t2 "name")
+                                                                                       "enabled" (get $t2 "enabled")}})))
+                                                                          {"ok" false
+                                                                           "code" "E_BAD_TYPE"
+                                                                           "field" "enabled"
+                                                                           "message" "enabled must be a boolean"}))
+                                                                      {"ok" false
+                                                                       "code" "E_BAD_VALUE"
+                                                                       "field" "name"
+                                                                       "message" "name must not be empty"})
+                                                                    {"ok" false
+                                                                     "code" "E_BAD_TYPE"
+                                                                     "field" "name"
+                                                                     "message" "name must be a string"}))
+                                                                {"ok" false
+                                                                 "code" "E_BAD_VALUE"
+                                                                 "field" "id"
+                                                                 "message" "id must not be empty"})
+                                                              {"ok" false
+                                                               "code" "E_BAD_TYPE"
+                                                               "field" "id"
+                                                               "message" "id must be a string"}))
+                                                          {"ok" false
+                                                           "code" "E_BAD_TYPE"
+                                                           "field" "tasks"
+                                                           "message" "task must be a map"})
+                                                        {"ok" false
+                                                         "code" "E_BAD_TYPE"
+                                                         "field" "enabled"
+                                                         "message" "enabled must be a boolean"}))
+                                                    {"ok" false
+                                                     "code" "E_BAD_VALUE"
+                                                     "field" "name"
+                                                     "message" "name must not be empty"})
+                                                  {"ok" false
+                                                   "code" "E_BAD_TYPE"
+                                                   "field" "name"
+                                                   "message" "name must be a string"}))
+                                              {"ok" false
+                                               "code" "E_BAD_VALUE"
+                                               "field" "id"
+                                               "message" "id must not be empty"})
+                                            {"ok" false
+                                             "code" "E_BAD_TYPE"
+                                             "field" "id"
+                                             "message" "id must be a string"}))
+                                        {"ok" false
+                                         "code" "E_BAD_TYPE"
+                                         "field" "tasks"
+                                         "message" "task must be a map"})
+                                      {"ok" false
+                                       "code" "E_BAD_TYPE"
+                                       "field" "enabled"
+                                       "message" "enabled must be a boolean"}))
+                                  {"ok" false
+                                   "code" "E_BAD_VALUE"
+                                   "field" "name"
+                                   "message" "name must not be empty"})
+                                {"ok" false
+                                 "code" "E_BAD_TYPE"
+                                 "field" "name"
+                                 "message" "name must be a string"}))
+                            {"ok" false
+                             "code" "E_BAD_VALUE"
+                             "field" "id"
+                             "message" "id must not be empty"})
+                          {"ok" false
+                           "code" "E_BAD_TYPE"
+                           "field" "id"
+                           "message" "id must be a string"}))
+                      {"ok" false
+                       "code" "E_BAD_TYPE"
+                       "field" "tasks"
+                       "message" "task must be a map"})
+                    {"ok" false
+                     "code" "E_TOO_MANY"
+                     "field" "tasks"
+                     "message" "tasks max length is 3"}))))
+            {"ok" false
+             "code" "E_BAD_TYPE"
+             "field" "tasks"
+             "message" "tasks must be an array"}))
+        {"ok" false
+         "code" "E_UNKNOWN_KEY"
+         "field" (get $ks 0)
+         "message" "unknown key"}))))

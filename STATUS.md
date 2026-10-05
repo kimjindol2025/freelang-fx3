@@ -499,3 +499,8 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 - `tools/check_poc.py` shared gate · `poc/*/poc.json` · thin verify.sh wrappers
 - `docs/FX3-DELEGATED-LIMITS.md` · `poc/README.md`
 - `python3 tools/check_poc.py all` → both POCs PASS
+
+## POC #3 · task-list-normalize · 2026-10-06
+
+- Array unroll + dup id + slot normalize (`count`/`t0..t2`) — Core has no vector literals
+- native nil-get safe access · fixtures 12 · `check_poc.py all` PASS

@@ -56,6 +56,7 @@ python3 tools/check_poc.py all
 
 - [poc/manifest-validator/README.md](../poc/manifest-validator/README.md)
 - [poc/config-lint/README.md](../poc/config-lint/README.md)
+- [poc/task-list-normalize/README.md](../poc/task-list-normalize/README.md)
 
 ## 종료코드
 

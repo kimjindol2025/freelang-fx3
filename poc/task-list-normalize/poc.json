@@ -1,0 +1,6 @@
+{
+  "name": "task-list-normalize",
+  "source": "src/task-list-normalize.fx3",
+  "pass_tag": "POC_TASK_LIST_NORMALIZE",
+  "min_cases": 6
+}

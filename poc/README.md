@@ -28,3 +28,4 @@
 |------|--------|--------|
 | manifest-validator | `src/manifest-validator.fx3` | `poc/manifest-validator/scripts/verify.sh` |
 | config-lint | `src/config-lint.fx3` | `poc/config-lint/scripts/verify.sh` |
+| task-list-normalize | `src/task-list-normalize.fx3` | `poc/task-list-normalize/scripts/verify.sh` |

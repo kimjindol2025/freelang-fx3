@@ -1,0 +1,1 @@
+(normalize-tasks {tasks [{id "a" name "A" enabled true} {id "a" name "B" enabled false}]})
