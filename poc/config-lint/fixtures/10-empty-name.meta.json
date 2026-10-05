@@ -1,0 +1,6 @@
+{
+  "code": "E_BAD_VALUE",
+  "field": "name",
+  "id": "10-empty-name",
+  "ok": false
+}

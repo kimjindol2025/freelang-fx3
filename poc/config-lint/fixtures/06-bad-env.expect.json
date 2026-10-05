@@ -1,0 +1,6 @@
+{
+  "code": "E_BAD_VALUE",
+  "field": "env",
+  "message": "env must be dev|prod|test",
+  "ok": false
+}

@@ -1,0 +1,7 @@
+{
+  "debug": true,
+  "env": "prod",
+  "name": "api",
+  "ok": true,
+  "port": 8080
+}

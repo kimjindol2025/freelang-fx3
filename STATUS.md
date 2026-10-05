@@ -486,3 +486,10 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 - `bash poc/manifest-validator/scripts/verify.sh` → POC_MANIFEST_VALIDATOR=PASS cases=10
 - eval≡native · determinism · usage exit 2 · static no I/O
 - regression CLI/lex/parse/lower/ir/capability PASS · COMMIT=NO · PUSH=NO
+
+## POC #2 · config-lint · 2026-10-06
+
+- Source: `src/config-lint.fx3` (`lint-config`) · `poc/config-lint/`
+- Fixtures 01–11 · boolean/port/env rules · eval≡native
+- `bash poc/config-lint/scripts/verify.sh` → POC_CONFIG_LINT=PASS cases=11
+- Manifest-validator regression still PASS · COMMIT=NO · PUSH=NO

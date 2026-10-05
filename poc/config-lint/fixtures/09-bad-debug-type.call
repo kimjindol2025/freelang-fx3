@@ -1,0 +1,1 @@
+(lint-config {name "api" env "dev" port 8080 debug 1})

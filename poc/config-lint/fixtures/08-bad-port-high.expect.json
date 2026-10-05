@@ -1,0 +1,6 @@
+{
+  "code": "E_BAD_PORT",
+  "field": "port",
+  "message": "port must be 1..65535",
+  "ok": false
+}

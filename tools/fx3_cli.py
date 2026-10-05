@@ -380,6 +380,7 @@ def cmd_package_verify(args: argparse.Namespace) -> int:
         TOOLS / "eval_fl_min.py",
         TOOLS / "eval_fl_ext.py",
         ROOT / "src" / "manifest-validator.fx3",
+        ROOT / "src" / "config-lint.fx3",
         ROOT / "docs" / "FX3-RUN.md",
     ]
     missing = [str(p.relative_to(ROOT)) for p in required if not p.is_file()]
