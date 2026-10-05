@@ -1,0 +1,6 @@
+{
+  "code": "E_REQUIRED",
+  "field": "name",
+  "message": "name is required",
+  "ok": false
+}

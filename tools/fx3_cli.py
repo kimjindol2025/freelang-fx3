@@ -23,7 +23,8 @@ TOOLS = ROOT / "tools"
 if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
-from eval_fl_min import EvalError, call, load_program, parse, tokenize  # noqa: E402
+from eval_fl_ext import EvalError, call, load_program  # noqa: E402
+from eval_fl_min import parse, tokenize  # noqa: E402
 from fx3_capability import (  # noqa: E402
     SCHEMA as CAP_SCHEMA,
     decide,
@@ -50,8 +51,29 @@ def _read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
+def _literal_value(node: Any) -> Any:
+    """Convert eval_fl_min AST node to a Python value for --call args."""
+    if isinstance(node, list):
+        raise ValueError("call args cannot be nested calls")
+    if not isinstance(node, tuple) or len(node) < 2:
+        raise ValueError("call args must be literals")
+    kind = node[0]
+    if kind in ("num", "str", "lit"):
+        return node[1]
+    if kind == "sym":
+        return node[1]
+    if kind == "vector":
+        return [_literal_value(x) for x in node[1]]
+    if kind == "map":
+        out: dict[Any, Any] = {}
+        for k, v in node[1]:
+            out[_literal_value(k)] = _literal_value(v)
+        return out
+    raise ValueError(f"unsupported call arg kind: {kind}")
+
+
 def _parse_call_sexpr(text: str) -> tuple[str, list[Any]]:
-    """Parse '(name args…)' into name + Python literal args for eval_fl_min.call."""
+    """Parse '(name args…)' into name + Python values (literals/maps/vectors)."""
     forms = parse(tokenize(text.strip()))
     if len(forms) != 1 or not isinstance(forms[0], list) or not forms[0]:
         raise ValueError("call must be one form: (name args…)")
@@ -60,23 +82,48 @@ def _parse_call_sexpr(text: str) -> tuple[str, list[Any]]:
     if not (isinstance(head, tuple) and head[0] == "sym"):
         raise ValueError("call head must be a symbol")
     name = head[1]
-    args: list[Any] = []
-    for a in form[1:]:
-        if not isinstance(a, tuple) or len(a) < 2:
-            raise ValueError("call args must be literals")
-        kind, val = a[0], a[1]
-        if kind in ("num", "str", "lit"):
-            args.append(val)
-        else:
-            raise ValueError(f"unsupported call arg kind: {kind}")
+    args = [_literal_value(a) for a in form[1:]]
     return name, args
 
 
 def _format_eval_result(value: Any) -> str:
     try:
-        return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+        return json.dumps(value, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
     except TypeError:
         return repr(value)
+
+
+def _py_to_fl(value: Any) -> str:
+    """Emit an FX .fl literal from a Python value (native --call adapter)."""
+    if value is None:
+        return "nil"
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if isinstance(value, int) and not isinstance(value, bool):
+        return str(value)
+    if isinstance(value, float):
+        return str(value)
+    if isinstance(value, str):
+        return json.dumps(value, ensure_ascii=False)
+    if isinstance(value, list):
+        return "[" + " ".join(_py_to_fl(x) for x in value) + "]"
+    if isinstance(value, dict):
+        parts = [f"{json.dumps(str(k), ensure_ascii=False)} {_py_to_fl(v)}" for k, v in value.items()]
+        return "{" + " ".join(parts) + "}"
+    raise ValueError(f"cannot emit FX literal for {type(value).__name__}")
+
+
+def _call_to_fl_sexpr(call_text: str) -> str:
+    name, args = _parse_call_sexpr(call_text)
+    if not args:
+        return f"({name})"
+    return "(" + name + " " + " ".join(_py_to_fl(a) for a in args) + ")"
+
+
+def _fl_for_native(fl_text: str) -> str:
+    """Adapt FX3-lowered .fl to freelang-v11-fx native (= equality)."""
+    # FX3 Core lowers == ; native CGC implements = as fl_eq.
+    return fl_text.replace("(== ", "(= ")
 
 
 def cmd_check(args: argparse.Namespace) -> int:
@@ -181,12 +228,17 @@ def _run_native(fl_text: str, call_text: str) -> int:
         _eprint("FX_NATIVE=BLOCKED")
         _eprint(f"CAUSE=missing fl-build.sh under FX_ROOT={os.environ.get('FX_ROOT', DEFAULT_FX_ROOT)}")
         return EXIT_USAGE
-    call_text = call_text.strip()
+    try:
+        call_fl = _call_to_fl_sexpr(call_text)
+    except (ValueError, EvalError) as e:
+        _eprint(f"fx3 run: bad --call: {e}")
+        return EXIT_USAGE
+    native_fl = _fl_for_native(fl_text)
     work = Path(tempfile.mkdtemp(prefix="fx3-run-"))
     try:
         fl_path = work / "prog.fl"
         bin_path = work / "prog"
-        fl_path.write_text(fl_text + f"(println {call_text})\n", encoding="utf-8")
+        fl_path.write_text(native_fl + f"(println {call_fl})\n", encoding="utf-8")
         proc = subprocess.run(
             ["bash", str(build), str(fl_path), str(bin_path), "--no-net"],
             cwd=str(work),
@@ -216,6 +268,11 @@ def _run_native(fl_text: str, call_text: str) -> int:
             return EXIT_FAIL
         lines = run.stdout.replace("\r", "").splitlines()
         last = lines[-1] if lines else ""
+        # Normalize JSON-looking native output for stable comparison with eval.
+        try:
+            last = json.dumps(json.loads(last), ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+        except json.JSONDecodeError:
+            pass
         print(last)
         return EXIT_OK
     finally:
@@ -321,6 +378,9 @@ def cmd_package_verify(args: argparse.Namespace) -> int:
         TOOLS / "fx3_capability.py",
         TOOLS / "fx3_cli.py",
         TOOLS / "eval_fl_min.py",
+        TOOLS / "eval_fl_ext.py",
+        ROOT / "src" / "manifest-validator.fx3",
+        ROOT / "docs" / "FX3-RUN.md",
     ]
     missing = [str(p.relative_to(ROOT)) for p in required if not p.is_file()]
     if missing:

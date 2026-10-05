@@ -1,0 +1,142 @@
+(defn validate-manifest [$m]
+  (let [$ks       (keys $m)
+        $n        (length $ks)
+        $name     (get $m "name")
+        $version  (get $m "version")
+        $language (get $m "language")
+        $tasks    (get $m "tasks")]
+    (if (> $n 4)
+      {"ok" false
+       "code" "E_UNKNOWN_KEY"
+       "field" (get $ks 4)
+       "message" "unknown key"}
+      (if (if (>= 0 $n)
+            1
+            (if (== (get $ks 0) "name")
+              1
+              (if (== (get $ks 0) "version")
+                1
+                (if (== (get $ks 0) "language")
+                  1
+                  (if (== (get $ks 0) "tasks")
+                    1
+                    0)))))
+        (if (if (>= 1 $n)
+              1
+              (if (== (get $ks 1) "name")
+                1
+                (if (== (get $ks 1) "version")
+                  1
+                  (if (== (get $ks 1) "language")
+                    1
+                    (if (== (get $ks 1) "tasks")
+                      1
+                      0)))))
+          (if (if (>= 2 $n)
+                1
+                (if (== (get $ks 2) "name")
+                  1
+                  (if (== (get $ks 2) "version")
+                    1
+                    (if (== (get $ks 2) "language")
+                      1
+                      (if (== (get $ks 2) "tasks")
+                        1
+                        0)))))
+            (if (if (>= 3 $n)
+                  1
+                  (if (== (get $ks 3) "name")
+                    1
+                    (if (== (get $ks 3) "version")
+                      1
+                      (if (== (get $ks 3) "language")
+                        1
+                        (if (== (get $ks 3) "tasks")
+                          1
+                          0)))))
+              (if (null? $name)
+                {"ok" false
+                 "code" "E_REQUIRED"
+                 "field" "name"
+                 "message" "name is required"}
+                (if (== (type-of $name) "string")
+                  (if (> (str_length $name) 0)
+                    (if (null? $version)
+                      {"ok" false
+                       "code" "E_REQUIRED"
+                       "field" "version"
+                       "message" "version is required"}
+                      (if (== (type-of $version) "string")
+                        (if (>= $version "1.0.0")
+                          (if (< $version "2.0.0")
+                            (if (null? $language)
+                              {"ok" false
+                               "code" "E_REQUIRED"
+                               "field" "language"
+                               "message" "language is required"}
+                              (if (== (type-of $language) "string")
+                                (if (== $language "fx3")
+                                  (if (null? $tasks)
+                                    {"ok" false
+                                     "code" "E_REQUIRED"
+                                     "field" "tasks"
+                                     "message" "tasks is required"}
+                                    (if (== (type-of $tasks) "array")
+                                      (if (> (length $tasks) 0)
+                                        {"ok" true
+                                         "name" $name
+                                         "version" $version
+                                         "language" $language
+                                         "tasks" $tasks}
+                                        {"ok" false
+                                         "code" "E_EMPTY_TASKS"
+                                         "field" "tasks"
+                                         "message" "tasks must not be empty"})
+                                      {"ok" false
+                                       "code" "E_BAD_TYPE"
+                                       "field" "tasks"
+                                       "message" "tasks must be an array"}))
+                                  {"ok" false
+                                   "code" "E_BAD_VALUE"
+                                   "field" "language"
+                                   "message" "language must be fx3"})
+                                {"ok" false
+                                 "code" "E_BAD_TYPE"
+                                 "field" "language"
+                                 "message" "language must be a string"}))
+                            {"ok" false
+                             "code" "E_BAD_VERSION"
+                             "field" "version"
+                             "message" "version must be >=1.0.0 and <2.0.0"})
+                          {"ok" false
+                           "code" "E_BAD_VERSION"
+                           "field" "version"
+                           "message" "version must be >=1.0.0 and <2.0.0"})
+                        {"ok" false
+                         "code" "E_BAD_TYPE"
+                         "field" "version"
+                         "message" "version must be a string"}))
+                    {"ok" false
+                     "code" "E_BAD_VALUE"
+                     "field" "name"
+                     "message" "name must not be empty"})
+                  {"ok" false
+                   "code" "E_BAD_TYPE"
+                   "field" "name"
+                   "message" "name must be a string"}))
+              {"ok" false
+               "code" "E_UNKNOWN_KEY"
+               "field" (get $ks 3)
+               "message" "unknown key"})
+            {"ok" false
+             "code" "E_UNKNOWN_KEY"
+             "field" (get $ks 2)
+             "message" "unknown key"})
+          {"ok" false
+           "code" "E_UNKNOWN_KEY"
+           "field" (get $ks 1)
+           "message" "unknown key"})
+        {"ok" false
+         "code" "E_UNKNOWN_KEY"
+         "field" (get $ks 0)
+         "message" "unknown key"}))))

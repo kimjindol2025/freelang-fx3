@@ -1,0 +1,6 @@
+{
+  "code": "E_EMPTY_TASKS",
+  "field": "tasks",
+  "message": "tasks must not be empty",
+  "ok": false
+}

@@ -1,0 +1,9 @@
+{
+  "language": "fx3",
+  "name": "demo",
+  "ok": true,
+  "tasks": [
+    "build"
+  ],
+  "version": "1.0.0"
+}

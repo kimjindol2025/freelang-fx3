@@ -1,0 +1,6 @@
+{
+  "code": "E_BAD_TYPE",
+  "field": "name",
+  "message": "name must be a string",
+  "ok": false
+}

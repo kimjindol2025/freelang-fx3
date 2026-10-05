@@ -1,0 +1,6 @@
+{
+  "code": "E_REQUIRED",
+  "field": "name",
+  "id": "02-missing-name",
+  "ok": false
+}

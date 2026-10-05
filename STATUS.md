@@ -472,3 +472,17 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 - `python3 tools/check_cli.py` → CLI_GATE=PASS (run 포함)
 - 비범위: owned VM · IR exec · capability 실 I/O · self-host · push
 - 다음: NEW_ROAD_ONLY (자동 진행 없음)
+
+## POC · manifest validator · 2026-10-06
+
+- Source: `src/manifest-validator.fx3` · docs: `poc/manifest-validator/`
+- Delegated eval+native PASS (behavioral 6 + determinism + usage)
+- `eval_fl_ext` stdlib shims · native `==`→`=` call adapter
+- `RUNTIME_OWNED=NONE` · `IO_CHANGE=NO` · `IR_EXEC=NO` · COMMIT=NO · PUSH=NO
+
+## Review · manifest-validator fixtures · 2026-10-06
+
+- fixtures 01–10 under `poc/manifest-validator/fixtures/` (call/expect/meta)
+- `bash poc/manifest-validator/scripts/verify.sh` → POC_MANIFEST_VALIDATOR=PASS cases=10
+- eval≡native · determinism · usage exit 2 · static no I/O
+- regression CLI/lex/parse/lower/ir/capability PASS · COMMIT=NO · PUSH=NO

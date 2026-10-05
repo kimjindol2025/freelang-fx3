@@ -34,8 +34,8 @@ FX3는 전용 VM을 갖지 않는다. `fx3 run`은 Core를 **AST lower → `.fl`
 
 | 엔진 | 경로 | 없을 때 |
 |------|------|---------|
-| `eval` (기본) | `tools/eval_fl_min.load_program` + `call` | — (repo 내) |
-| `native` | `$FX_ROOT/fl-build.sh` (기본 `/home/kim/kim/platform/freelang-v11-fx`) | stderr `FX_NATIVE=BLOCKED`, exit 2 |
+| `eval` (기본) | `tools/eval_fl_ext.py` (over `eval_fl_min`; adds `keys`/`length`/`type-of`/`str_length`, safe vector get). `eval_fl_min.py` 파일은 수정하지 않음 | — (repo 내) |
+| `native` | `$FX_ROOT/fl-build.sh` (기본 `/home/kim/kim/platform/freelang-v11-fx`). CLI adapts lowered `(==` → `(=` and emits string map keys for `--call` | stderr `FX_NATIVE=BLOCKED`, exit 2 |
 
 ## 사용
 
@@ -45,8 +45,10 @@ FX3는 전용 VM을 갖지 않는다. `fx3 run`은 Core를 **AST lower → `.fl`
 ./bin/fx3 run FILE.fx3 --call '(sum 2 3)' --engine=native
 ```
 
-eval 성공 시 stdout에 결과 한 줄 (JSON 가능하면 `json.dumps`, 아니면 `repr`).
-native 성공 시 ELF stdout의 마지막 줄 (기존 `check_semantic_native.sh` 규약).
+eval 성공 시 stdout에 결과 한 줄 (JSON이면 `sort_keys` compact).
+native 성공 시 ELF stdout 마지막 줄을 같은 JSON 규약으로 정규화할 수 있다.
+
+실사용 POC: [poc/manifest-validator/README.md](../poc/manifest-validator/README.md).
 
 ## 종료코드
 

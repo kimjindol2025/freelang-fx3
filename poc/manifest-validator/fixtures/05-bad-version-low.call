@@ -1,0 +1,1 @@
+(validate-manifest {name "demo" version "0.9.0" language "fx3" tasks ["build"]})

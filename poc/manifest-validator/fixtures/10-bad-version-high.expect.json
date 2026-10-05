@@ -1,0 +1,6 @@
+{
+  "code": "E_BAD_VERSION",
+  "field": "version",
+  "message": "version must be >=1.0.0 and <2.0.0",
+  "ok": false
+}
