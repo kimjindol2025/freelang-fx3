@@ -12,7 +12,8 @@
 - `.fx3`가 내려가는 `.fl`을 바꿀 때는 [LOWERING_CONTRACT.md](LOWERING_CONTRACT.md)와 fixture 01을 같이 고친다. 한 소스의 canonical `.fl`은 하나다.
 - 검증은 실제 내리기와 실행 결과로 남긴다. 도구가 없으면 PASS라고 적지 않는다.
 - Track 1 순서: lexer/parser → lowering/IR → capability → FX runtime → self-hosting. 한 층 PASS를 언어 완성으로 보고하지 않는다.
-- P1–P2 게이트: `python3 tools/check_lex.py` · `python3 tools/check_parse.py` · `python3 tools/check_lower.py`.
+- P1–P3 게이트: `python3 tools/check_lex.py` · `python3 tools/check_parse.py` · `python3 tools/check_lower.py` · `python3 tools/check_ir.py`.
 - Core fixture 레거시 내리기 회귀: `python3 tools/lower.py --check` (`tools/lower.py`는 수정하지 않는다).
 - 새 AST lowering 본체는 `tools/fx3_lower.py`다. 동일 AST는 동일 `.fl` 바이트여야 한다.
+- IR/ABI 계약은 [docs/IR-ABI-CONTRACT.md](docs/IR-ABI-CONTRACT.md)와 `tools/fx3_ir.py`다. P3는 계약 잠금이며 실행기가 아니다.
 - 비밀값, 토큰, 개인 키를 문서에 남기지 않는다.

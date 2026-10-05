@@ -12,11 +12,13 @@ RUNTIME=NONE
 PARSER=AST_SKELETON
 PARSER_AST=PASS
 LOWER_AST=PASS
+IR_ABI=LOCKED_V1
 TRACK1=OPEN
 TRACK1_P0=CORE_LOCKED
 TRACK1_P1=PARSER_AST_PASS
 TRACK1_P2=LOWER_AST_PASS
-TRACK1_P3=NOT_STARTED
+TRACK1_P3=IR_ABI_PASS
+TRACK1_P4=NOT_STARTED
 REMOTE=https://github.com/kimjindol2025/freelang-fx3
 LOWERING_CONTRACT=LOCKED
 CORE=LOCKED
@@ -106,15 +108,21 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=Track1 P2 AST lowering PASS. NEXT=P3 IR/ABI or capability (not opened)
-NEXT_AGENDA_ONLY=TRACK1_P3_IR_OR_CAPABILITY
+HANDOFF=Track1 P3 IR/ABI contract LOCKED_V1. NEXT=P4 capability (not opened)
+NEXT_AGENDA_ONLY=TRACK1_P4_CAPABILITY
 LEX_GATE=PASS
 LEX_GATE_CMD=python3 tools/check_lex.py
 PARSE_GATE=PASS
 PARSE_GATE_CMD=python3 tools/check_parse.py
 LOWER_GATE=PASS
 LOWER_GATE_CMD=python3 tools/check_lower.py
+P3_IR_GATE=PASS
+P3_IR_GATE_CMD=python3 tools/check_ir.py
+IR_ABI_DOC=docs/IR-ABI-CONTRACT.md
+ABI_SCHEMA=fx3-ir@1
 DETERMINISM=PASS
+LOCATION_PRESERVATION=PASS
+IR_EXECUTOR=NONE
 LANGUAGE_WRAP=CLOSED
 LANGUAGE_WRAP_REPORT=bench/results/language-wrap-20261004/
 AI_RETEST=PASS
@@ -366,5 +374,15 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 - unsupported/invalid AST → `E_UNSUPPORTED_NODE` + line/column
 - `python3 tools/check_lower.py` → `LOWER_GATE=PASS` · `DETERMINISM=PASS`
 - `check_parse` / `check_lex` / `lower.py --check` / `check_corpus` 회귀 PASS · `tools/lower.py` 미변경
-- 아직 없음: IR/ABI · capability runtime · `fx3` CLI · self-hosting · 전용 runtime (`RUNTIME=NONE`)
-- 다음: P3 공통 IR/ABI (새 안건으로만)
+- 다음: P3 공통 IR/ABI (계약만)
+
+## Track 1 · P3 IR/ABI 계약 · 2026-10-05
+
+- **계약 잠금만**. 실행기·capability·native·CLI·self-hosting 없음
+- 문서: [docs/IR-ABI-CONTRACT.md](docs/IR-ABI-CONTRACT.md) · `abi=fx3-ir` · `version=1`
+- 파일: `tools/fx3_ir.py` · `tools/check_ir.py` · `fixtures/ir/{valid,invalid}/`
+- 노드: program/function/binding/variable/literal/call/operator/conditional/null_check/get/map/map_entry/result
+- 모든 노드 `loc` · 결정적 JSON 직렬화 · unsupported/`loop` 등 → `E_UNSUPPORTED_NODE`
+- `python3 tools/check_ir.py` → `P3_IR_GATE=PASS`
+- lexer/parser/lower/legacy-lower/corpus 회귀 PASS · Core·`lower.py` 미변경 · parser 미변경
+- 다음: P4 capability runtime (deny-first, 새 안건으로만)

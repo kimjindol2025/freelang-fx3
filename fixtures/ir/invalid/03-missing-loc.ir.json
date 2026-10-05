@@ -1,0 +1,1 @@
+{"abi":"fx3-ir","functions":[{"bindings":[],"body":[{"kind":"number","op":"literal","text":"1"}],"loc":{"column":1,"line":1},"name":"a","op":"function","params":[],"result":{"loc":{"column":1,"line":1},"op":"result","value":{"kind":"number","op":"literal","text":"1"}}}],"loc":{"column":1,"line":1},"op":"program","version":1}
