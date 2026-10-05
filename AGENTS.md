@@ -14,7 +14,9 @@
 - Track 1 순서: lexer/parser → lowering/IR → capability → FX runtime → self-hosting. 한 층 PASS를 언어 완성으로 보고하지 않는다.
 - P1–P4 게이트: `check_lex` · `check_parse` · `check_lower` · `check_ir` · `check_capability`.
 - P5 CLI: `./bin/fx3` 또는 `python3 tools/fx3_cli.py` — `check`/`lower`/`ir`/`cap`/`run`/`test`/`package verify`. 문서 [docs/FX3-CLI.md](docs/FX3-CLI.md). CLI 스모크: `python3 tools/check_cli.py`.
-- `fx3 run`은 위임 실행만이다 (`RUN=DELEGATED`). 계약 [docs/FX3-RUN.md](docs/FX3-RUN.md). 기본 `--engine=eval` (`eval_fl_min`), 옵션 `native` (`fl-build.sh --no-net`). `RUNTIME_OWNED=NONE`.
+- `fx3 run`은 위임 실행만이다 (`RUN=DELEGATED`). 계약 [docs/FX3-RUN.md](docs/FX3-RUN.md). 기본 `--engine=eval` (`eval_fl_ext` over `eval_fl_min`), 옵션 `native` (`fl-build.sh --no-net`). `RUNTIME_OWNED=NONE`.
+- 위임 POC 레일: [poc/README.md](poc/README.md) · 한계 [docs/FX3-DELEGATED-LIMITS.md](docs/FX3-DELEGATED-LIMITS.md) · 게이트 `python3 tools/check_poc.py all`.
+
 - Core fixture 레거시 내리기 회귀: `python3 tools/lower.py --check` (`tools/lower.py`는 수정하지 않는다).
 - 새 AST lowering 본체는 `tools/fx3_lower.py`다. 동일 AST는 동일 `.fl` 바이트여야 한다. `run`도 이 경로만 쓴다.
 - IR/ABI 계약은 [docs/IR-ABI-CONTRACT.md](docs/IR-ABI-CONTRACT.md)와 `tools/fx3_ir.py`다. P3는 계약 잠금이며 실행기가 아니다.

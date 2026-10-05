@@ -1,0 +1,6 @@
+{
+  "name": "config-lint",
+  "source": "src/config-lint.fx3",
+  "pass_tag": "POC_CONFIG_LINT",
+  "min_cases": 6
+}

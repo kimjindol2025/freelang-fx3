@@ -48,7 +48,11 @@ FX3는 전용 VM을 갖지 않는다. `fx3 run`은 Core를 **AST lower → `.fl`
 eval 성공 시 stdout에 결과 한 줄 (JSON이면 `sort_keys` compact).
 native 성공 시 ELF stdout 마지막 줄을 같은 JSON 규약으로 정규화할 수 있다.
 
-실사용 POC:
+실사용 POC 레일: [poc/README.md](../poc/README.md) · 한계 [FX3-DELEGATED-LIMITS.md](FX3-DELEGATED-LIMITS.md)
+
+```bash
+python3 tools/check_poc.py all
+```
 
 - [poc/manifest-validator/README.md](../poc/manifest-validator/README.md)
 - [poc/config-lint/README.md](../poc/config-lint/README.md)

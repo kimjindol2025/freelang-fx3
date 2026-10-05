@@ -382,6 +382,9 @@ def cmd_package_verify(args: argparse.Namespace) -> int:
         ROOT / "src" / "manifest-validator.fx3",
         ROOT / "src" / "config-lint.fx3",
         ROOT / "docs" / "FX3-RUN.md",
+        ROOT / "docs" / "FX3-DELEGATED-LIMITS.md",
+        ROOT / "tools" / "check_poc.py",
+        ROOT / "poc" / "README.md",
     ]
     missing = [str(p.relative_to(ROOT)) for p in required if not p.is_file()]
     if missing:

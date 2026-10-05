@@ -493,3 +493,9 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 - Fixtures 01–11 · boolean/port/env rules · eval≡native
 - `bash poc/config-lint/scripts/verify.sh` → POC_CONFIG_LINT=PASS cases=11
 - Manifest-validator regression still PASS · COMMIT=NO · PUSH=NO
+
+## Harden · delegated POC rail · 2026-10-06
+
+- `tools/check_poc.py` shared gate · `poc/*/poc.json` · thin verify.sh wrappers
+- `docs/FX3-DELEGATED-LIMITS.md` · `poc/README.md`
+- `python3 tools/check_poc.py all` → both POCs PASS

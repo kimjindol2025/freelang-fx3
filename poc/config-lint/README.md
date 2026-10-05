@@ -44,6 +44,8 @@ cd /home/kim/kim/platform/freelang-fx3
 
 ```bash
 bash poc/config-lint/scripts/verify.sh
+# same:
+python3 tools/check_poc.py poc/config-lint
 ```
 
 ## Notes

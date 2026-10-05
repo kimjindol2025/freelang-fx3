@@ -49,6 +49,8 @@ cd /home/kim/kim/platform/freelang-fx3
 
 ```bash
 bash poc/manifest-validator/scripts/verify.sh
+# same:
+python3 tools/check_poc.py poc/manifest-validator
 ```
 
 ## Known limitations

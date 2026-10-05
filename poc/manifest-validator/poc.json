@@ -1,0 +1,6 @@
+{
+  "name": "manifest-validator",
+  "source": "src/manifest-validator.fx3",
+  "pass_tag": "POC_MANIFEST_VALIDATOR",
+  "min_cases": 6
+}
