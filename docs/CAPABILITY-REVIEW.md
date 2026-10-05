@@ -238,13 +238,14 @@ P5 runtime/executor와 혼동하지 말 것. 위는 **capability I/O 허용 폭�
 ### 명시적 비목표
 
 ```text
-P5 runtime/executor
+P5 전용 runtime/executor (CLI 게이트와 다름)
 IR capability_request 삽입
-실 파일 읽기/쓰기
+실 파일 읽기/쓰기 (요청 JSON 제외)
 process/network
 self-hosting
-fx3 CLI
 ```
+
+CLI 게이트(`fx3 check|lower|ir|cap|test`)는 쓸 만한 1차 길에 **포함**된다 → [FX3-CLI.md](FX3-CLI.md).
 
 ---
 

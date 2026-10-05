@@ -58,7 +58,7 @@ $body=http-get-body(RATE_URL);
 }
 ```
 
-원본: [examples/handle-rate-single.fx3](examples/handle-rate-single.fx3)  
+원본: [examples/handle-rate-single.fx3](examples/handle-rate-single.fx3)
 기대 `.fl`: [examples/handle-rate-single.fl](examples/handle-rate-single.fl)
 
 ## 프롬프트에 붙일 최소 조각
@@ -75,6 +75,21 @@ Rules:
 Example:
 F handle-rate-single[$req]{$cur=str_upper(@$req.params.currency);$body=http-get-body(RATE_URL);?~$body{json-err("환율 API 오류")}{json-ok($body)}}
 ```
+
+## CLI 검증 (P5)
+
+전용 runtime 없이 Core를 검증·내린다.
+
+```bash
+./bin/fx3 check file.fx3
+./bin/fx3 lower file.fx3
+./bin/fx3 ir file.fx3
+./bin/fx3 cap request.json --canonical-root /server/root
+./bin/fx3 test
+./bin/fx3 package verify
+```
+
+상세: [docs/FX3-CLI.md](docs/FX3-CLI.md). 실행은 내린 `.fl`을 기존 FX에 맡긴다.
 
 ## 쓰지 않는 것
 

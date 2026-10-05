@@ -12,3 +12,8 @@
 8. 그 다음에야 FX3 표면을 더 깎는다.
 
 FX 런타임을 이 저장소로 복사하는 단계는 없다. FX2를 합치는 단계도 없다. 표면 전용 런타임을 새로 만드는 단계도 없다. 내린 `.fl`은 기존 FX에서 돈다.
+
+## P5 CLI 게이트 (2026-10-06)
+
+쓸 만한 1차 길 PASS: `./bin/fx3 check|lower|ir|cap|test|package verify`.
+전용 runtime 없음. 검증·내리기·capability 판정만. 상세 [docs/FX3-CLI.md](docs/FX3-CLI.md).

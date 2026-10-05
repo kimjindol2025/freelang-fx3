@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# FX3 CLI wrapper — no dedicated runtime.
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+exec python3 "$ROOT/tools/fx3_cli.py" "$@"

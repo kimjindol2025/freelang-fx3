@@ -13,9 +13,11 @@
 - 검증은 실제 내리기와 실행 결과로 남긴다. 도구가 없으면 PASS라고 적지 않는다.
 - Track 1 순서: lexer/parser → lowering/IR → capability → FX runtime → self-hosting. 한 층 PASS를 언어 완성으로 보고하지 않는다.
 - P1–P4 게이트: `check_lex` · `check_parse` · `check_lower` · `check_ir` · `check_capability`.
+- P5 CLI: `./bin/fx3` 또는 `python3 tools/fx3_cli.py` — `check`/`lower`/`ir`/`cap`/`test`/`package verify`. 문서 [docs/FX3-CLI.md](docs/FX3-CLI.md). CLI 스모크: `python3 tools/check_cli.py`.
 - Core fixture 레거시 내리기 회귀: `python3 tools/lower.py --check` (`tools/lower.py`는 수정하지 않는다).
 - 새 AST lowering 본체는 `tools/fx3_lower.py`다. 동일 AST는 동일 `.fl` 바이트여야 한다.
 - IR/ABI 계약은 [docs/IR-ABI-CONTRACT.md](docs/IR-ABI-CONTRACT.md)와 `tools/fx3_ir.py`다. P3는 계약 잠금이며 실행기가 아니다.
-- Capability는 [docs/CAPABILITY-CONTRACT.md](docs/CAPABILITY-CONTRACT.md)와 `tools/fx3_capability.py`다. 기본 deny. P4는 판정만이며 I/O·실행이 아니다.
-- P4 계약 리뷰: [docs/CAPABILITY-REVIEW.md](docs/CAPABILITY-REVIEW.md). IR `capability_request`·runtime은 보류. OPEN 항목은 별도 안건으로만 확정한다.
+- Capability는 [docs/CAPABILITY-CONTRACT.md](docs/CAPABILITY-CONTRACT.md)와 `tools/fx3_capability.py`다. 기본 deny. P4는 판정만이며 대상 파일 I/O·실행이 아니다.
+- P4 계약 리뷰: [docs/CAPABILITY-REVIEW.md](docs/CAPABILITY-REVIEW.md). IR `capability_request`·전용 runtime은 보류.
+- 「쓸 만한」1차 = CLI 게이트. 전용 runtime PASS로 보고하지 않는다.
 - 비밀값, 토큰, 개인 키를 문서에 남기지 않는다.

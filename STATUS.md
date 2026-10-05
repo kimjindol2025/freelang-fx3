@@ -20,7 +20,7 @@ TRACK1_P1=PARSER_AST_PASS
 TRACK1_P2=LOWER_AST_PASS
 TRACK1_P3=IR_ABI_PASS
 TRACK1_P4=CAPABILITY_PASS
-TRACK1_P5=NOT_STARTED
+TRACK1_P5=CLI_PASS
 REMOTE=https://github.com/kimjindol2025/freelang-fx3
 LOWERING_CONTRACT=LOCKED
 CORE=LOCKED
@@ -110,11 +110,14 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=S1 doc lock done (MAX_OUTPUT_BYTES + combo). Next=S2/S3 CLI
-NEXT_AGENDA_ONLY=TRACK1_CLI_S2_S3
-ROAD_USABLE_CLI=IN_PROGRESS
-ROAD_STEP=S1_PASS
+HANDOFF=P5 CLI gate PASS (check/lower/ir/cap/test/package verify). RUNTIME still NONE
+NEXT_AGENDA_ONLY=NEW_ROAD_ONLY
+ROAD_USABLE_CLI=PASS
+ROAD_STEP=S7_PASS
 ROAD_SUCCESS=fx3_check_lower_ir_cap_test
+CLI=PASS
+CLI_CMD=./bin/fx3
+CLI_GATE_CMD=python3 tools/check_cli.py
 MAX_OUTPUT_BYTES=262144
 CAPABILITY_COMBO_ESCALATION=LOCKED_DENY
 RUNTIME=NONE
@@ -221,19 +224,19 @@ bash tools/check_semantic_native.sh          # FX_NATIVE=PASS (freelang-v11-fx -
 
 ## 코퍼스 조각 · 2026-10-01
 
-`corpus/stdlib`에 `identity` / `req-body` / `str-coerce` 표현.  
-`python3 tools/check_corpus.py` → `CORPUS_STDLIB=PASS`. app·self-host는 아직.  
+`corpus/stdlib`에 `identity` / `req-body` / `str-coerce` 표현.
+`python3 tools/check_corpus.py` → `CORPUS_STDLIB=PASS`. app·self-host는 아직.
 상세: [corpus/CORPUS-2026-10-01.md](corpus/CORPUS-2026-10-01.md)
 
 ## Core v0 · 2026-10-01 CLOSED
 
-표결: [CORE-V0-VOTE.md](CORE-V0-VOTE.md) · **3/3 AGREE_CLOSE** · `CORE_V0_FINAL=PASS`  
+표결: [CORE-V0-VOTE.md](CORE-V0-VOTE.md) · **3/3 AGREE_CLOSE** · `CORE_V0_FINAL=PASS`
 준비: [CORE-V0-PREP.md](CORE-V0-PREP.md) · app GAP: [corpus/APP-GAP.md](corpus/APP-GAP.md)
 
-잠금: fixture 01–04 · delimiter · semantic_min/native(좁은 폭) · stdlib 조각 · U1/U2/U3  
+잠금: fixture 01–04 · delimiter · semantic_min/native(좁은 폭) · stdlib 조각 · U1/U2/U3
 밖: app GAP · self-host · fn/loop 확장 · fixture 05 · Hot Alias · v1 아님
 
-v0 당시 기록: 사용자1=그록빌더(에이전트) · 사용자2=그록 · 사용자3=지피티  
+v0 당시 기록: 사용자1=그록빌더(에이전트) · 사용자2=그록 · 사용자3=지피티
 v1 확정 자리: 1=지피티 · 2=그록웹 · 3=그록빌드
 
 ## app 순수 헬퍼 · 2026-10-01
@@ -437,3 +440,12 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 - fixture `21`–`24` · `check_capability` 반영
 - schema `fx3-capability@1` 유지 · runtime/I/O 없음
 - 다음: 출력 상한 또는 조합 상승 명시 (P5 아님)
+
+## Track 1 · P5 CLI 게이트 · 2026-10-06
+
+- 성공 기준 A: `fx3 check/lower/ir/cap/test/package verify` (전용 runtime 없음)
+- 파일: `tools/fx3_cli.py` · `bin/fx3` · `tools/check_cli.py` · `docs/FX3-CLI.md`
+- S0 wildcard 커밋 · S1 MAX_OUTPUT_BYTES/조합상승 문서 · S2–S7 CLI
+- `python3 tools/check_cli.py` → CLI_GATE=PASS
+- RUNTIME=NONE · IR executor 없음 · capability 대상 파일 I/O 없음
+- 다음 길은 새 안건만 (읽기 I/O 스모크 또는 IR exec — 자동 진행 없음)
