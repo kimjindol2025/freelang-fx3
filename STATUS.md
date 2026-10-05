@@ -13,12 +13,14 @@ PARSER=AST_SKELETON
 PARSER_AST=PASS
 LOWER_AST=PASS
 IR_ABI=LOCKED_V1
+CAPABILITY=LOCKED_DENY_FIRST_V1
 TRACK1=OPEN
 TRACK1_P0=CORE_LOCKED
 TRACK1_P1=PARSER_AST_PASS
 TRACK1_P2=LOWER_AST_PASS
 TRACK1_P3=IR_ABI_PASS
-TRACK1_P4=NOT_STARTED
+TRACK1_P4=CAPABILITY_PASS
+TRACK1_P5=NOT_STARTED
 REMOTE=https://github.com/kimjindol2025/freelang-fx3
 LOWERING_CONTRACT=LOCKED
 CORE=LOCKED
@@ -108,8 +110,8 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=Track1 P3 IR/ABI contract LOCKED_V1. NEXT=P4 capability (not opened)
-NEXT_AGENDA_ONLY=TRACK1_P4_CAPABILITY
+HANDOFF=Track1 P4 capability deny-first LOCKED. NEXT=capability contract review (not P5 runtime)
+NEXT_AGENDA_ONLY=TRACK1_P4_CAPABILITY_REVIEW
 LEX_GATE=PASS
 LEX_GATE_CMD=python3 tools/check_lex.py
 PARSE_GATE=PASS
@@ -118,11 +120,17 @@ LOWER_GATE=PASS
 LOWER_GATE_CMD=python3 tools/check_lower.py
 P3_IR_GATE=PASS
 P3_IR_GATE_CMD=python3 tools/check_ir.py
+CAPABILITY_GATE=PASS
+CAPABILITY_GATE_CMD=python3 tools/check_capability.py
+CAPABILITY_DOC=docs/CAPABILITY-CONTRACT.md
+CAPABILITY_SCHEMA=fx3-capability@1
+DENY_FIRST=PASS
 IR_ABI_DOC=docs/IR-ABI-CONTRACT.md
 ABI_SCHEMA=fx3-ir@1
 DETERMINISM=PASS
 LOCATION_PRESERVATION=PASS
 IR_EXECUTOR=NONE
+CAPABILITY_IO=NONE
 LANGUAGE_WRAP=CLOSED
 LANGUAGE_WRAP_REPORT=bench/results/language-wrap-20261004/
 AI_RETEST=PASS
@@ -385,4 +393,15 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 - 모든 노드 `loc` · 결정적 JSON 직렬화 · unsupported/`loop` 등 → `E_UNSUPPORTED_NODE`
 - `python3 tools/check_ir.py` → `P3_IR_GATE=PASS`
 - lexer/parser/lower/legacy-lower/corpus 회귀 PASS · Core·`lower.py` 미변경 · parser 미변경
-- 다음: P4 capability runtime (deny-first, 새 안건으로만)
+- 다음: P4 capability 판정 계약 (deny-first)
+
+## Track 1 · P4 capability deny-first · 2026-10-05
+
+- **판정만**. 실제 I/O·IR 실행·runtime·CLI 없음
+- 문서: [docs/CAPABILITY-CONTRACT.md](docs/CAPABILITY-CONTRACT.md) · `fx3-capability@1`
+- 파일: `tools/fx3_capability.py` · `tools/check_capability.py` · `fixtures/capability/{allow,deny}/`
+- 허용 가능: `source.read` · `ir.inspect` (root 안 상대경로 + 인자 계약)
+- 항상 deny: `source.write` · `process.exec` · `network.request` · `runtime.execute` · `filesystem.delete`
+- `python3 tools/check_capability.py` → `CAPABILITY_GATE=PASS` · `DENY_FIRST=PASS`
+- `fx3_ir.py` / lexer / parser / lower* 미변경
+- 다음: **P4 계약 검토 안건** (P5 runtime/executor로 자동 진행하지 않음)

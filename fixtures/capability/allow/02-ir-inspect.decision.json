@@ -1,0 +1,1 @@
+{"capability":"ir.inspect","decision":"allow","location":{"column":4,"line":3},"path":"ir/valid/first-id.ir.json","reason":"explicit_allow","schema":"fx3-capability@1"}

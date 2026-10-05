@@ -1,0 +1,1 @@
+{"capability":"network.request","decision":"deny","location":null,"path":"x","reason":"deny_by_default","schema":"fx3-capability@1"}

@@ -1,0 +1,1 @@
+{"capability":"process.exec","decision":"deny","location":null,"path":"bin","reason":"deny_by_default","schema":"fx3-capability@1"}

@@ -1,0 +1,1 @@
+{"capability":"source.write","decision":"deny","location":{"column":1,"line":2},"path":"a.fx3","reason":"deny_by_default","schema":"fx3-capability@1"}

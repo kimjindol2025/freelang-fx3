@@ -1,0 +1,1 @@
+{"capability":"source.read","decision":"allow","location":{"column":2,"line":1},"path":"valid/x.fx3","reason":"explicit_allow","schema":"fx3-capability@1"}
