@@ -27,7 +27,8 @@ runtime/executor: 없음
 코드 정렬 (2026-10-05): PASS — 고정 canonical_root · 요청 root deny · 확장자 · MAX_BYTES/UTF-8(content) · rename ALWAYS_DENY
 실 디스크 I/O / runtime / executor: 없음
 filesystem.rename 항상 deny: LOCKED (문서+코드)
-다음: wildcard/recursive 문서 또는 reason v2 (P5 아님)
+wildcard/recursive deny: LOCKED (문서+코드)
+다음: 출력 크기 상한 · 조합 상승 명시 · reason v2 후보 (P5 아님)
 ```
 범례:
 
@@ -182,7 +183,7 @@ sensitive_path      # PROPOSED — 민감 이름 목록 OPEN
 | `process.exec` 금지 | LOCKED | |
 | `network.request` 금지 | LOCKED | |
 | `runtime.execute` 금지 | LOCKED | |
-| wildcard·재귀 범위 금지 | PROPOSED | path에 `*`, `**`, `?` 또는 args.`recursive=true` → deny |
+| **wildcard·재귀 범위 금지** | **LOCKED** | path `*`/`**`/`?` → `invalid_argument`. `recursive` 인자·최상위 → `invalid_argument`. 글롭 실행 없음 |
 | 출력 크기 제한 | PROPOSED | 실 I/O/실행 출력 상한. 판정 필드 또는 runtime 상수 — OPEN |
 | capability 조합 상승 금지 | PROPOSED | read 허용이 write/exec를 암시하지 않음 — 원칙 LOCKED. 명시적 “grant set 상승” API는 없음(유지) |
 
@@ -202,11 +203,11 @@ sensitive_path      # PROPOSED — 민감 이름 목록 OPEN
 **리뷰 권고 (실 I/O 게이트 진입 조건):**
 
 ```text
-1. rename 항상 deny는 문서 LOCKED (본 절)
-2. wildcard/recursive deny가 계약에 문자로 들어간 뒤
+1. rename 항상 deny LOCKED
+2. wildcard/recursive deny LOCKED (본 작업)
 3. symlink_blocked 실검 경로가 정의된 뒤
-4. 코드가 고정 canonical root·파일 경계·ALWAYS_DENY(rename 포함)와 일치한 뒤
-5. 그 다음에야 읽기 스모크 (여전히 write/exec/network/rename 없음)
+4. 출력 상한·조합 상승 문구가 잠긴 뒤
+5. 그 다음에야 읽기 스모크 (여전히 write/exec/network/rename/glob 없음)
 ```
 
 P5 runtime/executor와 혼동하지 말 것. 위는 **capability I/O 허용 폭을 좁히는 사전 조건**이다.
@@ -225,15 +226,15 @@ P5 runtime/executor와 혼동하지 말 것. 위는 **capability I/O 허용 폭�
 - IR/`fx3_ir.py` 비연결
 - **파일 경계 문서 LOCKED:** `.fx3`/`.ir.json` · capability별 확장자 · `MAX_BYTES=262144` · UTF-8 strict
 - **root confinement LOCKED:** 서버 고정 canonical root · 요청 `root` 금지 · 상대 path만
-- **`filesystem.rename` LOCKED_ALWAYS_DENY** (문서). 구현 GAP
+- **`filesystem.rename` LOCKED_ALWAYS_DENY** (문서+코드)
+- **wildcard/recursive LOCKED** (path `*`/`?` · `recursive` 인자)
 
 ### OPEN → 다음 안건 후보 (P5 아님)
 
-1. **구현 GAP 묶음 검토** — 코드 `ALWAYS_DENY`(+rename) · 요청 `root` 제거 · 확장자/`MAX_BYTES`/UTF-8 계약 정렬 (열지 여부는 별도 결정)
-2. wildcard·recursive 범위 요청 금지 (문서)
-3. 출력 크기 상한 (별도 상수; `MAX_BYTES`와 혼동 금지)
-4. capability 조합 상승 금지 명시 강화
-5. reason v2 후보만 (`symlink_blocked` / `sensitive_path`)
+1. 출력 크기 상한 (별도 상수; `MAX_BYTES`와 혼동 금지)
+2. capability 조합 상승 금지 명시 강화
+3. reason v2 후보만 (`symlink_blocked` / `sensitive_path`)
+4. (나중) 실 I/O 읽기 스모크 설계 — executor 없이 capability 계층만
 
 ### 명시적 비목표
 

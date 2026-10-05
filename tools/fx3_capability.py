@@ -108,6 +108,14 @@ def _path_escape_rel(path: str) -> bool:
     return ".." in path.split("/")
 
 
+def _has_wildcard(path: str) -> bool:
+    """Reject glob / recursive path patterns (*, **, ?). No glob expansion."""
+    if not isinstance(path, str):
+        return True
+    # '**' is covered by '*'
+    return "*" in path or "?" in path
+
+
 def _under_canonical_root(canonical_root: str, path: str) -> bool:
     """String-level confinement. No real FS, no symlink follow."""
     if _path_escape_rel(path):
@@ -266,6 +274,15 @@ def decide(
             decision="deny",
             capability=cap,
             reason="path_escape",
+            path=path,
+            location=loc_out,
+        )
+
+    if _has_wildcard(path):
+        return _result(
+            decision="deny",
+            capability=cap,
+            reason="invalid_argument",
             path=path,
             location=loc_out,
         )

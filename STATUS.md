@@ -110,8 +110,11 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=P4 capability implementation aligned to contract. No disk I/O/runtime
-NEXT_AGENDA_ONLY=TRACK1_P4_WILDCARD_OR_V2_REVIEW
+HANDOFF=P4 wildcard/recursive deny LOCKED. Road=CLI gate (S1 next)
+NEXT_AGENDA_ONLY=TRACK1_CLI_S1_DOC_LOCK
+ROAD_USABLE_CLI=IN_PROGRESS
+ROAD_SUCCESS=fx3_check_lower_ir_cap_test
+RUNTIME=NONE
 CAPABILITY_REVIEW=docs/CAPABILITY-REVIEW.md
 CAPABILITY_REVIEW_STATUS=RECORDED
 CAPABILITY_IMPLEMENTATION=PASS
@@ -423,3 +426,11 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 - `python3 tools/check_capability.py` → IMPLEMENTATION/ROOT/FILE_BOUNDARY/RENAME/FIXTURE/DETERMINISM PASS
 - 디스크 write/rename/delete·runtime·IR 변경 없음 · schema `fx3-capability@1`
 - 다음: wildcard/recursive 문서 또는 reason v2 검토 (실행기 아님)
+
+## Track 1 · P4 wildcard/recursive deny · 2026-10-06
+
+- path에 `*` / `**` / `?` → `invalid_argument` (글롭 미실행)
+- `recursive` args·최상위 → `invalid_argument`
+- fixture `21`–`24` · `check_capability` 반영
+- schema `fx3-capability@1` 유지 · runtime/I/O 없음
+- 다음: 출력 상한 또는 조합 상승 명시 (P5 아님)

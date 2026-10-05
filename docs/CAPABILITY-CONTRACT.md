@@ -21,9 +21,8 @@ IR 실행기·FX native·CLI·self-hosting은 범위 밖이다.
 
 `tools/fx3_ir.py`는 수정하지 않는다. capability 요청은 IR 실행과 분리된 **순수 판정 입력**이다.
 
-파일 확장자·인코딩·`max_bytes` 규칙은 **계약으로 LOCKED**다.
-현재 `tools/fx3_capability.py` 게이트는 경로·인자 중심이며, 확장자/크기/인코딩 reason을 **아직 코드에 구현하지 않는다**.
-스키마는 `fx3-capability@1`을 유지한다 (reason v2 승격 없음).
+파일 확장자·인코딩·`max_bytes`·wildcard/recursive 규칙은 **계약·판정 코드로 LOCKED**다.
+스키마는 `fx3-capability@1`을 유지한다 (reason v2 승격 없음). 디스크 I/O·runtime은 없다.
 
 ## 1. 정책
 
@@ -129,6 +128,8 @@ IR 실행기·FX native·CLI·self-hosting은 범위 밖이다.
 | `ir.inspect` + `…/a.ir.json` | `ir.inspect` + `…/a.fx3` (`extension_blocked`) |
 | args=`{"path":"…"}` | args에 `max_bytes`/`encoding`/기타 키 (`invalid_argument`) |
 | 고정 root 기준 상대 path | 절대·`..`·`\`·고정 root 밖 (`path_escape`) |
+| 단일 상대 path | path에 `*` / `**` / `?` (`invalid_argument`) |
+| args=`{"path":…}`만 | `recursive`·글롭 옵션 (`invalid_argument`) |
 | 최상위 허용 키만 | `root` / `canonical_root` / 未知 최상위 키 (`invalid_argument`) |
 
 확장자 판정: path의 **최종 경로 이름**이 해당 접미사로 끝나는지 (대소문자 구분, 소문자 접미사만 허용).
@@ -187,6 +188,8 @@ canonical root:
 - 상대경로만 (절대 `/…` 또는 `X:…` 금지)
 - `\` 금지, `..` 세그먼트 금지, NUL 금지
 - 고정 canonical root 밖 금지 → `path_escape`
+- wildcard / 재귀 글롭 금지: path에 `*`·`**`·`?` 포함 → `invalid_argument` (확장·매칭 실행 없음)
+- `recursive` 등 범위 확장 인자 금지 → 최상위·args 未知 키로 `invalid_argument`
 
 실디렉터리 resolve·`realpath`·symlink 따라가기는 **지금 하지 않는다** (IO=NONE). 문자열·논리 결합만 계약한다.
 

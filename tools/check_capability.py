@@ -276,6 +276,45 @@ def check_file_boundary() -> list:
         fails.append(f"FAIL unknown-arg: {d}")
     else:
         print("PASS unknown argument deny")
+
+    d = decide(
+        {
+            "capability": "source.read",
+            "args": {"path": "**/*.fx3"},
+            "location": {"line": 1, "column": 1},
+        },
+        canonical_root=DEFAULT_CANONICAL_ROOT,
+    )
+    if d["decision"] != "deny" or d["reason"] != "invalid_argument":
+        fails.append(f"FAIL wildcard-star: {d}")
+    else:
+        print("PASS wildcard * /** deny")
+
+    d = decide(
+        {
+            "capability": "source.read",
+            "args": {"path": "x?.fx3"},
+            "location": {"line": 1, "column": 1},
+        },
+        canonical_root=DEFAULT_CANONICAL_ROOT,
+    )
+    if d["decision"] != "deny" or d["reason"] != "invalid_argument":
+        fails.append(f"FAIL wildcard-question: {d}")
+    else:
+        print("PASS wildcard ? deny")
+
+    d = decide(
+        {
+            "capability": "source.read",
+            "args": {"path": "a.fx3", "recursive": True},
+            "location": {"line": 1, "column": 1},
+        },
+        canonical_root=DEFAULT_CANONICAL_ROOT,
+    )
+    if d["decision"] != "deny" or d["reason"] != "invalid_argument":
+        fails.append(f"FAIL recursive-arg: {d}")
+    else:
+        print("PASS recursive arg deny")
     return fails
 
 
