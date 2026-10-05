@@ -208,9 +208,12 @@ canonical root:
 
 ```text
 MAX_BYTES = 262144
+MAX_OUTPUT_BYTES = 262144
 ```
 
-262144 = 256 KiB. 요청 인자로 올리거나 낮추어 적용하는 것을 허용하지 않는다.
+- `MAX_BYTES`: **입력** 대상(읽기·inspect content) 상한. 256 KiB.
+- `MAX_OUTPUT_BYTES`: **출력** 상한(보고·직렬화 결과). 입력 상한과 **이름·역할이 다르다**. 값은 262144로 잠근다.
+- 요청 인자로 어느 쪽도 올리거나 낮추지 못한다. 코드 emit/I/O는 이 문서 잠금만으로 강제하지 않으며, 실 I/O·실행기 길에서 적용한다.
 
 | 규칙 | 값 | deny reason (계약) |
 |------|----|-------------------|
@@ -220,9 +223,21 @@ MAX_BYTES = 262144
 | 인코딩 | UTF-8 **strict** | 디코딩 실패 → `encoding_invalid` |
 | replacement character | 허용 안 함 | `encoding_invalid` |
 | 크기 | `size > MAX_BYTES` | `size_exceeded` |
+| 출력 크기 | `output > MAX_OUTPUT_BYTES` | 실 I/O·실행 길에서 deny (계약 LOCKED; 현 판정 게이트 미적용) |
 
-인코딩·크기 검사는 **실 I/O 또는 그에 준하는 바이트 입력이 있을 때** 적용한다.
-지금 게이트는 파일을 읽지 않으므로 이 reason을 emit하지 않는다. 계약 값만 LOCKED.
+인코딩·입력 크기 검사는 **in-memory content 또는 실 I/O**가 있을 때 적용한다.
+`MAX_OUTPUT_BYTES`는 출력 경로가 생길 때까지 판정 모듈이 emit하지 않는다.
+
+## 6.1 Capability 조합 상승 금지 (LOCKED)
+
+```text
+allow(source.read)  ≠  allow(source.write | process.exec | network.request | runtime.execute | filesystem.*)
+```
+
+- 각 capability는 **독립**이다. 하나 allow가 다른 권한을 암시하지 않는다.
+- grant 집합은 **단조 감소만** 허용하는 것이 목표다: 세션/요청 중 권한을 넓히는 API를 두지 않는다.
+- “조합 패키지”(예: read+write 묶음 승인)를 요청하는 최상위·args 키는 `invalid_argument`.
+- 현 단계 허용 가능 집합은 여전히 `source.read` · `ir.inspect` 뿐이며, 하드 deny 목록은 항상 deny.
 
 ## 7. 결정성
 

@@ -184,8 +184,8 @@ sensitive_path      # PROPOSED — 민감 이름 목록 OPEN
 | `network.request` 금지 | LOCKED | |
 | `runtime.execute` 금지 | LOCKED | |
 | **wildcard·재귀 범위 금지** | **LOCKED** | path `*`/`**`/`?` → `invalid_argument`. `recursive` 인자·최상위 → `invalid_argument`. 글롭 실행 없음 |
-| 출력 크기 제한 | PROPOSED | 실 I/O/실행 출력 상한. 판정 필드 또는 runtime 상수 — OPEN |
-| capability 조합 상승 금지 | PROPOSED | read 허용이 write/exec를 암시하지 않음 — 원칙 LOCKED. 명시적 “grant set 상승” API는 없음(유지) |
+| **출력 크기 제한** | **LOCKED (문서)** | `MAX_OUTPUT_BYTES=262144` · 입력 `MAX_BYTES`와 별명. 코드 emit는 I/O 길 |
+| **capability 조합 상승 금지** | **LOCKED (문서)** | 독립 cap · 단조 감소 · 묶음 grant 키 deny. CONTRACT §6.1 |
 
 ### 4.1 `filesystem.rename` (문서 잠금 상세)
 
@@ -229,12 +229,11 @@ P5 runtime/executor와 혼동하지 말 것. 위는 **capability I/O 허용 폭�
 - **`filesystem.rename` LOCKED_ALWAYS_DENY** (문서+코드)
 - **wildcard/recursive LOCKED** (path `*`/`?` · `recursive` 인자)
 
-### OPEN → 다음 안건 후보 (P5 아님)
+### OPEN → 다음 안건 후보
 
-1. 출력 크기 상한 (별도 상수; `MAX_BYTES`와 혼동 금지)
-2. capability 조합 상승 금지 명시 강화
-3. reason v2 후보만 (`symlink_blocked` / `sensitive_path`)
-4. (나중) 실 I/O 읽기 스모크 설계 — executor 없이 capability 계층만
+1. **P5 CLI 게이트** (쓸 만한 1차 길 — 진행 중)
+2. reason v2 후보만 (`symlink_blocked` / `sensitive_path`)
+3. (나중) 실 I/O 읽기 스모크 — executor 없이 capability 계층만
 
 ### 명시적 비목표
 
