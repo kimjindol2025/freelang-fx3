@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
-"""FX3 capability judgment (deny-first). Pure function; no I/O.
+"""FX3 capability judgment (deny-first). Pure function; no filesystem I/O.
 
-P4 contract only. Does not execute IR, touch files, spawn processes, or network.
-See docs/CAPABILITY-CONTRACT.md.
+P4 contract alignment. See docs/CAPABILITY-CONTRACT.md.
+Server supplies canonical_root; requesters cannot set root.
+Optional in-memory content bytes enable size/UTF-8 checks without disk I/O.
 """
 
 from __future__ import annotations
 
 import json
 import posixpath
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Optional, Tuple
 
 SCHEMA = "fx3-capability@1"
+MAX_BYTES = 262144
 
-# Allowable only when args/path/root validate.
 ALLOWABLE = frozenset({"source.read", "ir.inspect"})
 
-# Always deny in this stage (even if someone lists them as "known").
 ALWAYS_DENY = frozenset(
     {
         "source.write",
@@ -24,14 +24,26 @@ ALWAYS_DENY = frozenset(
         "network.request",
         "runtime.execute",
         "filesystem.delete",
+        "filesystem.rename",
     }
 )
 
-# Args contracts for allowable caps: required keys only; no extras.
 _ARGS_SPEC = {
     "source.read": frozenset({"path"}),
     "ir.inspect": frozenset({"path"}),
 }
+
+_EXTENSION = {
+    "source.read": ".fx3",
+    "ir.inspect": ".ir.json",
+}
+
+# Request JSON top-level keys only. root/canonical_root/others → invalid_argument.
+_ALLOWED_TOP_LEVEL = frozenset({"capability", "args", "location"})
+
+# Default server root for tests/tools when caller omits context.
+# Real deployments must pass an explicit server-configured root.
+DEFAULT_CANONICAL_ROOT = "/canonical/root"
 
 
 def serialize_decision(decision: dict) -> str:
@@ -61,12 +73,10 @@ def _result(
 
 
 def _normalize_location(raw: Any) -> Tuple[Optional[dict], Optional[str]]:
-    """Return (location_or_null, error_reason). Missing/null → (None, None)."""
     if raw is None:
         return None, None
     if not isinstance(raw, dict):
         return None, "invalid_location"
-    # reject unknown keys
     if set(raw.keys()) - {"line", "column"}:
         return None, "invalid_location"
     if "line" not in raw or "column" not in raw:
@@ -83,45 +93,55 @@ def _normalize_location(raw: Any) -> Tuple[Optional[dict], Optional[str]]:
 def _is_absolute_path(p: str) -> bool:
     if p.startswith("/"):
         return True
-    # Windows-ish drive: C:\ or C:/
     if len(p) >= 2 and p[0].isalpha() and p[1] == ":":
         return True
     return False
 
 
-def _path_escape(path: str) -> bool:
+def _path_escape_rel(path: str) -> bool:
     if not isinstance(path, str) or path == "":
         return True
-    if "\0" in path:
-        return True
-    if "\\" in path:
+    if "\0" in path or "\\" in path:
         return True
     if _is_absolute_path(path):
         return True
-    parts = path.replace("\\", "/").split("/")
-    if ".." in parts:
-        return True
-    return False
+    return ".." in path.split("/")
 
 
-def _under_root(root: str, path: str) -> bool:
-    """String-level containment after posix normpath. No real FS."""
-    if _path_escape(root) or _path_escape(path):
+def _under_canonical_root(canonical_root: str, path: str) -> bool:
+    """String-level confinement. No real FS, no symlink follow."""
+    if _path_escape_rel(path):
         return False
-    # root must be relative non-empty
-    if not root or _is_absolute_path(root):
+    if not isinstance(canonical_root, str) or canonical_root == "" or "\0" in canonical_root:
         return False
-    joined = posixpath.normpath(posixpath.join(root, path))
-    root_n = posixpath.normpath(root)
+    root_n = posixpath.normpath(canonical_root)
+    joined = posixpath.normpath(posixpath.join(root_n, path))
     if joined == root_n:
-        # path resolved to root itself — treat as not a file under root for read
         return False
-    prefix = root_n + "/"
+    if root_n == "/":
+        return joined.startswith("/") and joined != "/"
+    prefix = root_n.rstrip("/") + "/"
     return joined.startswith(prefix)
 
 
-def decide(request: Any) -> dict:
-    """Pure capability decision. Never performs I/O."""
+def _extension_ok(capability: str, path: str) -> bool:
+    suf = _EXTENSION[capability]
+    base = posixpath.basename(path)
+    return base.endswith(suf)
+
+
+def decide(
+    request: Any,
+    *,
+    canonical_root: str = DEFAULT_CANONICAL_ROOT,
+    content: Optional[bytes] = None,
+) -> dict:
+    """Pure capability decision.
+
+    canonical_root: server-configured fixed workspace root (not from request).
+    content: optional in-memory bytes for MAX_BYTES / UTF-8 strict checks.
+             Never reads or writes the filesystem.
+    """
     if not isinstance(request, dict):
         return _result(
             decision="deny",
@@ -131,20 +151,38 @@ def decide(request: Any) -> dict:
             location=None,
         )
 
-    # location first so invalid location always wins with clear reason
+    # Reject root, canonical_root, and any other unknown top-level keys first.
+    extra_top = set(request.keys()) - _ALLOWED_TOP_LEVEL
+    if extra_top:
+        loc_probe, loc_err_probe = _normalize_location(request.get("location", None))
+        loc_out = None if loc_err_probe else loc_probe
+        cap = request.get("capability", "")
+        return _result(
+            decision="deny",
+            capability=cap if isinstance(cap, str) else "",
+            reason="invalid_argument",
+            path=None,
+            location=loc_out,
+        )
+
     loc_out, loc_err = _normalize_location(request.get("location", None))
     if loc_err:
         cap = request.get("capability", "")
-        path_val = None
-        args = request.get("args")
-        if isinstance(args, dict) and isinstance(args.get("path"), str):
-            path_val = args.get("path")
         return _result(
             decision="deny",
             capability=cap if isinstance(cap, str) else "",
             reason="invalid_location",
-            path=path_val,
+            path=None,
             location=None,
+        )
+
+    if not isinstance(canonical_root, str) or canonical_root == "":
+        return _result(
+            decision="deny",
+            capability="",
+            reason="invalid_argument",
+            path=None,
+            location=loc_out,
         )
 
     cap = request.get("capability", None)
@@ -173,6 +211,25 @@ def decide(request: Any) -> dict:
             location=loc_out,
         )
 
+    # Always-deny: do not inspect args (rename source/destination untouched).
+    if cap in ALWAYS_DENY:
+        return _result(
+            decision="deny",
+            capability=cap,
+            reason="deny_by_default",
+            path=None,
+            location=loc_out,
+        )
+
+    if cap not in ALLOWABLE:
+        return _result(
+            decision="deny",
+            capability=cap,
+            reason="unknown_capability",
+            path=None,
+            location=loc_out,
+        )
+
     args = request.get("args", {})
     if args is None:
         args = {}
@@ -185,44 +242,12 @@ def decide(request: Any) -> dict:
             location=loc_out,
         )
 
-    path_val = args.get("path") if "path" in args else None
-    if path_val is not None and not isinstance(path_val, str):
+    if set(args.keys()) != _ARGS_SPEC[cap]:
         return _result(
             decision="deny",
             capability=cap,
             reason="invalid_argument",
-            path=None,
-            location=loc_out,
-        )
-
-    # Always-deny list
-    if cap in ALWAYS_DENY:
-        return _result(
-            decision="deny",
-            capability=cap,
-            reason="deny_by_default",
-            path=path_val if isinstance(path_val, str) else None,
-            location=loc_out,
-        )
-
-    # Unknown
-    if cap not in ALLOWABLE:
-        return _result(
-            decision="deny",
-            capability=cap,
-            reason="unknown_capability",
-            path=path_val if isinstance(path_val, str) else None,
-            location=loc_out,
-        )
-
-    # Args contract
-    allowed_keys = _ARGS_SPEC[cap]
-    if set(args.keys()) != allowed_keys:
-        return _result(
-            decision="deny",
-            capability=cap,
-            reason="invalid_argument",
-            path=path_val if isinstance(path_val, str) else None,
+            path=args.get("path") if isinstance(args.get("path"), str) else None,
             location=loc_out,
         )
 
@@ -236,17 +261,7 @@ def decide(request: Any) -> dict:
             location=loc_out,
         )
 
-    root = request.get("root", None)
-    if not isinstance(root, str) or root == "":
-        return _result(
-            decision="deny",
-            capability=cap,
-            reason="invalid_argument",
-            path=path,
-            location=loc_out,
-        )
-
-    if _path_escape(path) or _path_escape(root) or not _under_root(root, path):
+    if _path_escape_rel(path) or not _under_canonical_root(canonical_root, path):
         return _result(
             decision="deny",
             capability=cap,
@@ -254,6 +269,44 @@ def decide(request: Any) -> dict:
             path=path,
             location=loc_out,
         )
+
+    if not _extension_ok(cap, path):
+        return _result(
+            decision="deny",
+            capability=cap,
+            reason="extension_blocked",
+            path=path,
+            location=loc_out,
+        )
+
+    if content is not None:
+        if not isinstance(content, (bytes, bytearray)):
+            return _result(
+                decision="deny",
+                capability=cap,
+                reason="invalid_argument",
+                path=path,
+                location=loc_out,
+            )
+        raw = bytes(content)
+        if len(raw) > MAX_BYTES:
+            return _result(
+                decision="deny",
+                capability=cap,
+                reason="size_exceeded",
+                path=path,
+                location=loc_out,
+            )
+        try:
+            raw.decode("utf-8")  # strict
+        except UnicodeDecodeError:
+            return _result(
+                decision="deny",
+                capability=cap,
+                reason="encoding_invalid",
+                path=path,
+                location=loc_out,
+            )
 
     return _result(
         decision="allow",
@@ -264,5 +317,12 @@ def decide(request: Any) -> dict:
     )
 
 
-def decide_bytes(request: Any) -> bytes:
-    return serialize_decision_bytes(decide(request))
+def decide_bytes(
+    request: Any,
+    *,
+    canonical_root: str = DEFAULT_CANONICAL_ROOT,
+    content: Optional[bytes] = None,
+) -> bytes:
+    return serialize_decision_bytes(
+        decide(request, canonical_root=canonical_root, content=content)
+    )

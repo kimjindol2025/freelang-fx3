@@ -1,0 +1,1 @@
+{"capability":"source.read","decision":"deny","location":{"column":1,"line":1},"path":"valid/big.fx3","reason":"size_exceeded","schema":"fx3-capability@1"}

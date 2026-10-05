@@ -110,10 +110,11 @@ SEMANTIC_MIN=PASS
 FX_NATIVE_ELF=PASS
 FX_NATIVE_HARNESS=tools/check_semantic_native.sh
 FX_BUILD_FIX=freelang-v11-fx/fl-build.sh_CGC_DISCOVERY
-HANDOFF=P4 capability review written. OPEN items only; not P5 runtime
-NEXT_AGENDA_ONLY=TRACK1_P4_CAPABILITY_OPEN_ITEMS
+HANDOFF=P4 capability implementation aligned to contract. No disk I/O/runtime
+NEXT_AGENDA_ONLY=TRACK1_P4_WILDCARD_OR_V2_REVIEW
 CAPABILITY_REVIEW=docs/CAPABILITY-REVIEW.md
 CAPABILITY_REVIEW_STATUS=RECORDED
+CAPABILITY_IMPLEMENTATION=PASS
 IR_CAPABILITY_LINK=DEFERRED
 LEX_GATE=PASS
 LEX_GATE_CMD=python3 tools/check_lex.py
@@ -411,8 +412,14 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 
 ## Track 1 · P4 capability 계약 리뷰 · 2026-10-05
 
-- 산출: [docs/CAPABILITY-REVIEW.md](docs/CAPABILITY-REVIEW.md) (**문서만**, 코드 미변경)
-- LOCKED 유지: deny-first · 상대경로/`..`/절대 차단 · 未知 인자 거부 · write/exec/network/runtime.execute/delete 항상 deny · IR 분리
-- PROPOSED/OPEN: extension·max_bytes·encoding · reason v2 · rename/wildcard/recursive · sensitive_path · symlink 실검
-- DEFERRED: IR `capability_request` · 실 I/O · runtime/executor
-- 다음: OPEN 항목을 **별도 안건**으로 확정 (P5로 점프하지 않음)
+- 산출: [docs/CAPABILITY-REVIEW.md](docs/CAPABILITY-REVIEW.md)
+- LOCKED: deny-first · 파일 경계 · 서버 고정 canonical root · `filesystem.rename` 항상 deny
+- DEFERRED: IR `capability_request` · 실 디스크 I/O · runtime/executor · reason v2
+
+## Track 1 · P4 capability 구현 정렬 · 2026-10-05
+
+- `tools/fx3_capability.py` · `tools/check_capability.py` · `fixtures/capability/**`
+- 서버 `canonical_root` · 요청 `root` → `invalid_argument` · 확장자 · in-memory `MAX_BYTES`/UTF-8 · `filesystem.rename` ALWAYS_DENY(args 미접근)
+- `python3 tools/check_capability.py` → IMPLEMENTATION/ROOT/FILE_BOUNDARY/RENAME/FIXTURE/DETERMINISM PASS
+- 디스크 write/rename/delete·runtime·IR 변경 없음 · schema `fx3-capability@1`
+- 다음: wildcard/recursive 문서 또는 reason v2 검토 (실행기 아님)

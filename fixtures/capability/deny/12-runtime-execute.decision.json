@@ -1,1 +1,1 @@
-{"capability":"runtime.execute","decision":"deny","location":null,"path":"a","reason":"deny_by_default","schema":"fx3-capability@1"}
+{"capability":"runtime.execute","decision":"deny","location":null,"path":null,"reason":"deny_by_default","schema":"fx3-capability@1"}

@@ -19,12 +19,16 @@ NEXT=NOT_P5
 ```text
 P4 계약 잠금: PASS
 deny-first 설계: PASS
+파일 경계 (확장자·UTF-8 strict·MAX_BYTES): LOCKED (문서)
+root confinement (서버 고정 canonical root): LOCKED (문서, 요청 root 금지)
 실제 I/O: 없음
 IR 실행: 없음
 runtime/executor: 없음
-다음 작업: 본 리뷰의 OPEN 항목을 별도 안건으로 확정
+코드 정렬 (2026-10-05): PASS — 고정 canonical_root · 요청 root deny · 확장자 · MAX_BYTES/UTF-8(content) · rename ALWAYS_DENY
+실 디스크 I/O / runtime / executor: 없음
+filesystem.rename 항상 deny: LOCKED (문서+코드)
+다음: wildcard/recursive 문서 또는 reason v2 (P5 아님)
 ```
-
 범례:
 
 | 표기 | 의미 |
@@ -43,12 +47,23 @@ runtime/executor: 없음
 
 | 항목 | 상태 | 기록 |
 |------|------|------|
-| 요청마다 `root` 문자열 필수 (허용 cap) | LOCKED | 없으면 `invalid_argument` |
-| root는 상대경로 | LOCKED | 절대/`..`/`\` 등 → escape 경로 |
-| 저장소 전역 단일 canonical root 상수 | OPEN | 예: 항상 `fixtures` vs 호출자 제공. **판정기는 요청 `root`만 본다** |
-| root를 실디렉터리로 resolve | OUT | 실 I/O 전 금지 |
+| **canonical root = 서버 설정 고정 workspace root** | **LOCKED** | 요청자가 지정·변경 불가 |
+| 요청 path | LOCKED | 고정 root 기준 **상대경로만** |
+| 요청에 `root` 필드 | **LOCKED deny** | 있으면 `invalid_argument` |
+| `서버 root + 상대 path → canonical 검증` | LOCKED | 계약 정본 문구 |
+| 실디렉터리 resolve / realpath | OUT/DEFERRED | 실 I/O 전 금지 |
+| 코드가 요청 `root`를 거부 | **PASS** | `decide(..., canonical_root=서버고정)` · 요청 `root` → `invalid_argument` |
 
-**리뷰 권고:** v1은 “요청 `root` = 허용 경계”로 유지. 전역 canonical root는 CLI/패키지 단계에서 따로 잠근다.
+정본 문구 ([CAPABILITY-CONTRACT.md](CAPABILITY-CONTRACT.md) §5):
+
+```text
+canonical root:
+서버가 설정한 고정 root만 사용한다.
+요청자는 root를 지정하거나 변경할 수 없다.
+요청 path는 고정 root 기준 상대경로로만 해석한다.
+```
+
+**폐기:** `canonical root = 요청 root` 해석. 위험하므로 계약에서 제거했다.
 
 ### 1.2 상대경로만 허용
 
@@ -76,20 +91,19 @@ runtime/executor: 없음
 
 | 항목 | 상태 | 기록 |
 |------|------|------|
-| 확장자 allowlist | PROPOSED | `source.read` → `.fx3`만? `ir.inspect` → `.ir.json`만? |
-| 최대 바이트 (`max_bytes` 인자 또는 계약 상수) | PROPOSED | 실읽기 전 메타 검사. 순수 판정만이면 요청 필드 `max_bytes` 상한 검증 가능 |
-| 인코딩 UTF-8만 | PROPOSED | 실읽기 시 `encoding_invalid`. 판정 단계에서는 요청에 `encoding` 키가 있으면 화이트리스트만 |
-| 현재 args | LOCKED | `{path}`만. 추가 키는 지금 `invalid_argument` |
-
-**OPEN 값 (다음 안건에서 숫자·목록 확정):**
+| 확장자 allowlist | **LOCKED** | 전체 `.fx3`·`.ir.json`만 |
+| capability별 확장자 | **LOCKED** | `source.read`→`.fx3` / `ir.inspect`→`.ir.json` (혼용 deny) |
+| `MAX_BYTES` | **LOCKED** | **262144** (정본 한 곳: CONTRACT §6). 요청으로 상향 불가 |
+| 인코딩 | **LOCKED** | UTF-8 **strict**, replacement 금지 → 실패 시 `encoding_invalid` |
+| args | LOCKED | `{path}`만. `max_bytes`/`encoding` 키 자체도 deny (`invalid_argument`) |
+| 코드 구현 | DEFERRED | 계약만 LOCKED. 게이트·runtime 미반영 |
 
 ```text
-source.read  extensions = ?   (.fx3 권고)
-ir.inspect   extensions = ?   (.ir.json 권고)
-max_bytes    = ?              (예: 256KiB 권고, 미확정)
-encoding     = utf-8 only     (권고)
+source.read  extensions = .fx3
+ir.inspect   extensions = .ir.json
+MAX_BYTES    = 262144
+encoding     = UTF-8 strict
 ```
-
 ### 1.5 알 수 없는 인자 거부
 
 | 항목 | 상태 |
@@ -113,39 +127,30 @@ invalid_location
 empty_capability
 ```
 
-### 2.2 리뷰 제안 집합
+### 2.2 파일 경계 reason (v1 스키마 유지, 코드 미구현)
+
+계약에 LOCKED. **스키마 이름은 여전히 `fx3-capability@1`.** reason v2 bump 아님.
 
 ```text
-deny_by_default
-unknown_capability
-invalid_argument
-path_escape
-symlink_blocked      # PROPOSED — 실 I/O 후
-sensitive_path       # PROPOSED — 이름/접두 민감 경로
-size_exceeded        # PROPOSED — 크기 상한
-encoding_invalid     # PROPOSED — 실읽기/선언 인코딩
+extension_blocked   # LOCKED 계약 어휘 — 코드 미구현
+size_exceeded       # LOCKED 계약 어휘 — MAX_BYTES=262144
+encoding_invalid    # LOCKED 계약 어휘 — UTF-8 strict
 ```
 
-### 2.3 매핑 권고
+### 2.3 reason v2 **후보** (파일 경계와 구분)
 
-| 제안 reason | v1 처리 | 비고 |
-|-------------|---------|------|
-| `deny_by_default` | LOCKED | 하드 deny 목록·누락 cap |
-| `unknown_capability` | LOCKED | |
-| `invalid_argument` | LOCKED | |
-| `path_escape` | LOCKED | `..`/절대/`\`/root 밖 |
-| `symlink_blocked` | PROPOSED | 실 I/O 전 미사용 |
-| `sensitive_path` | PROPOSED | 예: `.git/`, `*.pem`, `id_rsa` 이름 규칙 — **목록 OPEN** |
-| `size_exceeded` | PROPOSED | 상한 OPEN |
-| `encoding_invalid` | PROPOSED | 실 I/O 또는 명시 encoding 인자 |
+```text
+symlink_blocked     # PROPOSED — 실 I/O realpath
+sensitive_path      # PROPOSED — 민감 이름 목록 OPEN
+```
 
-**유지 권고 (제안 목록에 없어도 v1 유지):**
+| reason | 구분 | 비고 |
+|--------|------|------|
+| `deny_by_default` 등 §2.1 | v1 구현됨 | 코드 게이트 |
+| `extension_blocked` / `size_exceeded` / `encoding_invalid` | v1 계약 어휘 | 문서 LOCKED, 코드 없음 |
+| `symlink_blocked` / `sensitive_path` | v2 후보 | 파일 경계 안건 밖 |
 
-- `explicit_allow` — allow 시 필요
-- `invalid_location` — 요청 location 검증
-- `empty_capability` — 빈 이름 (또는 `invalid_argument`로 흡수 — OPEN)
-
-**리뷰 결론:** reason 세분화는 **스키마 bump (`fx3-capability@2`) 후보**. v1 fixture를 깨지 말고, 채택 시 별도 안건으로 게이트·fixture를 갱신한다. 이번 리뷰에서는 코드를 바꾸지 않는다.
+**리뷰 결론:** 파일 경계 reason은 문서에만 잠근다. `@2` 승격·코드·fixture 변경은 하지 않는다.
 
 ---
 
@@ -172,7 +177,8 @@ encoding_invalid     # PROPOSED — 실읽기/선언 인코딩
 
 | 규칙 | 상태 | 비고 |
 |------|------|------|
-| write / delete / rename 금지 | LOCKED(+PROPOSED) | `source.write`·`filesystem.delete` LOCKED. `rename` 이름 **PROPOSED** (`filesystem.rename` 항상 deny) |
+| write / delete 금지 | LOCKED | `source.write`·`filesystem.delete` |
+| **`filesystem.rename` 항상 deny** | **LOCKED** | reason=`deny_by_default` (v1). source/dest 미검사·미실행. 코드·fixture **GAP** |
 | `process.exec` 금지 | LOCKED | |
 | `network.request` 금지 | LOCKED | |
 | `runtime.execute` 금지 | LOCKED | |
@@ -180,13 +186,27 @@ encoding_invalid     # PROPOSED — 실읽기/선언 인코딩
 | 출력 크기 제한 | PROPOSED | 실 I/O/실행 출력 상한. 판정 필드 또는 runtime 상수 — OPEN |
 | capability 조합 상승 금지 | PROPOSED | read 허용이 write/exec를 암시하지 않음 — 원칙 LOCKED. 명시적 “grant set 상승” API는 없음(유지) |
 
+### 4.1 `filesystem.rename` (문서 잠금 상세)
+
+| 항목 | 상태 |
+|------|------|
+| capability 이름 `filesystem.rename` | LOCKED 항상 deny |
+| reason | `deny_by_default` (기존 v1 어휘. `@2`/신규 reason 없음) |
+| source / destination 인자 | 실행·경로 해석하지 않음 (이름만으로 deny) |
+| 요청 `root` | 계속 deny (`invalid_argument`) — root 계약 UNCHANGED |
+| 고정 canonical root · 상대 path | UNCHANGED |
+| 스키마 | `fx3-capability@1` UNCHANGED |
+| 코드 `ALWAYS_DENY` 반영 | **PASS** | `filesystem.rename` 포함 · args 미접근 |
+| 실제 rename I/O | OUT / 금지 |
+
 **리뷰 권고 (실 I/O 게이트 진입 조건):**
 
 ```text
-1. rename/wildcard/recursive deny가 계약에 문자로 들어간 뒤
-2. symlink_blocked 실검 경로가 정의된 뒤
-3. max_bytes / encoding / extension allowlist 숫자가 잠긴 뒤
-4. 그 다음에야 읽기 스모크 (여전히 write/exec/network 없음)
+1. rename 항상 deny는 문서 LOCKED (본 절)
+2. wildcard/recursive deny가 계약에 문자로 들어간 뒤
+3. symlink_blocked 실검 경로가 정의된 뒤
+4. 코드가 고정 canonical root·파일 경계·ALWAYS_DENY(rename 포함)와 일치한 뒤
+5. 그 다음에야 읽기 스모크 (여전히 write/exec/network/rename 없음)
 ```
 
 P5 runtime/executor와 혼동하지 말 것. 위는 **capability I/O 허용 폭을 좁히는 사전 조건**이다.
@@ -195,7 +215,7 @@ P5 runtime/executor와 혼동하지 말 것. 위는 **capability I/O 허용 폭�
 
 ## 5. 종합
 
-### 이미 PASS인 것
+### 이미 PASS·LOCKED인 것
 
 - deny-first 기본
 - 허용 cap 2종 + 경로 문자열 탈출 차단
@@ -203,14 +223,17 @@ P5 runtime/executor와 혼동하지 말 것. 위는 **capability I/O 허용 폭�
 - 하드 deny 목록 (write/exec/network/runtime.execute/delete)
 - 결정적 JSON · location null 허용
 - IR/`fx3_ir.py` 비연결
+- **파일 경계 문서 LOCKED:** `.fx3`/`.ir.json` · capability별 확장자 · `MAX_BYTES=262144` · UTF-8 strict
+- **root confinement LOCKED:** 서버 고정 canonical root · 요청 `root` 금지 · 상대 path만
+- **`filesystem.rename` LOCKED_ALWAYS_DENY** (문서). 구현 GAP
 
 ### OPEN → 다음 안건 후보 (P5 아님)
 
-1. extension allowlist · `max_bytes` · encoding 화이트리스트 수치 확정  
-2. reason v2 (`symlink_blocked`, `sensitive_path`, `size_exceeded`, `encoding_invalid`) 채택 여부 · 스키마 bump  
-3. `filesystem.rename` · wildcard/recursive deny를 v1 문서에 추가할지  
-4. sensitive path 이름 목록  
-5. (나중) 실 I/O 읽기 스모크 설계 — executor 없이 capability 계층만
+1. **구현 GAP 묶음 검토** — 코드 `ALWAYS_DENY`(+rename) · 요청 `root` 제거 · 확장자/`MAX_BYTES`/UTF-8 계약 정렬 (열지 여부는 별도 결정)
+2. wildcard·recursive 범위 요청 금지 (문서)
+3. 출력 크기 상한 (별도 상수; `MAX_BYTES`와 혼동 금지)
+4. capability 조합 상승 금지 명시 강화
+5. reason v2 후보만 (`symlink_blocked` / `sensitive_path`)
 
 ### 명시적 비목표
 
@@ -222,3 +245,44 @@ process/network
 self-hosting
 fx3 CLI
 ```
+
+---
+
+## 6. 적대적 검수 · 2026-10-05
+
+```text
+CAPABILITY_ADVERSARIAL_REVIEW=PASS
+ADV_EXIT=0
+CAP_EXIT=0
+IO=NO (디스크 write/rename/delete 미실행)
+```
+
+| 영역 | 판정 | 근거 |
+|------|------|------|
+| 요청 `root` 주입 | PASS | `root` 키 존재 → `invalid_argument` (값 무시) |
+| 절대/`../`/`.`/빈/`\`/드라이브/NUL | PASS | `path_escape` 또는 `invalid_argument` |
+| kwargs `canonical_root` | PASS | keyword-only · 요청 필드로 덮어쓰기 불가 |
+| 위치 인자로 root 전달 | PASS | `TypeError` (허용 경로 아님) |
+| 확장자·대소문자·이중 확장자 | PASS | `.FX3` deny · `.fx3.bak` deny · `.bak.fx3` allow(접미사 계약) |
+| UTF-8 / 262144 / 262145 | PASS | exact allow · +1 `size_exceeded` |
+| rename + ALWAYS_DENY | PASS | args 미접근 · `path=null` |
+| 결정성·무예외·키 계약 | PASS | 동일 바이트 · garbage 입력도 dict 판정 |
+| symlink 실해석 | N/A(계약) | 문자열만 · 실 FS follow 없음 (DEFERRED) |
+
+잔여 관찰 (FAIL 아님):
+
+1. ~~요청 최상위 `canonical_root` 무시~~ → **거부 정렬 완료** (`invalid_argument`). `root`·未知 최상위도 동일.
+2. `DEFAULT_CANONICAL_ROOT`는 테스트/도구 기본값이다. 배포 코드는 서버 설정을 **반드시** keyword-only kwargs로 넣어야 한다.
+3. symlink·실디스크 검사는 여전히 DEFERRED.
+
+### 6.1 canonical_root 입력 거부 정렬 · 2026-10-05
+
+| 항목 | 상태 |
+|------|------|
+| 요청 `canonical_root` | deny `invalid_argument` |
+| 요청 `root` | deny `invalid_argument` |
+| 未知 최상위 키 | deny `invalid_argument` |
+| 서버 keyword-only `canonical_root=` | allow 경로 유지 |
+| 위치 인자 canonical root | TypeError (keyword-only) |
+
+명령 기록은 게이트 재실행 결과를 따른다.

@@ -1,1 +1,1 @@
-{"capability":"magic.open","decision":"deny","location":{"column":1,"line":1},"path":"a.fx3","reason":"unknown_capability","schema":"fx3-capability@1"}
+{"capability":"magic.open","decision":"deny","location":{"column":1,"line":1},"path":null,"reason":"unknown_capability","schema":"fx3-capability@1"}

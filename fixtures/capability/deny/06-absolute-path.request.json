@@ -1,1 +1,1 @@
-{"args":{"path":"/etc/passwd"},"capability":"source.read","location":{"column":1,"line":1},"root":"fixtures"}
+{"args":{"path":"/etc/passwd"},"capability":"source.read","location":{"column":1,"line":1}}
