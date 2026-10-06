@@ -17,3 +17,10 @@ FX 런타임을 이 저장소로 복사하는 단계는 없다. FX2를 합치는
 
 쓸 만한 1차 길 PASS: `./bin/fx3 check|lower|ir|cap|test|package verify`.
 전용 runtime 없음. 검증·내리기·capability 판정만. 상세 [docs/FX3-CLI.md](docs/FX3-CLI.md).
+
+## Delegated small-tools tier close (2026-10-07)
+
+`manifest-validator`, `config-lint`, `task-list-normalize`와 공통 `check_poc` 레일을
+닫았다. 같은 map/list 업무 POC를 반복하지 않는다. 다음은
+[docs/FX3-DELEGATED-SMALL-TOOLS-CLOSE.md](docs/FX3-DELEGATED-SMALL-TOOLS-CLOSE.md)의
+A/B/C 중 하나를 새 안건으로 선택한다.
