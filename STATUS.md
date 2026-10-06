@@ -123,6 +123,7 @@ DELEGATED_SMALL_TOOLS_DOC=docs/FX3-DELEGATED-SMALL-TOOLS-CLOSE.md
 DELEGATED_SMALL_TOOLS_NEXT=C_STOP
 DELEGATED_SMALL_TOOLS_CHOICE=C
 FX3_SESSION=CLOSED_2026-10-07
+FX3_MISTAKES_HANDOFF=docs/FX3-MISTAKES-AND-HANDOFF-2026-10-06.md
 
 ROAD_USABLE_CLI=PASS
 ROAD_DELEGATED_RUN=PASS
@@ -510,3 +511,7 @@ Track 1 지시(parser → IR → capability → FX runtime → self-hosting)를 
 
 - Array unroll + dup id + slot normalize (`count`/`t0..t2`) — Core has no vector literals
 - native nil-get safe access · fixtures 12 · `check_poc.py all` PASS
+
+## Mistakes handoff · 2026-10-07
+
+- [docs/FX3-MISTAKES-AND-HANDOFF-2026-10-06.md](docs/FX3-MISTAKES-AND-HANDOFF-2026-10-06.md)

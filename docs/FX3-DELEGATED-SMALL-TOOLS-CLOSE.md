@@ -65,3 +65,6 @@ FX3_SESSION=CLOSED
 **C(정지)** 를 선택했다. 제품 본체는 FreeLangScript/AFJ/FX를 쓰고, FX3는
 이미 닫힌 위임 작은 도구 레일만 유지한다. A/B는 나중에 새 task·새 gate로만
 다시 연다. 이 종료 상태를 덮어쓰지 않는다.
+
+세션 실수·미완·성과·다음 에이전트 주의:
+[FX3-MISTAKES-AND-HANDOFF-2026-10-06.md](FX3-MISTAKES-AND-HANDOFF-2026-10-06.md).
