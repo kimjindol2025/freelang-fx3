@@ -46,7 +46,7 @@ SELF_HOST=NO
 PUSH=별도 승인
 ```
 
-## 다음 선택지
+## 다음 선택지 (기록)
 
 ```text
 A) Core vector literal
@@ -54,5 +54,14 @@ B) capability read I/O smoke
 C) 정지 — 제품은 FreeLangScript/AFJ, FX3는 delegated tools만 유지
 ```
 
-어느 선택지도 이 문서의 종료 상태를 덮어쓰지 않는다. 선택된 안건은 새 task와
-새 gate를 가져야 한다.
+## 선택 · 2026-10-07
+
+```text
+CHOICE=C
+DELEGATED_SMALL_TOOLS_NEXT=C_STOP
+FX3_SESSION=CLOSED
+```
+
+**C(정지)** 를 선택했다. 제품 본체는 FreeLangScript/AFJ/FX를 쓰고, FX3는
+이미 닫힌 위임 작은 도구 레일만 유지한다. A/B는 나중에 새 task·새 gate로만
+다시 연다. 이 종료 상태를 덮어쓰지 않는다.

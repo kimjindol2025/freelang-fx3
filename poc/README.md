@@ -3,8 +3,8 @@
 작은 업무 도구를 **위임 실행**으로만 검증하는 자리. 전용 VM 없음.
 
 현재 레일은 [delegated small-tools tier close](../docs/FX3-DELEGATED-SMALL-TOOLS-CLOSE.md)에
-따라 `CLOSED_PASS`다. 반복형 POC를 더 추가하지 않고, 새 기능은 Core vector
-literal·capability I/O·정지 중 하나를 명시한 `NEW_ROAD` 안건으로만 연다.
+따라 `CLOSED_PASS`이며 선택 **C(정지)** 다. 반복형 POC를 더 추가하지 않는다.
+Core vector literal·capability I/O는 나중에 명시한 `NEW_ROAD` 안건으로만 연다.
 
 ## 새 POC 추가
 

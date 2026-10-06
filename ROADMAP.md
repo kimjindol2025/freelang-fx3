@@ -21,6 +21,8 @@ FX 런타임을 이 저장소로 복사하는 단계는 없다. FX2를 합치는
 ## Delegated small-tools tier close (2026-10-07)
 
 `manifest-validator`, `config-lint`, `task-list-normalize`와 공통 `check_poc` 레일을
-닫았다. 같은 map/list 업무 POC를 반복하지 않는다. 다음은
-[docs/FX3-DELEGATED-SMALL-TOOLS-CLOSE.md](docs/FX3-DELEGATED-SMALL-TOOLS-CLOSE.md)의
-A/B/C 중 하나를 새 안건으로 선택한다.
+닫았다. 같은 map/list 업무 POC를 반복하지 않는다.
+
+선택: **C (정지)**. 제품은 FreeLangScript/AFJ/FX, FX3는 위임 작은 도구만 유지.
+A(vector literal)·B(capability read I/O)는 새 안건·새 gate로만 재개한다.
+상세: [docs/FX3-DELEGATED-SMALL-TOOLS-CLOSE.md](docs/FX3-DELEGATED-SMALL-TOOLS-CLOSE.md).
